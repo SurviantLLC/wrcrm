@@ -316,44 +316,52 @@ export default function TaskTrackingPage() {
 
       {/* Task Summary Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card className="bg-blue-50 border-blue-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Tasks</CardTitle>
-            <div className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-blue-700">Total Tasks</CardTitle>
+            <div className="h-5 w-5 rounded-full bg-blue-100 flex items-center justify-center">
+              <div className="h-4 w-4 text-blue-500" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{totalTasks}</div>
-            <p className="text-xs text-muted-foreground">All assigned manufacturing tasks</p>
+            <div className="text-2xl font-bold text-blue-700">{totalTasks}</div>
+            <p className="text-xs text-blue-600">All assigned manufacturing tasks</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-green-50 border-green-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Completion Rate</CardTitle>
-            <CheckCircle className="h-4 w-4 text-primary" />
+            <CardTitle className="text-sm font-medium text-green-700">Completion Rate</CardTitle>
+            <div className="h-5 w-5 rounded-full bg-green-100 flex items-center justify-center">
+              <CheckCircle className="h-4 w-4 text-green-500" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{completionRate}%</div>
-            <Progress value={completionRate} className="h-2" />
+            <div className="text-2xl font-bold text-green-700">{completionRate}%</div>
+            <Progress value={completionRate} className="h-2 bg-green-100" />
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-purple-50 border-purple-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Average Progress</CardTitle>
-            <Clock className="h-4 w-4 text-primary" />
+            <CardTitle className="text-sm font-medium text-purple-700">Average Progress</CardTitle>
+            <div className="h-5 w-5 rounded-full bg-purple-100 flex items-center justify-center">
+              <Clock className="h-4 w-4 text-purple-500" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{averageProgress}%</div>
-            <Progress value={averageProgress} className="h-2" />
+            <div className="text-2xl font-bold text-purple-700">{averageProgress}%</div>
+            <Progress value={averageProgress} className="h-2 bg-purple-100" />
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-amber-50 border-amber-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Delayed Tasks</CardTitle>
-            <AlertTriangle className="h-4 w-4 text-primary" />
+            <CardTitle className="text-sm font-medium text-amber-700">Delayed Tasks</CardTitle>
+            <div className="h-5 w-5 rounded-full bg-amber-100 flex items-center justify-center">
+              <AlertTriangle className="h-4 w-4 text-amber-500" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{delayedTasks}</div>
-            <p className="text-xs text-muted-foreground">Tasks behind schedule</p>
+            <div className="text-2xl font-bold text-amber-700">{delayedTasks}</div>
+            <p className="text-xs text-amber-600">Tasks behind schedule</p>
           </CardContent>
         </Card>
       </div>
