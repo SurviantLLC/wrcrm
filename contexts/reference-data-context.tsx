@@ -48,13 +48,13 @@ interface TaskType {
   Description: string
 }
 
-interface TGSchedule {
+interface ProjectSchedule {
   TG_SCH_ID: string
   Name: string
   Description: string
 }
 
-interface TGType {
+interface ProjectType {
   TGT_ID: string
   TG_Type_Name: string
   Description: string
@@ -130,8 +130,8 @@ interface ReferenceDataContextType {
   ipAddresses: IPAddress[]
   geoLocations: GeoLocation[]
   taskTypes: TaskType[]
-  tgSchedules: TGSchedule[]
-  tgTypes: TGType[]
+  projectSchedules: ProjectSchedule[]
+  projectTypes: ProjectType[]
   resourceTypes: ResourceType[]
   resources: Resource[]
   skuCategories: SKUCategory[]
@@ -150,8 +150,8 @@ interface ReferenceDataContextType {
   updateIPAddresses: (ipAddresses: IPAddress[]) => void
   updateGeoLocations: (geoLocations: GeoLocation[]) => void
   updateTaskTypes: (taskTypes: TaskType[]) => void
-  updateTGSchedules: (tgSchedules: TGSchedule[]) => void
-  updateTGTypes: (tgTypes: TGType[]) => void
+  updateProjectSchedules: (projectSchedules: ProjectSchedule[]) => void
+  updateProjectTypes: (projectTypes: ProjectType[]) => void
   updateResourceTypes: (resourceTypes: ResourceType[]) => void
   updateResources: (resources: Resource[]) => void
   updateSKUCategories: (skuCategories: SKUCategory[]) => void
@@ -235,12 +235,12 @@ const initialTaskTypes: TaskType[] = [
   { TT_ID: "TT-005", Task_Type_Name: "Maintanance Management", Description: "" },
 ]
 
-const initialTGSchedules: TGSchedule[] = [
+const initialProjectSchedules: ProjectSchedule[] = [
   { TG_SCH_ID: "TSG-001", Name: "One-Time", Description: "" },
   { TG_SCH_ID: "TSG-002", Name: "Repetative", Description: "" },
 ]
 
-const initialTGTypes: TGType[] = [
+const initialProjectTypes: ProjectType[] = [
   { TGT_ID: "TGT-001", TG_Type_Name: "Maintainance Work", Description: "" },
   { TGT_ID: "TGT-002", TG_Type_Name: "Auditing Work", Description: "" },
   { TGT_ID: "TGT-003", TG_Type_Name: "Production Work", Description: "" },
@@ -367,8 +367,8 @@ export function ReferenceDataProvider({ children }: { children: ReactNode }) {
   const [ipAddresses, setIPAddresses] = useState<IPAddress[]>(initialIPAddresses)
   const [geoLocations, setGeoLocations] = useState<GeoLocation[]>(initialGeoLocations)
   const [taskTypes, setTaskTypes] = useState<TaskType[]>(initialTaskTypes)
-  const [tgSchedules, setTGSchedules] = useState<TGSchedule[]>(initialTGSchedules)
-  const [tgTypes, setTGTypes] = useState<TGType[]>(initialTGTypes)
+  const [projectSchedules, setProjectSchedules] = useState<ProjectSchedule[]>(initialProjectSchedules)
+  const [projectTypes, setProjectTypes] = useState<ProjectType[]>(initialProjectTypes)
   const [resourceTypes, setResourceTypes] = useState<ResourceType[]>(initialResourceTypes)
   const [resources, setResources] = useState<Resource[]>(initialResources)
   const [skuCategories, setSKUCategories] = useState<SKUCategory[]>(initialSKUCategories)
@@ -388,8 +388,8 @@ export function ReferenceDataProvider({ children }: { children: ReactNode }) {
   const updateIPAddresses = (newIPAddresses: IPAddress[]) => setIPAddresses(newIPAddresses)
   const updateGeoLocations = (newGeoLocations: GeoLocation[]) => setGeoLocations(newGeoLocations)
   const updateTaskTypes = (newTaskTypes: TaskType[]) => setTaskTypes(newTaskTypes)
-  const updateTGSchedules = (newTGSchedules: TGSchedule[]) => setTGSchedules(newTGSchedules)
-  const updateTGTypes = (newTGTypes: TGType[]) => setTGTypes(newTGTypes)
+  const updateProjectSchedules = (newProjectSchedules: ProjectSchedule[]) => setProjectSchedules(newProjectSchedules)
+  const updateProjectTypes = (newProjectTypes: ProjectType[]) => setProjectTypes(newProjectTypes)
   const updateResourceTypes = (newResourceTypes: ResourceType[]) => setResourceTypes(newResourceTypes)
   const updateResources = (newResources: Resource[]) => setResources(newResources)
   const updateSKUCategories = (newSKUCategories: SKUCategory[]) => setSKUCategories(newSKUCategories)
@@ -412,8 +412,8 @@ export function ReferenceDataProvider({ children }: { children: ReactNode }) {
         ipAddresses,
         geoLocations,
         taskTypes,
-        tgSchedules,
-        tgTypes,
+        projectSchedules,
+        projectTypes,
         resourceTypes,
         resources,
         skuCategories,
@@ -432,8 +432,8 @@ export function ReferenceDataProvider({ children }: { children: ReactNode }) {
         updateIPAddresses,
         updateGeoLocations,
         updateTaskTypes,
-        updateTGSchedules,
-        updateTGTypes,
+        updateProjectSchedules,
+        updateProjectTypes,
         updateResourceTypes,
         updateResources,
         updateSKUCategories,

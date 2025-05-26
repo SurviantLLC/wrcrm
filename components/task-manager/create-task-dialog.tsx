@@ -26,13 +26,13 @@ interface TaskType {
   description?: string
 }
 
-interface TaskGroupType {
+interface ProjectType {
   id: string
   name: string
   description?: string
 }
 
-interface TaskGroupSchedule {
+interface ProjectSchedule {
   id: string
   name: string
   description?: string
@@ -63,13 +63,13 @@ interface CreateTaskDialogProps {
   onOpenChange: (open: boolean) => void
   onSave: (taskData: TaskData) => void
   taskTypes?: TaskType[]
-  tgTypes?: TaskGroupType[]
-  tgSchedules?: TaskGroupSchedule[]
+  projectTypes?: ProjectType[]
+  projectSchedules?: ProjectSchedule[]
 }
 
-export function CreateTaskDialog({ open, onOpenChange, onSave, taskTypes = [], tgTypes = [], tgSchedules = [] }: CreateTaskDialogProps) {
-  const [taskGroupData, setTaskGroupData] = useState({
-    id: `TG-${new Date().getFullYear()}-${Math.floor(Math.random() * 1000)
+export function CreateTaskDialog({ open, onOpenChange, onSave, taskTypes = [], projectTypes = [], projectSchedules = [] }: CreateTaskDialogProps) {
+  const [projectData, setProjectData] = useState({
+    id: `P-${new Date().getFullYear()}-${Math.floor(Math.random() * 1000)
       .toString()
       .padStart(3, "0")}`,
     name: "",
@@ -113,7 +113,7 @@ export function CreateTaskDialog({ open, onOpenChange, onSave, taskTypes = [], t
       step: `Step ${nextTaskId}`,
       skill: "",
       duration: "",
-      startDate: taskGroupData.startDate, // Default to task group start date
+      startDate: projectData.startDate, // Default to project start date
       endDate: "",
     }
     setTasks([...tasks, newTask])
@@ -129,17 +129,18 @@ export function CreateTaskDialog({ open, onOpenChange, onSave, taskTypes = [], t
   }
 
   const handleSave = () => {
-    const taskGroupWithTasks = {
-      ...taskGroupData,
+    // Create the task data with tasks and project info
+    const taskData = {
+      ...projectData,
       tasks,
     }
-    onSave(taskGroupWithTasks)
+    onSave(taskData)
     resetForm()
   }
 
   const resetForm = () => {
-    setTaskGroupData({
-      id: `TG-${new Date().getFullYear()}-${Math.floor(Math.random() * 1000)
+    setProjectData({
+      id: `P-${new Date().getFullYear()}-${Math.floor(Math.random() * 1000)
         .toString()
         .padStart(3, "0")}`,
       name: "",
@@ -169,23 +170,23 @@ export function CreateTaskDialog({ open, onOpenChange, onSave, taskTypes = [], t
     >
       <DialogContent className="max-w-4xl">
         <DialogHeader>
-          <DialogTitle>Create New Task Group</DialogTitle>
-          <DialogDescription>Create a new task group and add individual tasks to it.</DialogDescription>
+          <DialogTitle>Create New Project</DialogTitle>
+          <DialogDescription>Create a new project and add individual tasks to it.</DialogDescription>
         </DialogHeader>
 
         <div className="grid gap-6 py-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="task-group-id">Task Group ID</Label>
-              <Input id="task-group-id" value={taskGroupData.id} disabled className="bg-muted" />
+              <Label htmlFor="project-id">Project ID</Label>
+              <Input id="project-id" value={projectData.id} disabled className="bg-muted" />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="task-group-name">Task Group Name*</Label>
+              <Label htmlFor="project-name">Project Name*</Label>
               <Input
-                id="task-group-name"
-                value={taskGroupData.name}
-                onChange={(e) => setTaskGroupData({ ...taskGroupData, name: e.target.value })}
-                placeholder="Enter task group name"
+                id="project-name"
+                value={projectData.name}
+                onChange={(e) => setProjectData({ ...projectData, name: e.target.value })}
+                placeholder="Enter project name"
               />
             </div>
           </div>
@@ -194,9 +195,9 @@ export function CreateTaskDialog({ open, onOpenChange, onSave, taskTypes = [], t
             <div className="grid gap-2">
               <Label htmlFor="unit">Unit*</Label>
               <Select
-                value={ensureNonEmptyValue(taskGroupData.unit)}
+                value={ensureNonEmptyValue(projectData.unit)}
                 onValueChange={(value) =>
-                  setTaskGroupData({ ...taskGroupData, unit: value === "unassigned" ? "" : value })
+                  setProjectData({ ...projectData, unit: value === "unassigned" ? "" : value })
                 }
               >
                 <SelectTrigger id="unit">
@@ -215,8 +216,8 @@ export function CreateTaskDialog({ open, onOpenChange, onSave, taskTypes = [], t
             <div className="grid gap-2">
               <Label htmlFor="priority">Priority</Label>
               <Select
-                value={taskGroupData.priority}
-                onValueChange={(value) => setTaskGroupData({ ...taskGroupData, priority: value })}
+                value={projectData.priority}
+                onValueChange={(value) => setProjectData({ ...projectData, priority: value })}
               >
                 <SelectTrigger id="priority">
                   <SelectValue placeholder="Select priority" />
@@ -231,12 +232,12 @@ export function CreateTaskDialog({ open, onOpenChange, onSave, taskTypes = [], t
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="description">Task Description</Label>
+            <Label htmlFor="description">Project Description</Label>
             <Textarea
               id="description"
-              value={taskGroupData.description}
-              onChange={(e) => setTaskGroupData({ ...taskGroupData, description: e.target.value })}
-              placeholder="Enter task group description"
+              value={projectData.description}
+              onChange={(e) => setProjectData({ ...projectData, description: e.target.value })}
+              placeholder="Enter project description"
               rows={3}
             />
           </div>
@@ -247,8 +248,8 @@ export function CreateTaskDialog({ open, onOpenChange, onSave, taskTypes = [], t
               <Input
                 id="start-date"
                 type="date"
-                value={taskGroupData.startDate}
-                onChange={(e) => setTaskGroupData({ ...taskGroupData, startDate: e.target.value })}
+                value={projectData.startDate}
+                onChange={(e) => setProjectData({ ...projectData, startDate: e.target.value })}
               />
             </div>
             <div className="grid gap-2">
@@ -256,8 +257,8 @@ export function CreateTaskDialog({ open, onOpenChange, onSave, taskTypes = [], t
               <Input
                 id="end-date"
                 type="date"
-                value={taskGroupData.endDate}
-                onChange={(e) => setTaskGroupData({ ...taskGroupData, endDate: e.target.value })}
+                value={projectData.endDate}
+                onChange={(e) => setProjectData({ ...projectData, endDate: e.target.value })}
               />
             </div>
           </div>
@@ -265,8 +266,8 @@ export function CreateTaskDialog({ open, onOpenChange, onSave, taskTypes = [], t
           <div className="grid gap-2">
             <Label>Schedule Type</Label>
             <RadioGroup
-              value={taskGroupData.scheduleType}
-              onValueChange={(value) => setTaskGroupData({ ...taskGroupData, scheduleType: value })}
+              value={projectData.scheduleType}
+              onValueChange={(value) => setProjectData({ ...projectData, scheduleType: value })}
               className="flex space-x-4"
             >
               <div className="flex items-center space-x-2">
@@ -345,11 +346,11 @@ export function CreateTaskDialog({ open, onOpenChange, onSave, taskTypes = [], t
                             value={task.startDate}
                             onChange={(e) => handleTaskChange(task.id, "startDate", e.target.value)}
                             className={
-                              !validateTaskDates(task.startDate, taskGroupData.startDate) ? "border-red-500" : ""
+                              !validateTaskDates(task.startDate, projectData.startDate) ? "border-red-500" : ""
                             }
                           />
-                          {!validateTaskDates(task.startDate, taskGroupData.startDate) && (
-                            <p className="text-xs text-red-500 mt-1">Must be ≥ task group start date</p>
+                          {!validateTaskDates(task.startDate, projectData.startDate) && (
+                            <p className="text-xs text-red-500 mt-1">Must be ≥ project start date</p>
                           )}
                         </TableCell>
                         <TableCell>
@@ -386,14 +387,14 @@ export function CreateTaskDialog({ open, onOpenChange, onSave, taskTypes = [], t
           <Button
             onClick={handleSave}
             disabled={
-              !taskGroupData.name ||
-              !taskGroupData.unit ||
-              !taskGroupData.startDate ||
-              !taskGroupData.endDate ||
+              !projectData.name ||
+              !projectData.unit ||
+              !projectData.startDate ||
+              !projectData.endDate ||
               tasks.length === 0
             }
           >
-            Create Task Group
+            Create Project
           </Button>
         </DialogFooter>
       </DialogContent>

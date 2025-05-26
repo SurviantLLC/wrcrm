@@ -23,63 +23,63 @@ import { Calendar as CalendarComponent } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 
-// Sample task groups data
-const initialTaskGroups = [
+// Sample projects data
+const initialProjects = [
   {
-    id: "TG-001",
+    id: "P-001",
     name: "Audits",
     createdBy: "John",
     createdOn: "10/05/2025",
     type: "Repetitive",
-    tgType: "Internal",
+    projectType: "Internal",
     taskCount: 10,
     unit: "All",
     status: "Planned",
     department: "Production",
   },
   {
-    id: "TG-002",
+    id: "P-002",
     name: "Order Name",
     createdBy: "John",
     createdOn: "10/05/2025",
     type: "One-time",
-    tgType: "External Order",
+    projectType: "External Order",
     taskCount: 20,
     unit: "M1",
     status: "Active",
     department: "Production",
   },
   {
-    id: "TG-003",
+    id: "P-003",
     name: "Name",
     createdBy: "Mathew",
     createdOn: "10/05/2025",
     type: "One-time",
-    tgType: "Internal Production",
+    projectType: "Internal Production",
     taskCount: 12,
     unit: "M2",
     status: "Active",
     department: "Production",
   },
   {
-    id: "TG-004",
+    id: "P-004",
     name: "Maintenance",
     createdBy: "Roy",
     createdOn: "10/05/2025",
     type: "Repetitive",
-    tgType: "Internal",
+    projectType: "Internal",
     taskCount: 1,
     unit: "All",
     status: "Planned",
     department: "All",
   },
   {
-    id: "TG-005",
+    id: "P-005",
     name: "Adhoc Task",
     createdBy: "John",
     createdOn: "12/05/2025",
     type: "One-time",
-    tgType: "Internal",
+    projectType: "Internal",
     taskCount: 5,
     unit: "M3",
     status: "Completed",
@@ -138,11 +138,11 @@ const usersByRole = {
 }
 
 export default function TaskAssignmentPage() {
-  const [taskGroups, setTaskGroups] = useState(initialTaskGroups)
+  const [projects, setProjects] = useState(initialProjects)
   const [searchTerm, setSearchTerm] = useState("")
   const [statusFilter, setStatusFilter] = useState("All")
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
-  const [selectedTaskGroup, setSelectedTaskGroup] = useState<any>(null)
+  const [selectedProject, setSelectedProject] = useState<any>(null)
   const [tasks, setTasks] = useState(initialTasks)
   const [newTask, setNewTask] = useState({
     name: "",
@@ -153,7 +153,7 @@ export default function TaskAssignmentPage() {
     scheduleType: "One-Time",
     duration: "",
   })
-  const [newTaskGroup, setNewTaskGroup] = useState({
+  const [newProject, setNewProject] = useState({
     name: "",
     unit: "",
     department: "",
@@ -161,12 +161,18 @@ export default function TaskAssignmentPage() {
     startDate: new Date(),
   })
 
-  // Filter task groups based on search term and status filter
-  const filteredTaskGroups = taskGroups.filter((taskGroup) => {
-    const matchesSearch = taskGroup.name.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesStatus = statusFilter === "All" || taskGroup.status === statusFilter
-    return matchesSearch && matchesStatus
-  })
+  // Filter projects based on search term and status filter
+  const filteredProjects = projects
+    .filter((project) => {
+      const searchMatch = searchTerm.trim() === ""
+        ? true
+        : project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          project.id.toLowerCase().includes(searchTerm.toLowerCase())
+
+      const statusMatch = statusFilter === "All" ? true : project.status === statusFilter
+
+      return searchMatch && statusMatch
+    })
 
   // Handle adding a new task to the task list
   const handleAddTask = () => {
@@ -195,27 +201,27 @@ export default function TaskAssignmentPage() {
     })
   }
 
-  // Handle saving the task group
-  const handleSaveTaskGroup = () => {
-    if (!newTaskGroup.name || !newTaskGroup.unit || !newTaskGroup.department) return
+  // Handle saving the project
+  const handleSaveProject = () => {
+    if (!newProject.name || !newProject.unit || !newProject.department) return
 
-    const newTaskGroupObj = {
-      id: `TG-${String(taskGroups.length + 1).padStart(3, "0")}`,
-      name: newTaskGroup.name,
+    const newProjectObj = {
+      id: `P-${String(projects.length + 1).padStart(3, "0")}`,
+      name: newProject.name,
       createdBy: "Current User",
       createdOn: format(new Date(), "MM/dd/yyyy"),
-      type: newTaskGroup.scheduleType === "One-Time" ? "One-time" : "Repetitive",
-      tgType: "Internal",
+      type: "One-time",
+      projectType: "Internal",
       taskCount: tasks.length,
-      unit: newTaskGroup.unit,
+      unit: newProject.unit,
       status: "Planned",
-      department: newTaskGroup.department,
+      department: newProject.department,
     }
 
-    setTaskGroups([...taskGroups, newTaskGroupObj])
+    setProjects([...projects, newProjectObj])
     setIsCreateDialogOpen(false)
     setTasks(initialTasks) // Reset tasks for next creation
-    setNewTaskGroup({
+    setNewProject({
       name: "",
       unit: "",
       department: "",
@@ -228,7 +234,7 @@ export default function TaskAssignmentPage() {
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold">Task Assignment</h1>
-        <p className="text-muted-foreground">Task Group Creation & Assignment</p>
+        <p className="text-muted-foreground">Project Creation & Assignment</p>
       </div>
 
       <div className="flex items-center justify-between">
@@ -236,7 +242,7 @@ export default function TaskAssignmentPage() {
           <div className="relative">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search task groups..."
+              placeholder="Search projects..."
               className="pl-8 w-[250px]"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -256,62 +262,62 @@ export default function TaskAssignmentPage() {
         </div>
         <Button onClick={() => setIsCreateDialogOpen(true)}>
           <Plus className="mr-2 h-4 w-4" />
-          Create Task Group
+          Create Project
         </Button>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Task Groups</CardTitle>
-          <CardDescription>Manage task groups and assignments</CardDescription>
+          <CardTitle>Projects</CardTitle>
+          <CardDescription>Manage projects and assignments</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="rounded-md border">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Task ID</TableHead>
-                  <TableHead>TG Name</TableHead>
+                  <TableHead>Project ID</TableHead>
+                  <TableHead>Project Name</TableHead>
                   <TableHead>Created By</TableHead>
                   <TableHead>Created On</TableHead>
-                  <TableHead>Type of TG</TableHead>
-                  <TableHead>TG Type</TableHead>
+                  <TableHead>Project Type</TableHead>
+                  <TableHead>Project Type</TableHead>
                   <TableHead>No# of Task</TableHead>
                   <TableHead>Unit</TableHead>
-                  <TableHead>TG Status</TableHead>
+                  <TableHead>Project Status</TableHead>
                   <TableHead>Department</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredTaskGroups.length > 0 ? (
-                  filteredTaskGroups.map((taskGroup) => (
-                    <TableRow key={taskGroup.id} className="cursor-pointer">
-                      <TableCell className="font-medium">{taskGroup.id}</TableCell>
-                      <TableCell>{taskGroup.name}</TableCell>
-                      <TableCell>{taskGroup.createdBy}</TableCell>
-                      <TableCell>{taskGroup.createdOn}</TableCell>
-                      <TableCell>{taskGroup.type}</TableCell>
-                      <TableCell>{taskGroup.tgType}</TableCell>
-                      <TableCell>{taskGroup.taskCount}</TableCell>
-                      <TableCell>{taskGroup.unit}</TableCell>
+                {filteredProjects.length > 0 ? (
+                  filteredProjects.map((project) => (
+                    <TableRow key={project.id} className="cursor-pointer">
+                      <TableCell className="font-medium">{project.id}</TableCell>
+                      <TableCell>{project.name}</TableCell>
+                      <TableCell>{project.createdBy}</TableCell>
+                      <TableCell>{project.createdOn}</TableCell>
+                      <TableCell>{project.name}</TableCell>
+                      <TableCell>{project.projectType}</TableCell>
+                      <TableCell>{project.taskCount}</TableCell>
+                      <TableCell>{project.unit}</TableCell>
                       <TableCell>
                         <Badge
                           className={cn(
-                            taskGroup.status === "Active" && "bg-green-100 text-green-800",
-                            taskGroup.status === "Planned" && "bg-blue-100 text-blue-800",
-                            taskGroup.status === "Completed" && "bg-gray-100 text-gray-800",
+                            project.status === "Active" && "bg-green-100 text-green-800",
+                            project.status === "Planned" && "bg-blue-100 text-blue-800",
+                            project.status === "Completed" && "bg-gray-100 text-gray-800",
                           )}
                         >
-                          {taskGroup.status}
+                          {project.status}
                         </Badge>
                       </TableCell>
-                      <TableCell>{taskGroup.department}</TableCell>
+                      <TableCell>{project.department}</TableCell>
                     </TableRow>
                   ))
                 ) : (
                   <TableRow>
                     <TableCell colSpan={10} className="text-center">
-                      No task groups found.
+                      No projects found.
                     </TableCell>
                   </TableRow>
                 )}
@@ -324,24 +330,24 @@ export default function TaskAssignmentPage() {
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
         <DialogContent className="sm:max-w-[825px]">
           <DialogHeader>
-            <DialogTitle>Create Task Group</DialogTitle>
-            <DialogDescription>Create a new task group and assign tasks to it.</DialogDescription>
+            <DialogTitle>Create Project</DialogTitle>
+            <DialogDescription>Create a new project and assign tasks to it.</DialogDescription>
           </DialogHeader>
 
-          <Tabs defaultValue="task-group" className="space-y-4">
+          <Tabs defaultValue="project" className="space-y-4">
             <TabsList>
-              <TabsTrigger value="task-group">Task Group</TabsTrigger>
+              <TabsTrigger value="project">Project</TabsTrigger>
               <TabsTrigger value="tasks">Tasks</TabsTrigger>
             </TabsList>
-            <TabsContent value="task-group">
+            <TabsContent value="project">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="name">Task Group Name</Label>
+                  <Label htmlFor="projectName">Project Name</Label>
                   <Input
                     id="name"
-                    placeholder="Task Group Name"
-                    value={newTaskGroup.name}
-                    onChange={(e) => setNewTaskGroup({ ...newTaskGroup, name: e.target.value })}
+                    placeholder="Project Name"
+                    value={newProject.name}
+                    onChange={(e) => setNewProject({ ...newProject, name: e.target.value })}
                   />
                 </div>
                 <div>
@@ -349,8 +355,8 @@ export default function TaskAssignmentPage() {
                   <Input
                     id="unit"
                     placeholder="Unit"
-                    value={newTaskGroup.unit}
-                    onChange={(e) => setNewTaskGroup({ ...newTaskGroup, unit: e.target.value })}
+                    value={newProject.unit}
+                    onChange={(e) => setNewProject({ ...newProject, unit: e.target.value })}
                   />
                 </div>
                 <div>
@@ -358,14 +364,14 @@ export default function TaskAssignmentPage() {
                   <Input
                     id="department"
                     placeholder="Department"
-                    value={newTaskGroup.department}
-                    onChange={(e) => setNewTaskGroup({ ...newTaskGroup, department: e.target.value })}
+                    value={newProject.department}
+                    onChange={(e) => setNewProject({ ...newProject, department: e.target.value })}
                   />
                 </div>
                 <div>
                   <Label htmlFor="scheduleType">Schedule Type</Label>
                   <Select
-                    onValueChange={(value) => setNewTaskGroup({ ...newTaskGroup, scheduleType: value })}
+                    onValueChange={(value) => setNewProject({ ...newProject, scheduleType: value })}
                     defaultValue="One-Time"
                   >
                     <SelectTrigger className="w-[100%]">
@@ -377,28 +383,28 @@ export default function TaskAssignmentPage() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="col-span-2">
-                  <Label>Start Date</Label>
+                <div>
+                  <Label htmlFor="start-date">Start Date</Label>
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
                         variant={"outline"}
                         className={cn(
                           "w-[100%] justify-start text-left font-normal",
-                          !newTaskGroup.startDate && "text-muted-foreground",
+                          !newProject.startDate && "text-muted-foreground"
                         )}
                       >
                         <Calendar className="mr-2 h-4 w-4" />
-                        {newTaskGroup.startDate ? format(newTaskGroup.startDate, "PPP") : <span>Pick a date</span>}
+                        {newProject.startDate ? format(newProject.startDate, "PPP") : <span>Pick a date</span>}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
                       <CalendarComponent
                         mode="single"
-                        selected={newTaskGroup.startDate || undefined}
+                        selected={newProject.startDate || undefined}
                         onSelect={(date: Date | undefined) => {
                           if (date) {
-                            setNewTaskGroup({ ...newTaskGroup, startDate: date });
+                            setNewProject({ ...newProject, startDate: date });
                           }
                         }}
                         disabled={(date) => {
@@ -415,7 +421,7 @@ export default function TaskAssignmentPage() {
             <TabsContent value="tasks">
               <div className="grid grid-cols-1 gap-4">
                 <div>
-                  <Label htmlFor="name">Task Name</Label>
+                  <Label htmlFor="taskName">Task Name</Label>
                   <Input
                     id="name"
                     placeholder="Task Name"
@@ -549,7 +555,7 @@ export default function TaskAssignmentPage() {
           </Tabs>
 
           <DialogFooter>
-            <Button type="submit" onClick={handleSaveTaskGroup}>
+            <Button type="submit" onClick={handleSaveProject}>
               Save
             </Button>
           </DialogFooter>

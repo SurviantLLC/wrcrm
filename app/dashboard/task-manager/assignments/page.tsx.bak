@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import type React from "react"
 
 import { useState } from "react"
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Users } from "lucide-react"
@@ -463,7 +463,6 @@ const getStatusBadge = (status: string) => {
     default:
       return <Badge variant="outline">{status}</Badge>
   }
-}
 
 export default function TaskAssignmentPage() {
   // Local state management
@@ -495,29 +494,7 @@ export default function TaskAssignmentPage() {
     tasks: [] as any[],
   })
 
-  // Form validation state
-  const [errors, setErrors] = useState<any>({})
-  const [taskErrors, setTaskErrors] = useState<any>({})
-
-  // Task form state
-  const [currentTask, setCurrentTask] = useState<any>({
-    name: "",
-    stepNumber: "",
-    assignToRole: "",
-    schedulingType: "one-time",
-    repeatPattern: "daily",
-    duration: "",
-    assignTo: "",
-    dependentSteps: [],
-    startDateTime: "",
-  })
-
-  // Pagination constants
-  const itemsPerPage = 10
-  const startIndex = (currentPage - 1) * itemsPerPage
-  const endIndex = startIndex + itemsPerPage
-  const totalPages = Math.ceil(filteredProjects.length / itemsPerPage)
-  const currentProjects = filteredProjects.slice(startIndex, endIndex)
+  // ...
 
   const addProject = (project: Project) => {
     setProjects((prev) => [...prev, project])
@@ -526,18 +503,9 @@ export default function TaskAssignmentPage() {
     setTimeout(() => setShowProjectCreatedNotification(false), 5000)
   }
 
-  const addTask = (task: Task) => {
-    setLastCreatedTask(task)
-    setShowTaskCreatedNotification(true)
-    setTimeout(() => setShowTaskCreatedNotification(false), 5000)
-  }
+  // ...
 
-  const getCurrentDate = () => {
-    return format(new Date(), "dd/MM/yyyy")
-  }
-
-  // Filter projects based on search and status
-  const filteredProjectsList = projects.filter((project) => {
+  const filteredProjects = projects.filter((project) => {
     const matchesSearch =
       project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       project.id.toLowerCase().includes(searchTerm.toLowerCase())
@@ -545,15 +513,7 @@ export default function TaskAssignmentPage() {
     return matchesSearch && matchesStatus
   })
 
-  // Update filteredProjects when search or filter changes
-  React.useEffect(() => {
-    setFilteredProjects(filteredProjectsList)
-    setCurrentPage(1) // Reset to first page when filtering
-  }, [searchTerm, statusFilter, projects])
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page)
-  }
+  // ...
 
   const handleRowClick = (project: Project) => {
     setSelectedProject(project)
@@ -579,104 +539,23 @@ export default function TaskAssignmentPage() {
     setIsEditDialogOpen(true)
   }
 
-  const handleInputChange = (field: string, value: string) => {
-    setNewProject((prev: any) => ({ ...prev, [field]: value }))
-    // Clear error when user starts typing
-    if (errors[field]) {
-      setErrors((prev: any) => ({ ...prev, [field]: false }))
-    }
-  }
-
-  const handleTaskInputChange = (field: string, value: string) => {
-    setCurrentTask((prev: any) => ({ ...prev, [field]: value }))
-    // Clear error when user starts typing
-    if (taskErrors[field]) {
-      setTaskErrors((prev: any) => ({ ...prev, [field]: false }))
-    }
-  }
-
-  const handleStepNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    if (value === "" || (parseInt(value) > 0 && parseInt(value) <= 999)) {
-      setCurrentTask((prev: any) => ({ ...prev, stepNumber: value }))
-      if (taskErrors.stepNumber) {
-        setTaskErrors((prev: any) => ({ ...prev, stepNumber: false }))
-      }
-    }
-  }
-
-  const validateStepNumber = (stepNumber: string) => {
-    if (stepNumber === "") return true // Empty is allowed
-    const num = parseInt(stepNumber)
-    return !isNaN(num) && num > 0
-  }
-
-  const getAvailableStepNumbers = () => {
-    return newProject.tasks
-      .map((task: any) => task.stepNumber)
-      .filter((step: string) => step && step !== currentTask.stepNumber)
-      .sort((a: string, b: string) => parseInt(a) - parseInt(b))
-  }
-
-  const handleDependentStepChange = (steps: string[]) => {
-    setCurrentTask((prev: any) => ({ ...prev, dependentSteps: steps }))
-  }
+  // ...
 
   const generateNextTaskId = () => {
     // Extract numbers from task IDs and find the highest
-    const taskNumbers = []
-    for (const project of projects) {
-      for (const task of project.tasks) {
+    const taskNumbers = tasks
+      .map((task) => {
         const match = task.id?.match(/T-(\d+)/)
-        if (match) {
-          taskNumbers.push(parseInt(match[1], 10))
-        }
-      }
-    }
+        return match ? Number.parseInt(match[1], 10) : 0
+      })
+      .filter((num) => !isNaN(num))
 
     const highestNumber = taskNumbers.length > 0 ? Math.max(...taskNumbers) : 0
     const nextNumber = highestNumber + 1
     return `T-${String(nextNumber).padStart(3, "0")}`
   }
 
-  const validateForm = () => {
-    const newErrors = {
-      name: !newProject.name,
-      typeOfProject: !newProject.typeOfProject,
-      unit: !newProject.unit,
-      department: !newProject.department,
-    }
-
-    setErrors(newErrors)
-    return !Object.values(newErrors).some(Boolean)
-  }
-
-  const resetProjectForm = () => {
-    setNewProject({
-      name: "",
-      typeOfProject: "",
-      projectType: "",
-      numberOfTasks: "",
-      unit: "",
-      department: "",
-      description: "",
-      startDateTime: "",
-      tasks: [],
-    })
-    setCurrentTask({
-      name: "",
-      stepNumber: "",
-      assignToRole: "",
-      schedulingType: "one-time",
-      repeatPattern: "daily",
-      duration: "",
-      assignTo: "",
-      dependentSteps: [],
-      startDateTime: "",
-    })
-    setErrors({})
-    setTaskErrors({})
-  }
+  // ...
 
   const handleAddTask = () => {
     // Validate required fields
@@ -712,12 +591,16 @@ export default function TaskAssignmentPage() {
     })
   }
 
+  // ...
+
   const handleRemoveTask = (taskId: number) => {
     setNewProject({
       ...newProject,
-      tasks: newProject.tasks.filter((task: { id: number }) => task.id !== taskId)
+      tasks: newProject.tasks.filter((task) => task.id !== taskId),
     })
   }
+
+  // ...
 
   const handleCreateProject = () => {
     if (!validateForm()) return
@@ -726,7 +609,7 @@ export default function TaskAssignmentPage() {
     const today = format(new Date(), "dd/MM/yyyy")
 
     // Add each task in the project to the task repository
-    newProject.tasks.forEach((task: any) => {
+    newProject.tasks.forEach((task) => {
       // Generate a new task ID based on the highest existing ID
       const nextTaskId = generateNextTaskId()
 
@@ -765,6 +648,8 @@ export default function TaskAssignmentPage() {
     resetProjectForm()
   }
 
+  // ...
+
   const handleUpdateProject = () => {
     if (!validateForm() || !selectedProject) return
 
@@ -791,6 +676,8 @@ export default function TaskAssignmentPage() {
     // Reset form
     resetProjectForm()
   }
+
+  // ...
 
   const handleMarkAsCompleted = (projectId: string) => {
     const updatedProjects = projects.map((p) => {
@@ -834,94 +721,10 @@ export default function TaskAssignmentPage() {
         </Alert>
       )}
 
-      {/* Filters and Search */}
-      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-          <div className="flex items-center gap-2">
-            <Input
-              placeholder="Search projects..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-[300px]"
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-[150px]">
-                <SelectValue placeholder="Filter by status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="All">All Statuses</SelectItem>
-                <SelectItem value="Planned">Planned</SelectItem>
-                <SelectItem value="Active">Active</SelectItem>
-                <SelectItem value="Completed">Completed</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-        <Button onClick={() => setIsCreateDialogOpen(true)} className="bg-primary hover:bg-primary/90">
-          Create Project
-        </Button>
-      </div>
-
-      {/* Projects Table */}
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Project ID</TableHead>
-              <TableHead>Project Name</TableHead>
-              <TableHead>Created By</TableHead>
-              <TableHead>Created On</TableHead>
-              <TableHead>Project Schedule Type</TableHead>
-              <TableHead>Project Type</TableHead>
-              <TableHead>No of Tasks</TableHead>
-              <TableHead>Org Unit</TableHead>
-              <TableHead>Project Status</TableHead>
-              <TableHead>Department</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {currentProjects.length > 0 ? (
-              currentProjects.map((project, index) => (
-                <TableRow
-                  key={project.id}
-                  className={`cursor-pointer hover:bg-muted/50 ${
-                    index % 2 === 0 ? "bg-muted/20" : "bg-background"
-                  }`}
-                  onClick={() => handleRowClick(project)}
-                  onDoubleClick={() => handleRowDoubleClick(project)}
-                >
-                  <TableCell className="font-medium">{project.id}</TableCell>
-                  <TableCell>{project.name}</TableCell>
-                  <TableCell>{project.createdBy}</TableCell>
-                  <TableCell>{project.createdOn}</TableCell>
-                  <TableCell>{project.typeOfProject}</TableCell>
-                  <TableCell>{project.projectType}</TableCell>
-                  <TableCell>{project.numberOfTasks}</TableCell>
-                  <TableCell>{project.unit}</TableCell>
-                  <TableCell>{getStatusBadge(project.status)}</TableCell>
-                  <TableCell>{project.department}</TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={10} className="h-24 text-center">
-                  No projects found.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
-
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <div className="flex items-center justify-between">
-          <p className="text-sm text-muted-foreground">
-            Showing {startIndex + 1} to {Math.min(endIndex, filteredProjects.length)} of{" "}
-            {filteredProjects.length} results
-          </p>
+      {/* ... */}
+    </div>
+  )
+}
           <div className="flex items-center space-x-2">
             <Button variant="outline" size="icon" onClick={() => handlePageChange(1)} disabled={currentPage === 1}>
               <ChevronsLeft className="h-4 w-4" />
@@ -966,28 +769,28 @@ export default function TaskAssignmentPage() {
           </DialogHeader>
 
           <div className="space-y-6 py-4">
-            {/* Project Information */}
+            {/* Task Group Information */}
             <div>
-              <h3 className="text-lg font-medium mb-4">Project Information</h3>
+              <h3 className="text-lg font-medium mb-4">Task Group Information</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="grid gap-2">
-                  <Label htmlFor="project-name" className={errors.name ? "text-red-500" : ""}>
-                    Project Name<span className="text-red-500">*</span>
+                  <Label htmlFor="task-group-name" className={errors.name ? "text-red-500" : ""}>
+                    Task Group Name<span className="text-red-500">*</span>
                   </Label>
                   <Input
-                    id="project-name"
-                    value={newProject.name}
+                    id="task-group-name"
+                    value={newTaskGroup.name}
                     onChange={(e) => handleInputChange("name", e.target.value)}
                     className={errors.name ? "border-red-500" : ""}
                   />
-                  {errors.name && <p className="text-red-500 text-sm">Project name is required</p>}
+                  {errors.name && <p className="text-red-500 text-sm">Task group name is required</p>}
                 </div>
 
                 <div className="grid gap-2">
-                  <Label htmlFor="project-type">Project Type</Label>
-                  <Select value={newProject.projectType} onValueChange={(value) => handleInputChange("projectType", value)}>
-                    <SelectTrigger id="project-type">
-                      <SelectValue placeholder="Select project type" />
+                  <Label htmlFor="tg-type">TG Type</Label>
+                  <Select value={newTaskGroup.tgType} onValueChange={(value) => handleInputChange("tgType", value)}>
+                    <SelectTrigger id="tg-type">
+                      <SelectValue placeholder="Select TG type" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Maintainance Work">Maintainance Work</SelectItem>
@@ -1000,11 +803,11 @@ export default function TaskAssignmentPage() {
                 </div>
 
                 <div className="grid gap-2">
-                  <Label htmlFor="project-schedule-type" className={errors.typeOfProject ? "text-red-500" : ""}>
-                    Project Schedule Type<span className="text-red-500">*</span>
+                  <Label htmlFor="task-group-type" className={errors.typeOfTG ? "text-red-500" : ""}>
+                    Task Group Schedule Type<span className="text-red-500">*</span>
                   </Label>
-                  <Select value={newProject.typeOfProject} onValueChange={(value) => handleInputChange("typeOfProject", value)}>
-                    <SelectTrigger id="project-schedule-type" className={errors.typeOfProject ? "border-red-500" : ""}>
+                  <Select value={newTaskGroup.typeOfTG} onValueChange={(value) => handleInputChange("typeOfTG", value)}>
+                    <SelectTrigger id="task-group-type" className={errors.typeOfTG ? "border-red-500" : ""}>
                       <SelectValue placeholder="Select type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -1012,14 +815,14 @@ export default function TaskAssignmentPage() {
                       <SelectItem value="Repetitive">Repetitive Schedule</SelectItem>
                     </SelectContent>
                   </Select>
-                  {errors.typeOfProject && <p className="text-red-500 text-sm">Schedule type is required</p>}
+                  {errors.typeOfTG && <p className="text-red-500 text-sm">Schedule type is required</p>}
                 </div>
 
                 <div className="grid gap-2">
                   <Label htmlFor="unit" className={errors.unit ? "text-red-500" : ""}>
                     Org Unit<span className="text-red-500">*</span>
                   </Label>
-                  <Select value={newProject.unit} onValueChange={(value) => handleInputChange("unit", value)}>
+                  <Select value={newTaskGroup.unit} onValueChange={(value) => handleInputChange("unit", value)}>
                     <SelectTrigger id="unit" className={errors.unit ? "border-red-500" : ""}>
                       <SelectValue placeholder="Select org unit" />
                     </SelectTrigger>
@@ -1039,7 +842,7 @@ export default function TaskAssignmentPage() {
                     Department<span className="text-red-500">*</span>
                   </Label>
                   <Select
-                    value={newProject.department}
+                    value={newTaskGroup.department}
                     onValueChange={(value) => handleInputChange("department", value)}
                   >
                     <SelectTrigger id="department" className={errors.department ? "border-red-500" : ""}>
@@ -1061,7 +864,7 @@ export default function TaskAssignmentPage() {
                   <Input
                     id="start-date-time"
                     type="datetime-local"
-                    value={newProject.startDateTime}
+                    value={newTaskGroup.startDateTime}
                     onChange={(e) => handleInputChange("startDateTime", e.target.value)}
                   />
                 </div>
@@ -1071,9 +874,9 @@ export default function TaskAssignmentPage() {
                 <Label htmlFor="description">Description</Label>
                 <Textarea
                   id="description"
-                  value={newProject.description}
+                  value={newTaskGroup.description}
                   onChange={(e) => handleInputChange("description", e.target.value)}
-                  placeholder="Enter project description"
+                  placeholder="Enter task group description"
                 />
               </div>
             </div>
@@ -1133,7 +936,7 @@ export default function TaskAssignmentPage() {
                   <Label htmlFor="dependent-steps">Dependent Steps</Label>
                   <div className="flex flex-wrap gap-2 p-2 border rounded-md">
                     {getAvailableStepNumbers().length > 0 ? (
-                      getAvailableStepNumbers().map((stepNumber: string) => (
+                      getAvailableStepNumbers().map((stepNumber) => (
                         <div key={stepNumber} className="flex items-center">
                           <input
                             type="checkbox"
@@ -1143,7 +946,7 @@ export default function TaskAssignmentPage() {
                             onChange={(e) => {
                               const updatedSteps = e.target.checked
                                 ? [...currentTask.dependentSteps, stepNumber]
-                                : currentTask.dependentSteps.filter((step: string) => step !== stepNumber)
+                                : currentTask.dependentSteps.filter((step) => step !== stepNumber)
                               handleDependentStepChange(updatedSteps)
                             }}
                           />
@@ -1161,8 +964,8 @@ export default function TaskAssignmentPage() {
                 <div className="grid gap-2">
                   <Label>Scheduling Type</Label>
                   <RadioGroup
-                    value={newProject.typeOfProject}
-                    onValueChange={(value) => handleInputChange("typeOfProject", value)}
+                    value={newTaskGroup.typeOfTG}
+                    onValueChange={(value) => handleInputChange("typeOfTG", value)}
                     className="flex flex-col space-y-1"
                   >
                     <div className="flex items-center space-x-2">
@@ -1180,7 +983,7 @@ export default function TaskAssignmentPage() {
                   </RadioGroup>
                 </div>
 
-                {newProject.typeOfProject === "Repetitive" && (
+                {newTaskGroup.typeOfTG === "Repetitive" && (
                   <div className="grid gap-2">
                     <Label htmlFor="repeat-pattern">Repeat Pattern</Label>
                     <Select
@@ -1283,8 +1086,8 @@ export default function TaskAssignmentPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {newProject.tasks.length > 0 ? (
-                      newProject.tasks.map((task: any, index: number) => (
+                    {newTaskGroup.tasks.length > 0 ? (
+                      newTaskGroup.tasks.map((task, index) => (
                         <TableRow key={task.id} className={index % 2 === 0 ? "bg-muted/50" : "bg-background"}>
                           <TableCell>{task.name}</TableCell>
                           <TableCell>{task.stepNumber || "-"}</TableCell>
@@ -1293,7 +1096,7 @@ export default function TaskAssignmentPage() {
                           </TableCell>
                           <TableCell>{task.assignToRole}</TableCell>
                           <TableCell>
-                            {newProject.typeOfProject === "One-time" ? "One-time" : `Repetitive (${task.repeatPattern})`}
+                            {newTaskGroup.typeOfTG === "One-time" ? "One-time" : `Repetitive (${task.repeatPattern})`}
                           </TableCell>
                           <TableCell>{task.duration ? `${task.duration} hours` : "-"}</TableCell>
                           <TableCell>{task.assignTo || "-"}</TableCell>
@@ -1316,7 +1119,7 @@ export default function TaskAssignmentPage() {
                       ))
                     ) : (
                       <TableRow>
-                        <TableCell colSpan={9} className="h-24 text-center">
+                        <TableCell colSpan={8} className="h-24 text-center">
                           No tasks added yet. Add tasks using the form above.
                         </TableCell>
                       </TableRow>
@@ -1332,8 +1135,8 @@ export default function TaskAssignmentPage() {
               Cancel
             </Button>
             <Button
-              onClick={handleCreateProject}
-              disabled={!newProject.name || !newProject.typeOfProject || !newProject.unit || !newProject.department}
+              onClick={handleCreateTaskGroup}
+              disabled={!newTaskGroup.name || !newTaskGroup.typeOfTG || !newTaskGroup.unit || !newTaskGroup.department}
               className="bg-primary hover:bg-primary/90"
             >
               Create Project
@@ -1351,28 +1154,28 @@ export default function TaskAssignmentPage() {
           </DialogHeader>
 
           <div className="space-y-6 py-4">
-            {/* Project Information */}
+            {/* Task Group Information */}
             <div>
-              <h3 className="text-lg font-medium mb-4">Project Information</h3>
+              <h3 className="text-lg font-medium mb-4">Task Group Information</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="grid gap-2">
-                  <Label htmlFor="edit-project-name" className={errors.name ? "text-red-500" : ""}>
-                    Project Name<span className="text-red-500">*</span>
+                  <Label htmlFor="edit-task-group-name" className={errors.name ? "text-red-500" : ""}>
+                    Task Group Name<span className="text-red-500">*</span>
                   </Label>
                   <Input
-                    id="edit-project-name"
-                    value={newProject.name}
+                    id="edit-task-group-name"
+                    value={newTaskGroup.name}
                     onChange={(e) => handleInputChange("name", e.target.value)}
                     className={errors.name ? "border-red-500" : ""}
                   />
-                  {errors.name && <p className="text-red-500 text-sm">Project name is required</p>}
+                  {errors.name && <p className="text-red-500 text-sm">Task group name is required</p>}
                 </div>
 
                 <div className="grid gap-2">
-                  <Label htmlFor="edit-project-type">Project Type</Label>
-                  <Select value={newProject.projectType} onValueChange={(value) => handleInputChange("projectType", value)}>
-                    <SelectTrigger id="edit-project-type">
-                      <SelectValue placeholder="Select project type" />
+                  <Label htmlFor="edit-tg-type">TG Type</Label>
+                  <Select value={newTaskGroup.tgType} onValueChange={(value) => handleInputChange("tgType", value)}>
+                    <SelectTrigger id="edit-tg-type">
+                      <SelectValue placeholder="Select TG type" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Maintainance Work">Maintainance Work</SelectItem>
@@ -1385,11 +1188,11 @@ export default function TaskAssignmentPage() {
                 </div>
 
                 <div className="grid gap-2">
-                  <Label htmlFor="edit-project-schedule-type" className={errors.typeOfProject ? "text-red-500" : ""}>
-                    Project Schedule Type<span className="text-red-500">*</span>
+                  <Label htmlFor="edit-task-group-type" className={errors.typeOfTG ? "text-red-500" : ""}>
+                    Task Group Schedule Type<span className="text-red-500">*</span>
                   </Label>
-                  <Select value={newProject.typeOfProject} onValueChange={(value) => handleInputChange("typeOfProject", value)}>
-                    <SelectTrigger id="edit-project-schedule-type" className={errors.typeOfProject ? "border-red-500" : ""}>
+                  <Select value={newTaskGroup.typeOfTG} onValueChange={(value) => handleInputChange("typeOfTG", value)}>
+                    <SelectTrigger id="edit-task-group-type" className={errors.typeOfTG ? "border-red-500" : ""}>
                       <SelectValue placeholder="Select type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -1397,14 +1200,14 @@ export default function TaskAssignmentPage() {
                       <SelectItem value="Repetitive">Repetitive Schedule</SelectItem>
                     </SelectContent>
                   </Select>
-                  {errors.typeOfProject && <p className="text-red-500 text-sm">Schedule type is required</p>}
+                  {errors.typeOfTG && <p className="text-red-500 text-sm">Schedule type is required</p>}
                 </div>
 
                 <div className="grid gap-2">
                   <Label htmlFor="edit-unit" className={errors.unit ? "text-red-500" : ""}>
                     Org Unit<span className="text-red-500">*</span>
                   </Label>
-                  <Select value={newProject.unit} onValueChange={(value) => handleInputChange("unit", value)}>
+                  <Select value={newTaskGroup.unit} onValueChange={(value) => handleInputChange("unit", value)}>
                     <SelectTrigger id="edit-unit" className={errors.unit ? "border-red-500" : ""}>
                       <SelectValue placeholder="Select org unit" />
                     </SelectTrigger>
@@ -1424,7 +1227,7 @@ export default function TaskAssignmentPage() {
                     Department<span className="text-red-500">*</span>
                   </Label>
                   <Select
-                    value={newProject.department}
+                    value={newTaskGroup.department}
                     onValueChange={(value) => handleInputChange("department", value)}
                   >
                     <SelectTrigger id="edit-department" className={errors.department ? "border-red-500" : ""}>
@@ -1446,7 +1249,7 @@ export default function TaskAssignmentPage() {
                   <Input
                     id="edit-start-date-time"
                     type="datetime-local"
-                    value={newProject.startDateTime}
+                    value={newTaskGroup.startDateTime}
                     onChange={(e) => handleInputChange("startDateTime", e.target.value)}
                   />
                 </div>
@@ -1456,9 +1259,9 @@ export default function TaskAssignmentPage() {
                 <Label htmlFor="edit-description">Description</Label>
                 <Textarea
                   id="edit-description"
-                  value={newProject.description}
+                  value={newTaskGroup.description}
                   onChange={(e) => handleInputChange("description", e.target.value)}
-                  placeholder="Enter project description"
+                  placeholder="Enter task group description"
                 />
               </div>
             </div>
@@ -1518,21 +1321,21 @@ export default function TaskAssignmentPage() {
                   <Label htmlFor="edit-dependent-steps">Dependent Steps</Label>
                   <div className="flex flex-wrap gap-2 p-2 border rounded-md">
                     {getAvailableStepNumbers().length > 0 ? (
-                      getAvailableStepNumbers().map((stepNumber: string) => (
+                      getAvailableStepNumbers().map((stepNumber) => (
                         <div key={stepNumber} className="flex items-center">
                           <input
                             type="checkbox"
-                            id={`edit-step-${stepNumber}`}
+                            id={`step-${stepNumber}`}
                             className="mr-1"
                             checked={currentTask.dependentSteps.includes(stepNumber)}
                             onChange={(e) => {
                               const updatedSteps = e.target.checked
                                 ? [...currentTask.dependentSteps, stepNumber]
-                                : currentTask.dependentSteps.filter((step: string) => step !== stepNumber)
+                                : currentTask.dependentSteps.filter((step) => step !== stepNumber)
                               handleDependentStepChange(updatedSteps)
                             }}
                           />
-                          <Label htmlFor={`edit-step-${stepNumber}`} className="text-sm">
+                          <Label htmlFor={`step-${stepNumber}`} className="text-sm">
                             Step {stepNumber}
                           </Label>
                         </div>
@@ -1546,26 +1349,26 @@ export default function TaskAssignmentPage() {
                 <div className="grid gap-2">
                   <Label>Scheduling Type</Label>
                   <RadioGroup
-                    value={newProject.typeOfProject}
-                    onValueChange={(value) => handleInputChange("typeOfProject", value)}
+                    value={newTaskGroup.typeOfTG}
+                    onValueChange={(value) => handleInputChange("typeOfTG", value)}
                     className="flex flex-col space-y-1"
                   >
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="One-time" id="edit-one-time" />
-                      <Label htmlFor="edit-one-time" className="font-normal">
+                      <RadioGroupItem value="One-time" id="one-time" />
+                      <Label htmlFor="one-time" className="font-normal">
                         One-time
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="Repetitive" id="edit-repetitive" />
-                      <Label htmlFor="edit-repetitive" className="font-normal">
+                      <RadioGroupItem value="Repetitive" id="repetitive" />
+                      <Label htmlFor="repetitive" className="font-normal">
                         Repetitive
                       </Label>
                     </div>
                   </RadioGroup>
                 </div>
 
-                {newProject.typeOfProject === "Repetitive" && (
+                {newTaskGroup.typeOfTG === "Repetitive" && (
                   <div className="grid gap-2">
                     <Label htmlFor="edit-repeat-pattern">Repeat Pattern</Label>
                     <Select
@@ -1671,8 +1474,8 @@ export default function TaskAssignmentPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {newProject.tasks.length > 0 ? (
-                      newProject.tasks.map((task: any, index: number) => (
+                    {newTaskGroup.tasks.length > 0 ? (
+                      newTaskGroup.tasks.map((task, index) => (
                         <TableRow key={task.id} className={index % 2 === 0 ? "bg-muted/50" : "bg-background"}>
                           <TableCell>{task.name}</TableCell>
                           <TableCell>{task.stepNumber || "-"}</TableCell>
@@ -1681,7 +1484,7 @@ export default function TaskAssignmentPage() {
                           </TableCell>
                           <TableCell>{task.assignToRole}</TableCell>
                           <TableCell>
-                            {newProject.typeOfProject === "One-time" ? "One-time" : `Repetitive (${task.repeatPattern})`}
+                            {newTaskGroup.typeOfTG === "One-time" ? "One-time" : `Repetitive (${task.repeatPattern})`}
                           </TableCell>
                           <TableCell>{task.duration ? `${task.duration} hours` : "-"}</TableCell>
                           <TableCell>{task.assignTo || "-"}</TableCell>
@@ -1704,7 +1507,7 @@ export default function TaskAssignmentPage() {
                       ))
                     ) : (
                       <TableRow>
-                        <TableCell colSpan={9} className="h-24 text-center">
+                        <TableCell colSpan={8} className="h-24 text-center">
                           No tasks added yet. Add tasks using the form above.
                         </TableCell>
                       </TableRow>
@@ -1720,146 +1523,12 @@ export default function TaskAssignmentPage() {
               Cancel
             </Button>
             <Button
-              onClick={handleUpdateProject}
-              disabled={!newProject.name || !newProject.typeOfProject || !newProject.unit || !newProject.department}
+              onClick={handleUpdateTaskGroup}
+              disabled={!newTaskGroup.name || !newTaskGroup.typeOfTG || !newTaskGroup.unit || !newTaskGroup.department}
               className="bg-primary hover:bg-primary/90"
             >
               Update Project
             </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Project Details Dialog */}
-      <Dialog open={isDetailsDialogOpen} onOpenChange={setIsDetailsDialogOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Project Details</DialogTitle>
-            <DialogDescription>View project information and tasks</DialogDescription>
-          </DialogHeader>
-
-          {selectedProject && (
-            <div className="space-y-6 py-4">
-              {/* Project Information */}
-              <div>
-                <h3 className="text-lg font-medium mb-4">Project Information</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label className="text-sm font-medium text-muted-foreground">Project ID</Label>
-                    <p className="text-sm">{selectedProject.id}</p>
-                  </div>
-                  <div>
-                    <Label className="text-sm font-medium text-muted-foreground">Project Name</Label>
-                    <p className="text-sm">{selectedProject.name}</p>
-                  </div>
-                  <div>
-                    <Label className="text-sm font-medium text-muted-foreground">Created By</Label>
-                    <p className="text-sm">{selectedProject.createdBy}</p>
-                  </div>
-                  <div>
-                    <Label className="text-sm font-medium text-muted-foreground">Created On</Label>
-                    <p className="text-sm">{selectedProject.createdOn}</p>
-                  </div>
-                  <div>
-                    <Label className="text-sm font-medium text-muted-foreground">Type of Project</Label>
-                    <p className="text-sm">{selectedProject.typeOfProject}</p>
-                  </div>
-                  <div>
-                    <Label className="text-sm font-medium text-muted-foreground">Project Type</Label>
-                    <p className="text-sm">{selectedProject.projectType}</p>
-                  </div>
-                  <div>
-                    <Label className="text-sm font-medium text-muted-foreground">Number of Tasks</Label>
-                    <p className="text-sm">{selectedProject.numberOfTasks}</p>
-                  </div>
-                  <div>
-                    <Label className="text-sm font-medium text-muted-foreground">Org Unit</Label>
-                    <p className="text-sm">{selectedProject.unit}</p>
-                  </div>
-                  <div>
-                    <Label className="text-sm font-medium text-muted-foreground">Status</Label>
-                    <div className="mt-1">{getStatusBadge(selectedProject.status)}</div>
-                  </div>
-                  <div>
-                    <Label className="text-sm font-medium text-muted-foreground">Department</Label>
-                    <p className="text-sm">{selectedProject.department}</p>
-                  </div>
-                  {selectedProject.startDateTime && (
-                    <div>
-                      <Label className="text-sm font-medium text-muted-foreground">Start Date & Time</Label>
-                      <p className="text-sm">{new Date(selectedProject.startDateTime).toLocaleString()}</p>
-                    </div>
-                  )}
-                  {selectedProject.description && (
-                    <div className="col-span-2">
-                      <Label className="text-sm font-medium text-muted-foreground">Description</Label>
-                      <p className="text-sm">{selectedProject.description}</p>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Tasks */}
-              {selectedProject.tasks && selectedProject.tasks.length > 0 && (
-                <div>
-                  <h3 className="text-lg font-medium mb-4">Tasks</h3>
-                  <div className="rounded-md border">
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Task Name</TableHead>
-                          <TableHead>Step</TableHead>
-                          <TableHead>Start Date & Time</TableHead>
-                          <TableHead>Role</TableHead>
-                          <TableHead>Scheduling</TableHead>
-                          <TableHead>Duration</TableHead>
-                          <TableHead>Assigned To</TableHead>
-                          <TableHead>Dependent Steps</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {selectedProject.tasks.map((task: any, index: number) => (
-                          <TableRow key={task.id} className={index % 2 === 0 ? "bg-muted/50" : "bg-background"}>
-                            <TableCell>{task.name}</TableCell>
-                            <TableCell>{task.stepNumber || "-"}</TableCell>
-                            <TableCell>
-                              {task.startDateTime ? new Date(task.startDateTime).toLocaleString() : "-"}
-                            </TableCell>
-                            <TableCell>{task.assignToRole}</TableCell>
-                            <TableCell>
-                              {selectedProject.typeOfProject === "One-time"
-                                ? "One-time"
-                                : `Repetitive (${task.repeatPattern})`}
-                            </TableCell>
-                            <TableCell>{task.duration ? `${task.duration} hours` : "-"}</TableCell>
-                            <TableCell>{task.assignTo || "-"}</TableCell>
-                            <TableCell>
-                              {task.dependentSteps && task.dependentSteps.length > 0
-                                ? task.dependentSteps.map((step: number | string) => `Step ${step}`).join(", ")
-                                : "-"}
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsDetailsDialogOpen(false)}>
-              Close
-            </Button>
-            {selectedProject && selectedProject.status !== "Completed" && (
-              <Button
-                onClick={() => handleMarkAsCompleted(selectedProject.id)}
-                className="bg-green-600 hover:bg-green-700 text-white"
-              >
-                Mark as Completed
-              </Button>
-            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>

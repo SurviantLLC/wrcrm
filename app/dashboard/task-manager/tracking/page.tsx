@@ -26,7 +26,7 @@ export default function TaskTrackingPage() {
   const tasks = [
     {
       id: "T-001",
-      taskGroupId: "TG-2023-001",
+      taskGroupId: "P-2023-001",
       taskGroupName: "Quality Audit Process",
       name: "Operate Forklift",
       assignedTo: "John Doe",
@@ -42,7 +42,7 @@ export default function TaskTrackingPage() {
     },
     {
       id: "T-002",
-      taskGroupId: "TG-2023-002",
+      taskGroupId: "P-2023-002",
       taskGroupName: "Office Setup Production Line Check",
       name: "Production Line Operation",
       assignedTo: "Jane Smith",
@@ -58,7 +58,7 @@ export default function TaskTrackingPage() {
     },
     {
       id: "T-003",
-      taskGroupId: "TG-2023-003",
+      taskGroupId: "P-2023-003",
       taskGroupName: "Facility Security Review",
       name: "Equipment Maintenance Planning",
       assignedTo: "Mike Johnson",
@@ -74,7 +74,7 @@ export default function TaskTrackingPage() {
     },
     {
       id: "T-004",
-      taskGroupId: "TG-2023-004",
+      taskGroupId: "P-2023-004",
       taskGroupName: "Quality Audit Process",
       name: "Quality Control Inspection",
       assignedTo: "Sarah Williams",
@@ -90,7 +90,7 @@ export default function TaskTrackingPage() {
     },
     {
       id: "T-005",
-      taskGroupId: "TG-2023-005",
+      taskGroupId: "P-2023-005",
       taskGroupName: "Office Setup Production Line Check",
       name: "Facility Maintenance",
       assignedTo: "Robert Brown",
@@ -106,7 +106,7 @@ export default function TaskTrackingPage() {
     },
     {
       id: "T-006",
-      taskGroupId: "TG-2023-006",
+      taskGroupId: "P-2023-006",
       taskGroupName: "Facility Security Review",
       name: "Inventory Management",
       assignedTo: "Emily Davis",
@@ -122,7 +122,7 @@ export default function TaskTrackingPage() {
     },
     {
       id: "T-007",
-      taskGroupId: "TG-2023-007",
+      taskGroupId: "P-2023-007",
       taskGroupName: "Quality Audit Process",
       name: "Safety Compliance Audit",
       assignedTo: "David Wilson",
@@ -138,7 +138,7 @@ export default function TaskTrackingPage() {
     },
     {
       id: "T-008",
-      taskGroupId: "TG-2023-008",
+      taskGroupId: "P-2023-008",
       taskGroupName: "Office Setup Production Line Check",
       name: "Machine Setup and Configuration",
       assignedTo: "Lisa Martinez",
@@ -154,7 +154,7 @@ export default function TaskTrackingPage() {
     },
     {
       id: "T-009",
-      taskGroupId: "TG-2023-004",
+      taskGroupId: "P-2023-004",
       taskGroupName: "Facility Security Review",
       name: "Equipment Performance Monitoring",
       assignedTo: "Sarah Williams",
@@ -170,7 +170,7 @@ export default function TaskTrackingPage() {
     },
     {
       id: "T-010",
-      taskGroupId: "TG-2023-009",
+      taskGroupId: "P-2023-009",
       taskGroupName: "Administrative Tasks",
       name: "Administrative Coordination",
       assignedTo: "Carlos Rodriguez",
@@ -460,7 +460,7 @@ export default function TaskTrackingPage() {
               <TableHeader>
                 <TableRow>
                   <TableHead className="bg-muted text-muted-foreground font-medium">Task ID</TableHead>
-                  <TableHead className="bg-muted text-muted-foreground font-medium">Task Group</TableHead>
+                  <TableHead className="bg-muted text-muted-foreground font-medium">Project</TableHead>
                   <TableHead className="bg-muted text-muted-foreground font-medium">Task Name</TableHead>
                   <TableHead className="bg-muted text-muted-foreground font-medium">Assigned To</TableHead>
                   <TableHead className="bg-muted text-muted-foreground font-medium">Deadline</TableHead>

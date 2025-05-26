@@ -21,7 +21,7 @@ interface Alert {
   raisedBy: string;
   raisedOn: string;
   description: string;
-  sourceTaskGroup: string;
+  sourceProject: string;
   sourceTaskName: string;
   alertStatus: string;
   assignedTo: string;
@@ -43,7 +43,7 @@ interface FormData {
   assignTo: string;
   assignDate: string;
   assignTime: string;
-  sourceTGName: string;
+  sourceProjectName: string;
   sourceTaskName: string;
 }
 
@@ -58,13 +58,13 @@ interface Task {
   assignTo: string;
 }
 
-interface TaskGroup {
+interface Project {
   id: string;
   name: string;
   createdBy: string;
   createdOn: string;
-  typeOfTG: string;
-  tgType: string;
+  typeOfProject: string;
+  projectType: string;
   numberOfTasks: string;
   unit: string;
   status: string;
@@ -81,7 +81,7 @@ const taskAlerts: Alert[] = [
     raisedBy: "John",
     raisedOn: "10/02/2025 09:00 hrs",
     description: "Machine Failure",
-    sourceTaskGroup: "Production",
+    sourceProject: "Production",
     sourceTaskName: "Packing",
     alertStatus: "Not Assigned",
     assignedTo: "",
@@ -94,7 +94,7 @@ const taskAlerts: Alert[] = [
     raisedBy: "Matt",
     raisedOn: "09/02/2025 13:00 hrs",
     description: "SKU Shortage",
-    sourceTaskGroup: "Maintenance",
+    sourceProject: "Maintenance",
     sourceTaskName: "Oil Change",
     alertStatus: "Assigned",
     assignedTo: "Tom",
@@ -107,7 +107,7 @@ const taskAlerts: Alert[] = [
     raisedBy: "Soy",
     raisedOn: "07/02/2025 13:00 hrs",
     description: "Audit form not assigned",
-    sourceTaskGroup: "Weekly Audit and Maintenance",
+    sourceProject: "Weekly Audit and Maintenance",
     sourceTaskName: "Audit Machine Quality",
     alertStatus: "Closed",
     assignedTo: "Support",
@@ -121,7 +121,7 @@ const taskAlerts: Alert[] = [
 const taskTypes: string[] = ["Maintenance", "Inventory", "Quality Check", "Software", "Hardware"]
 const assignees: string[] = ["Tom", "Sarah", "Mike", "Emma", "Support"]
 const tasks: string[] = ["Inventory Fulfillment", "Machine Repair", "Software Issue", "Quality Inspection"]
-const taskGroups: string[] = ["Production", "Maintenance", "Weekly Audit and Maintenance", "Inventory"]
+const projects: string[] = ["Production", "Maintenance", "Weekly Audit and Maintenance", "Inventory"]
 const departments: string[] = ["Production", "Quality", "Maintenance", "Logistics", "Administration"]
 const units: string[] = ["All", "M1", "M2", "Assembly Unit A", "Assembly Unit B", "Woodworking Unit", "Finishing Unit"]
 
@@ -157,16 +157,17 @@ export default function TaskAlertsPage() {
   const [assignDialogOpen, setAssignDialogOpen] = useState(false)
   const [selectedAlert, setSelectedAlert] = useState<Alert | null>(null)
   const [ticketCreated, setTicketCreated] = useState(false)
-  const [createdTaskGroup, setCreatedTaskGroup] = useState<TaskGroup | null>(null)
-  const [formData, setFormData] = useState<FormData>({
+  const [createdProject, setCreatedProject] = useState<Project | null>(null)
+  const initialFormData: FormData = {
     taskType: "",
     selectTask: "",
     assignTo: "",
     assignDate: "",
     assignTime: "",
-    sourceTGName: "",
+    sourceProjectName: "",
     sourceTaskName: "",
-  })
+  }
+  const [formData, setFormData] = useState(initialFormData)
 
   const totalAlerts = alerts.length
   const openAlerts = alerts.filter((alert) => alert.alertStatus !== "Closed").length
@@ -193,7 +194,7 @@ export default function TaskAlertsPage() {
       setSelectedAlert(alert)
       setFormData({
         ...formData,
-        sourceTGName: alert.sourceTaskGroup,
+        sourceProjectName: alert.sourceProject,
         sourceTaskName: alert.sourceTaskName,
       })
     }
@@ -220,25 +221,25 @@ export default function TaskAlertsPage() {
       return
     }
 
-    // Create a new task group with the name format: Source TG Name_AlertID
+    // Create a new project with the name format: Source Project Name_AlertID
     const today = format(new Date(), "dd/MM/yyyy")
-    const taskGroupName = `${formData.sourceTGName}_${selectedAlert?.id}`
+    const projectName = `${formData.sourceProjectName}_${selectedAlert?.id}`
 
-    const newTaskGroup = {
+    const newProject = {
       id: `TG-${Math.floor(Math.random() * 1000)
         .toString()
         .padStart(3, "0")}`,
-      name: taskGroupName,
+      name: projectName,
       createdBy: "Current User", // This would come from auth context in a real app
       createdOn: today,
-      typeOfTG: "One-time",
-      tgType: "Internal",
+      typeOfProject: "One-time",
+      projectType: "Maintenance",
       numberOfTasks: "1",
       unit: "All", // Default value, could be changed
       status: "Planned",
       department: "Production", // Default value, could be changed
       startDateTime: format(new Date(), "yyyy-MM-dd'T'HH:mm"),
-      description: `Task group created from alert: ${selectedAlert?.description}`,
+      description: `Project created from alert: ${selectedAlert?.description}`,
       tasks: [
         {
           id: `T-${Math.floor(Math.random() * 1000)
@@ -310,12 +311,12 @@ export default function TaskAlertsPage() {
       </div>
 
       {/* Ticket Created Notification */}
-      {ticketCreated && createdTaskGroup && (
+      {ticketCreated && createdProject && (
         <Alert className="bg-green-50 border-green-200">
           <CheckCircle2 className="h-4 w-4 text-green-600" />
           <AlertTitle className="text-green-800">Ticket Created</AlertTitle>
           <AlertDescription className="text-green-700">
-            Task Group "{createdTaskGroup.name}" has been created successfully.
+            Project &quot;{createdProject.name}&quot; has been created successfully.
           </AlertDescription>
         </Alert>
       )}
@@ -416,18 +417,18 @@ export default function TaskAlertsPage() {
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="sourceTGName" className="text-slate-700 dark:text-slate-300 font-medium">
-                  Source TG Name
+                <Label htmlFor="sourceProjectName" className="text-slate-700 dark:text-slate-300 font-medium">
+                  Source Project Name
                 </Label>
                 <Select
-                  value={formData.sourceTGName}
-                  onValueChange={(value) => handleInputChange("sourceTGName", value)}
+                  value={formData.sourceProjectName}
+                  onValueChange={(value) => handleInputChange("sourceProjectName", value)}
                 >
                   <SelectTrigger className="bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 border-slate-200 dark:border-slate-600">
                     <SelectValue placeholder="Select Multiple Role Drop Down" />
                   </SelectTrigger>
                   <SelectContent>
-                    {taskGroups.map((group: string) => (
+                    {projects.map((group: string) => (
                       <SelectItem key={group} value={group}>
                         {group}
                       </SelectItem>
@@ -558,7 +559,7 @@ export default function TaskAlertsPage() {
                   !formData.assignTime
                 }
               >
-                Create TG Ticket
+                Create Project Ticket
               </Button>
               <Button
                 variant="secondary"
@@ -586,7 +587,7 @@ function AlertsTable({ alerts, onContextMenu }: { alerts: Alert[], onContextMenu
             <TableHead className="text-white font-semibold">Raised By</TableHead>
             <TableHead className="text-white font-semibold">Raised On (Date & Time)</TableHead>
             <TableHead className="text-white font-semibold">Description</TableHead>
-            <TableHead className="text-white font-semibold">Source Task Group</TableHead>
+            <TableHead className="text-white font-semibold">Source Project</TableHead>
             <TableHead className="text-white font-semibold">Source Task Name</TableHead>
             <TableHead className="text-white font-semibold">Alert Status</TableHead>
             <TableHead className="text-white font-semibold">Assigned To</TableHead>
@@ -602,7 +603,7 @@ function AlertsTable({ alerts, onContextMenu }: { alerts: Alert[], onContextMenu
               <TableCell>{alert.raisedBy}</TableCell>
               <TableCell>{alert.raisedOn}</TableCell>
               <TableCell>{alert.description}</TableCell>
-              <TableCell>{alert.sourceTaskGroup}</TableCell>
+              <TableCell>{alert.sourceProject}</TableCell>
               <TableCell>{alert.sourceTaskName}</TableCell>
               <TableCell>
                 {getStatusBadge(alert.alertStatus as string)}
