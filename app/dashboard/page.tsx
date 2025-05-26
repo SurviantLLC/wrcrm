@@ -261,7 +261,7 @@ export default function DashboardPage() {
         {/* OVERVIEW TAB */}
         <TabsContent value="overview" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full md:col-span-2">
+            <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full md:col-span-2">
               <CardHeader>
                 <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Production Trends</CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-200">
@@ -284,7 +284,7 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
 
-            <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+            <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
               <CardHeader>
                 <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Inventory Distribution</CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-200">By category</CardDescription>
@@ -316,7 +316,7 @@ export default function DashboardPage() {
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
-            <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+            <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
               <CardHeader>
                 <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Upcoming Deadlines</CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-200">Tasks due soon</CardDescription>
@@ -360,7 +360,7 @@ export default function DashboardPage() {
               </CardFooter>
             </Card>
 
-            <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+            <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
               <CardHeader>
                 <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Worker Performance</CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-200">
@@ -432,7 +432,7 @@ export default function DashboardPage() {
           </div>
 
           <div className="grid gap-4 md:grid-cols-3">
-            <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+            <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
               <CardHeader>
                 <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Critical Inventory</CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-200">
@@ -478,7 +478,7 @@ export default function DashboardPage() {
               </CardFooter>
             </Card>
 
-            <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+            <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
               <CardHeader>
                 <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Quality Metrics</CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-200">
@@ -524,7 +524,7 @@ export default function DashboardPage() {
               </CardFooter>
             </Card>
 
-            <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+            <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
               <CardHeader>
                 <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Upcoming Events</CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-200">
@@ -575,7 +575,7 @@ export default function DashboardPage() {
           </div>
 
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full col-span-2">
+            <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full col-span-2">
               <CardHeader>
                 <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Quick Access</CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-200">
@@ -612,7 +612,7 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
 
-            <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full col-span-2">
+            <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full col-span-2">
               <CardHeader>
                 <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">System Status</CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-200">Current system health</CardDescription>
@@ -664,7 +664,7 @@ export default function DashboardPage() {
         {/* PRODUCTION TAB */}
         <TabsContent value="production" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2">
-            <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+            <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
               <CardHeader>
                 <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Production Output</CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-200">
@@ -687,7 +687,7 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
 
-            <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+            <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
               <CardHeader>
                 <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Manufacturing Progress</CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-200">
@@ -740,7 +740,7 @@ export default function DashboardPage() {
             </Card>
           </div>
 
-          <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+          <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
             <CardHeader>
               <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Production Schedule</CardTitle>
               <CardDescription className="text-slate-600 dark:text-slate-200">Upcoming production runs</CardDescription>
@@ -766,7 +766,7 @@ export default function DashboardPage() {
                       <td className="py-3 px-4">Nov 1, 2023</td>
                       <td className="py-3 px-4">Nov 10, 2023</td>
                       <td className="py-3 px-4">
-                        <Badge className="bg-white text-blue-800 border border-blue-200">In Progress</Badge>
+                        <Badge className="bg-background text-blue-800 border border-blue-200 dark:bg-slate-800 dark:text-blue-300">In Progress</Badge>
                       </td>
                     </tr>
                     <tr className="border-b">
@@ -776,7 +776,7 @@ export default function DashboardPage() {
                       <td className="py-3 px-4">Nov 5, 2023</td>
                       <td className="py-3 px-4">Nov 15, 2023</td>
                       <td className="py-3 px-4">
-                        <Badge className="bg-white text-blue-800 border border-blue-200">In Progress</Badge>
+                        <Badge className="bg-background text-blue-800 border border-blue-200 dark:bg-slate-800 dark:text-blue-300">In Progress</Badge>
                       </td>
                     </tr>
                     <tr className="border-b">
@@ -809,7 +809,7 @@ export default function DashboardPage() {
         {/* INVENTORY TAB */}
         <TabsContent value="inventory" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2">
-            <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+            <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
               <CardHeader>
                 <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Inventory Distribution</CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-200">By category</CardDescription>
@@ -840,7 +840,7 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
 
-            <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+            <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
               <CardHeader>
                 <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Critical Inventory Items</CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-200">
@@ -905,7 +905,7 @@ export default function DashboardPage() {
             </Card>
           </div>
 
-          <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+          <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
             <CardHeader>
               <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Recent Inventory Movements</CardTitle>
               <CardDescription className="text-slate-600 dark:text-slate-200">Latest stock changes</CardDescription>
@@ -974,7 +974,7 @@ export default function DashboardPage() {
         {/* WORKFORCE TAB */}
         <TabsContent value="workforce" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2">
-            <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+            <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
               <CardHeader>
                 <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Worker Efficiency</CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-200">
@@ -1003,7 +1003,7 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
 
-            <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+            <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
               <CardHeader>
                 <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Worker Performance</CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-200">
@@ -1091,7 +1091,7 @@ export default function DashboardPage() {
             </Card>
           </div>
 
-          <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+          <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
             <CardHeader>
               <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Worker Utilization</CardTitle>
               <CardDescription className="text-slate-600 dark:text-slate-200">
@@ -1177,7 +1177,7 @@ export default function DashboardPage() {
         {/* TASKS TAB */}
         <TabsContent value="tasks" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2">
-            <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+            <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
               <CardHeader>
                 <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Task Completion</CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-200">
@@ -1201,7 +1201,7 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
 
-            <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+            <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
               <CardHeader>
                 <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Upcoming Deadlines</CardTitle>
                 <CardDescription className="text-slate-600 dark:text-slate-200">Tasks due soon</CardDescription>
@@ -1255,7 +1255,7 @@ export default function DashboardPage() {
             </Card>
           </div>
 
-          <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+          <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
             <CardHeader>
               <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Recent Task Activities</CardTitle>
               <CardDescription className="text-slate-600 dark:text-slate-200">Latest updates on tasks</CardDescription>

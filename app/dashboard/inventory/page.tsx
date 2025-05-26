@@ -106,7 +106,7 @@ export default function InventoryManagementPage() {
               </div>
               <Button
                 asChild
-                className="w-full mt-16 mx-2 px-6 py-3 bg-muted border border-slate-200/50 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
+                className="w-full mt-16 mx-2 px-6 py-3 border border-primary/30 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
               >
                 <Link href="/dashboard/inventory/skus" className="flex items-center justify-center gap-2">
                   Manage SKUs
@@ -141,7 +141,7 @@ export default function InventoryManagementPage() {
               </div>
               <Button
                 asChild
-                className="w-full mt-16 mx-2 px-6 py-3 bg-muted border border-slate-200/50 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
+                className="w-full mt-16 mx-2 px-6 py-3 border border-primary/30 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
               >
                 <Link href="/dashboard/inventory/wastage" className="flex items-center justify-center gap-2">
                   Track Wastage
@@ -176,7 +176,7 @@ export default function InventoryManagementPage() {
               </div>
               <Button
                 asChild
-                className="w-full mt-16 mx-2 px-6 py-3 bg-muted border border-slate-200/50 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
+                className="w-full mt-16 mx-2 px-6 py-3 border border-primary/30 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
               >
                 <Link href="/dashboard/inventory/procurement" className="flex items-center justify-center gap-2">
                   Manage Procurement
@@ -211,7 +211,7 @@ export default function InventoryManagementPage() {
               </div>
               <Button
                 asChild
-                className="w-full mt-16 mx-2 px-6 py-3 bg-muted border border-slate-200/50 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
+                className="w-full mt-16 mx-2 px-6 py-3 border border-primary/30 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
               >
                 <Link href="/dashboard/inventory/analytics" className="flex items-center justify-center gap-2">
                   View Analytics

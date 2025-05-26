@@ -109,7 +109,7 @@ export default function AdminPage() {
 
       {/* Main Feature Cards */}
       <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-        <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+        <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
           <CardContent className="p-8 flex flex-col justify-between h-full">
             <div className="flex-1">
               <div className="flex items-start gap-4">
@@ -133,7 +133,7 @@ export default function AdminPage() {
               </div>
               <Button
                 asChild
-                className="w-full mt-12 mx-2 px-6 py-3 border-2 border-white/30 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
+                className="w-full mt-12 mx-2 px-6 py-3 border-2 border-primary/30 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
               >
                 <Link href="/dashboard/admin/roles" className="flex items-center justify-center gap-2">
                   Manage Roles
@@ -144,7 +144,7 @@ export default function AdminPage() {
           </CardContent>
         </Card>
 
-        <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+        <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
           <CardContent className="p-8 flex flex-col justify-between h-full">
             <div className="flex-1">
               <div className="flex items-start gap-4">
@@ -168,7 +168,7 @@ export default function AdminPage() {
               </div>
               <Button
                 asChild
-                className="w-full mt-12 mx-2 px-6 py-3 border-2 border-white/30 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
+                className="w-full mt-12 mx-2 px-6 py-3 border-2 border-primary/30 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
               >
                 <Link href="/dashboard/admin/users" className="flex items-center justify-center gap-2">
                   Manage Users
@@ -179,7 +179,7 @@ export default function AdminPage() {
           </CardContent>
         </Card>
 
-        <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+        <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
           <CardContent className="p-8 flex flex-col justify-between h-full">
             <div className="flex-1">
               <div className="flex items-start gap-4">
@@ -203,7 +203,7 @@ export default function AdminPage() {
               </div>
               <Button
                 asChild
-                className="w-full mt-12 mx-2 px-6 py-3 border-2 border-white/30 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
+                className="w-full mt-12 mx-2 px-6 py-3 border-2 border-primary/30 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
               >
                 <Link href="/dashboard/admin/reference-data" className="flex items-center justify-center gap-2">
                   Manage Reference Data
@@ -214,7 +214,7 @@ export default function AdminPage() {
           </CardContent>
         </Card>
 
-        <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+        <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
           <CardContent className="p-8 flex flex-col justify-between h-full">
             <div className="flex-1">
               <div className="flex items-start gap-4">
@@ -238,7 +238,7 @@ export default function AdminPage() {
               </div>
               <Button
                 asChild
-                className="w-full mt-12 mx-2 px-6 py-3 border-2 border-white/30 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
+                className="w-full mt-12 mx-2 px-6 py-3 border-2 border-primary/30 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
               >
                 <Link href="/dashboard/admin/settings" className="flex items-center justify-center gap-2">
                   Manage Settings
@@ -249,7 +249,7 @@ export default function AdminPage() {
           </CardContent>
         </Card>
 
-        <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+        <Card className="group relative overflow-hidden border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
           <CardContent className="p-8 flex flex-col justify-between h-full">
             <div className="flex-1">
               <div className="flex items-start gap-4">
@@ -273,7 +273,7 @@ export default function AdminPage() {
               </div>
               <Button
                 asChild
-                className="w-full mt-12 mx-2 px-6 py-3 border-2 border-white/30 bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
+                className="w-full mt-12 mx-2 px-6 py-3 border-2 border-primary/30 bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
               >
                 <Link
                   href="/dashboard/admin/settings?tab=notifications"

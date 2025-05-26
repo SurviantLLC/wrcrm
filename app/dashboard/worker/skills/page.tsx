@@ -243,7 +243,7 @@ export default function WorkerSkillsPage() {
   const getProficiencyBadge = (proficiency: string) => {
     switch (proficiency) {
       case "Beginner":
-        return <Badge className="bg-white text-blue-800 border border-blue-200 hover:bg-white">Beginner</Badge>
+        return <Badge className="bg-background text-blue-800 border border-blue-200 hover:bg-background/90 dark:bg-slate-800 dark:text-blue-300 dark:hover:bg-slate-700">Beginner</Badge>
       case "Intermediate":
         return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Intermediate</Badge>
       case "Advanced":
