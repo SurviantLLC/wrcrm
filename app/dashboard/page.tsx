@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { PageTitle } from "@/components/page-title"
+import { DarkModeLogo } from "@/components/ui/dark-mode-logo"
 import {
   BarChart3,
   ClipboardList,
@@ -104,15 +105,9 @@ export default function DashboardPage() {
             className="h-auto dark:hidden"
             priority
           />
-          {/* Dark mode logo - using public path which works in both dev and production */}
+          {/* Dark mode logo - using custom SVG component for reliability */}
           <div className="h-auto hidden dark:block">
-            <img
-              src="/logo-dark-mode.svg"
-              alt="WC WorCoor Logo Dark Mode"
-              width={180}
-              height={60}
-              style={{ maxWidth: '100%', height: 'auto' }}
-            />
+            <DarkModeLogo className="h-auto w-auto" />
           </div>
         </div>
       </div>
