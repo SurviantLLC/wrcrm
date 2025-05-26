@@ -1,4 +1,7 @@
+"use client"
+
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Plus, Search, Tag } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -104,6 +107,8 @@ const categories = Array.from(new Set(skus.map((sku) => sku.category)))
 const statuses = Array.from(new Set(skus.map((sku) => sku.status)))
 
 export default function SkusPage() {
+  const router = useRouter()
+  
   return (
     <div className="flex flex-col gap-4">
       <PageHeader
@@ -113,7 +118,7 @@ export default function SkusPage() {
         action={{
           label: "Add New SKU",
           icon: <Plus className="h-4 w-4" />,
-          onClick: () => window.location.href = "/dashboard/product-manager/skus/new"
+          onClick: () => router.push("/dashboard/product-manager/skus/new")
         }}
       />
 
