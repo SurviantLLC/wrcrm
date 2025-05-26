@@ -49,14 +49,14 @@ interface TaskType {
 }
 
 interface ProjectSchedule {
-  TG_SCH_ID: string
+  PS_ID: string
   Name: string
   Description: string
 }
 
 interface ProjectType {
-  TGT_ID: string
-  TG_Type_Name: string
+  PT_ID: string
+  Project_Type_Name: string
   Description: string
 }
 
@@ -236,16 +236,16 @@ const initialTaskTypes: TaskType[] = [
 ]
 
 const initialProjectSchedules: ProjectSchedule[] = [
-  { TG_SCH_ID: "TSG-001", Name: "One-Time", Description: "" },
-  { TG_SCH_ID: "TSG-002", Name: "Repetative", Description: "" },
+  { PS_ID: "PS-001", Name: "One-Time", Description: "" },
+  { PS_ID: "PS-002", Name: "Repetative", Description: "" },
 ]
 
 const initialProjectTypes: ProjectType[] = [
-  { TGT_ID: "TGT-001", TG_Type_Name: "Maintainance Work", Description: "" },
-  { TGT_ID: "TGT-002", TG_Type_Name: "Auditing Work", Description: "" },
-  { TGT_ID: "TGT-003", TG_Type_Name: "Production Work", Description: "" },
-  { TGT_ID: "TGT-004", TG_Type_Name: "Internal Orders", Description: "" },
-  { TGT_ID: "TGT-005", TG_Type_Name: "External Orders", Description: "" },
+  { PT_ID: "PT-001", Project_Type_Name: "Maintainance Work", Description: "" },
+  { PT_ID: "PT-002", Project_Type_Name: "Auditing Work", Description: "" },
+  { PT_ID: "PT-003", Project_Type_Name: "Production Work", Description: "" },
+  { PT_ID: "PT-004", Project_Type_Name: "Internal Orders", Description: "" },
+  { PT_ID: "PT-005", Project_Type_Name: "External Orders", Description: "" },
 ]
 
 const initialResourceTypes: ResourceType[] = [

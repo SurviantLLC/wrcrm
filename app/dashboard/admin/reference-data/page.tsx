@@ -546,13 +546,13 @@ export default function ReferenceDataPage() {
                           id = item.TT_ID
                           name = item.Task_Type_Name
                           description = item.Description || ""
-                        } else if (selectedTable.name === "TG Schedule") {
-                          id = item.TG_SCH_ID
+                        } else if (selectedTable.name === "Project Schedule") {
+                          id = item.PS_ID
                           name = item.Name
                           description = item.Description || ""
-                        } else if (selectedTable.name === "TG Type") {
-                          id = item.TGT_ID
-                          name = item.TG_Type_Name
+                        } else if (selectedTable.name === "Project Type") {
+                          id = item.PT_ID
+                          name = item.Project_Type_Name
                           description = item.Description || ""
                         } else if (selectedTable.name === "Resource Type") {
                           id = item.Res_Type_ID
