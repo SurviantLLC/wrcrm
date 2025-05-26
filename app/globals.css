@@ -14,9 +14,16 @@
 
 /* Apply fade-in animation to dialogs, popups, and dropdowns */
 .dialog-animation,
-[data-state='open'],
-[data-radix-popper-content-wrapper] {
+[data-state='open'] {
   animation: fadeIn 0.2s ease-out;
+}
+
+/* Fix for radix dropdown content positioning */
+[data-radix-popper-content-wrapper] {
+  opacity: 0;
+  animation: fadeIn 0.2s ease-out forwards;
+  /* This ensures the dropdown appears immediately at its final position */
+  transition: none !important;
 }
 
 @layer base {
