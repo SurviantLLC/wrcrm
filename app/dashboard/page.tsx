@@ -104,15 +104,16 @@ export default function DashboardPage() {
             className="h-auto dark:hidden"
             priority
           />
-          {/* Dark mode logo */}
-          <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dark-mode-logo-SLKsJGTU1s9QbBQyhLrJ2ZA1uHM05o.png"
-            alt="WC WorCoor Logo Dark Mode"
-            width={180}
-            height={60}
-            className="h-auto hidden dark:block"
-            priority
-          />
+          {/* Dark mode logo - using public path which works in both dev and production */}
+          <div className="h-auto hidden dark:block">
+            <img
+              src="/logo-dark-mode.svg"
+              alt="WC WorCoor Logo Dark Mode"
+              width={180}
+              height={60}
+              style={{ maxWidth: '100%', height: 'auto' }}
+            />
+          </div>
         </div>
       </div>
 
