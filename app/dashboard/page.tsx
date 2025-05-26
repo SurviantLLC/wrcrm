@@ -106,7 +106,7 @@ export default function DashboardPage() {
           />
           {/* Dark mode logo */}
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-dark-mode-9K6iKVsXxTjgCsGfXjA1qWYB6Ig9Ir.svg"
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dark-mode-logo-SLKsJGTU1s9QbBQyhLrJ2ZA1uHM05o.png"
             alt="WC WorCoor Logo Dark Mode"
             width={180}
             height={60}
