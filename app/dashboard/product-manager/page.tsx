@@ -102,7 +102,7 @@ export default function ProductManagerPage() {
             <div className="space-y-4">
               <div className="flex items-center justify-between border-b pb-2">
                 <div>
-                  <p className="font-medium text-foreground0">Ergonomic Office Chair</p>
+                  <p className="font-medium text-foreground">Ergonomic Office Chair</p>
                   <p className="text-sm text-muted-foreground">PRD-2023-001</p>
                 </div>
                 <Badge variant="secondary" className="text-xs">
@@ -111,7 +111,7 @@ export default function ProductManagerPage() {
               </div>
               <div className="flex items-center justify-between border-b pb-2">
                 <div>
-                  <p className="font-medium text-foreground0">Adjustable Standing Desk</p>
+                  <p className="font-medium text-foreground">Adjustable Standing Desk</p>
                   <p className="text-sm text-muted-foreground">PRD-2023-002</p>
                 </div>
                 <Badge variant="secondary" className="text-xs">
@@ -120,7 +120,7 @@ export default function ProductManagerPage() {
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-medium text-foreground0">Modular Storage System</p>
+                  <p className="font-medium text-foreground">Modular Storage System</p>
                   <p className="text-sm text-muted-foreground">PRD-2023-003</p>
                 </div>
                 <Badge variant="secondary" className="text-xs">
@@ -142,28 +142,28 @@ export default function ProductManagerPage() {
             <div className="space-y-4">
               <div>
                 <div className="mb-1 flex items-center justify-between">
-                  <p className="text-sm font-medium text-foreground0">Design Team</p>
+                  <p className="text-sm font-medium text-foreground">Design Team</p>
                   <span className="text-sm text-muted-foreground">85%</span>
                 </div>
                 <Progress value={85} className="h-2" />
               </div>
               <div>
                 <div className="mb-1 flex items-center justify-between">
-                  <p className="text-sm font-medium text-foreground0">Engineering Team</p>
+                  <p className="text-sm font-medium text-foreground">Engineering Team</p>
                   <span className="text-sm text-muted-foreground">92%</span>
                 </div>
                 <Progress value={92} className="h-2" />
               </div>
               <div>
                 <div className="mb-1 flex items-center justify-between">
-                  <p className="text-sm font-medium text-foreground0">Material Resources</p>
+                  <p className="text-sm font-medium text-foreground">Material Resources</p>
                   <span className="text-sm text-muted-foreground">78%</span>
                 </div>
                 <Progress value={78} className="h-2" />
               </div>
               <div>
                 <div className="mb-1 flex items-center justify-between">
-                  <p className="text-sm font-medium text-foreground0">Quality Control</p>
+                  <p className="text-sm font-medium text-foreground">Quality Control</p>
                   <span className="text-sm text-muted-foreground">94%</span>
                 </div>
                 <Progress value={94} className="h-2" />
