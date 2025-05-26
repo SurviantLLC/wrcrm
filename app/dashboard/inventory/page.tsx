@@ -19,13 +19,13 @@ export default function InventoryManagementPage() {
 
       {/* KPI Summary Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="relative overflow-hidden bg-primary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+        <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full">
           <CardContent className="p-6 flex flex-col">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <p className="text-sm font-medium text-primary-foreground/80">Total SKUs</p>
+                <p className="text-sm font-medium text-blue-100">Total SKUs</p>
                 <p className="text-3xl font-bold text-white">248</p>
-                <p className="text-xs text-primary-foreground/70 font-medium">+12.5% from last month</p>
+                <p className="text-xs text-blue-200 font-medium">+12.5% from last month</p>
               </div>
               <div className="h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <Box className="h-6 w-6 text-white" />
@@ -34,13 +34,13 @@ export default function InventoryManagementPage() {
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden bg-emerald-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full dark:bg-emerald-800">
+        <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full">
           <CardContent className="p-6 flex flex-col">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <p className="text-sm font-medium text-white/80">Total Value</p>
+                <p className="text-sm font-medium text-emerald-100">Total Value</p>
                 <p className="text-3xl font-bold text-white">$125,750</p>
-                <p className="text-xs text-white/70 font-medium">+8.2% from last month</p>
+                <p className="text-xs text-emerald-200 font-medium">+8.2% from last month</p>
               </div>
               <div className="h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <Database className="h-6 w-6 text-white" />
@@ -49,13 +49,13 @@ export default function InventoryManagementPage() {
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden bg-purple-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full dark:bg-purple-800">
+        <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full">
           <CardContent className="p-6 flex flex-col">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <p className="text-sm font-medium text-white/80">Low Stock Items</p>
+                <p className="text-sm font-medium text-purple-100">Low Stock Items</p>
                 <p className="text-3xl font-bold text-white">45</p>
-                <p className="text-xs text-white/70 font-medium">-3.1% from last week</p>
+                <p className="text-xs text-purple-200 font-medium">-3.1% from last week</p>
               </div>
               <div className="h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <Package className="h-6 w-6 text-white" />
@@ -64,13 +64,13 @@ export default function InventoryManagementPage() {
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden bg-amber-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full dark:bg-amber-800">
+        <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-amber-500 to-amber-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full">
           <CardContent className="p-6 flex flex-col">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <p className="text-sm font-medium text-white/80">Wastage Rate</p>
+                <p className="text-sm font-medium text-amber-100">Wastage Rate</p>
                 <p className="text-3xl font-bold text-white">2.4%</p>
-                <p className="text-xs text-white/70 font-medium">Target: 3.0%</p>
+                <p className="text-xs text-amber-200 font-medium">Target: 3.0%</p>
               </div>
               <div className="h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <Trash className="h-6 w-6 text-white" />
