@@ -766,7 +766,7 @@ export default function DashboardPage() {
                       <td className="py-3 px-4">Nov 1, 2023</td>
                       <td className="py-3 px-4">Nov 10, 2023</td>
                       <td className="py-3 px-4">
-                        <Badge className="bg-blue-100 text-blue-800">In Progress</Badge>
+                        <Badge className="bg-white text-blue-800 border border-blue-200">In Progress</Badge>
                       </td>
                     </tr>
                     <tr className="border-b">
@@ -776,7 +776,7 @@ export default function DashboardPage() {
                       <td className="py-3 px-4">Nov 5, 2023</td>
                       <td className="py-3 px-4">Nov 15, 2023</td>
                       <td className="py-3 px-4">
-                        <Badge className="bg-blue-100 text-blue-800">In Progress</Badge>
+                        <Badge className="bg-white text-blue-800 border border-blue-200">In Progress</Badge>
                       </td>
                     </tr>
                     <tr className="border-b">

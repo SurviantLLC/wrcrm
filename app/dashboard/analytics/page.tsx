@@ -1700,46 +1700,56 @@ export default function AnalyticsPage() {
                       value: item.profit,
                     }))}
                     dataKey="size"
-                    ratio={4 / 3}
                     stroke="#fff"
                     fill={COLORS.primary}
-                    content={({ root, depth, x, y, width, height, index, payload, colors, rank, name }) => {
-                      return (
-                        <g>
-                          <rect
-                            x={x}
-                            y={y}
-                            width={width}
-                            height={height}
-                            style={{
-                              fill:
-                                index % 4 === 0
-                                  ? COLORS.primary
-                                  : index % 4 === 1
-                                    ? COLORS.secondary
-                                    : index % 4 === 2
-                                      ? COLORS.tertiary
-                                      : COLORS.info,
-                              stroke: "#fff",
-                              strokeWidth: 2 / (depth + 1e-10),
-                              strokeOpacity: 1 / (depth + 1e-10),
-                            }}
-                          />
-                          {width > 30 && height > 30 && (
-                            <text
-                              x={x + width / 2}
-                              y={y + height / 2 + 7}
-                              textAnchor="middle"
-                              fill="#fff"
-                              fontSize={14}
-                            >
-                              {name}
-                            </text>
-                          )}
-                        </g>
-                      )
-                    }}
-                  />
+                  >
+                    {({ root, depth, x, y, width, height, index, payload, colors, rank, name }: { 
+                      root: any; 
+                      depth: number; 
+                      x: number; 
+                      y: number; 
+                      width: number; 
+                      height: number; 
+                      index: number; 
+                      payload: any; 
+                      colors: any; 
+                      rank: any; 
+                      name: string;
+                    }) => (
+                      <g>
+                        <rect
+                          x={x}
+                          y={y}
+                          width={width}
+                          height={height}
+                          style={{
+                            fill:
+                              index % 4 === 0
+                                ? COLORS.primary
+                                : index % 4 === 1
+                                  ? COLORS.secondary
+                                  : index % 4 === 2
+                                    ? COLORS.tertiary
+                                    : COLORS.info,
+                            stroke: "#fff",
+                            strokeWidth: 2 / (depth + 1e-10),
+                            strokeOpacity: 1 / (depth + 1e-10),
+                          }}
+                        />
+                        {width > 30 && height > 30 && (
+                          <text
+                            x={x + width / 2}
+                            y={y + height / 2 + 7}
+                            textAnchor="middle"
+                            fill="#fff"
+                            fontSize={14}
+                          >
+                            {name}
+                          </text>
+                        )}
+                      </g>
+                    )}
+                  </Treemap>
                 </ResponsiveContainer>
               </CardContent>
             </Card>

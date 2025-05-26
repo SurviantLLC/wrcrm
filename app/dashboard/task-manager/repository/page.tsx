@@ -349,7 +349,7 @@ export default function TaskRepositoryPage() {
           <CheckCircle2 className="h-4 w-4 text-green-600" />
           <AlertTitle className="text-green-800">Task Created</AlertTitle>
           <AlertDescription className="text-green-700">
-            Task "{lastCreatedTask.name}" has been added to the repository with ID {lastCreatedTask.id}.
+            Task &quot;{lastCreatedTask.name}&quot; has been added to the repository with ID {lastCreatedTask.id}.
           </AlertDescription>
         </Alert>
       )}
@@ -360,7 +360,7 @@ export default function TaskRepositoryPage() {
           <CheckCircle2 className="h-4 w-4 text-green-600" />
           <AlertTitle className="text-green-800">Task Updated</AlertTitle>
           <AlertDescription className="text-green-700">
-            Task "{editedTask.name}" has been successfully updated.
+            Task &quot;{editedTask.name}&quot; has been successfully updated.
           </AlertDescription>
         </Alert>
       )}

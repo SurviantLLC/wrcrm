@@ -19,13 +19,52 @@ import { Plus, Trash } from "lucide-react"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { ensureNonEmptyValue } from "@/lib/utils"
 
+// Define types for task data
+interface TaskType {
+  id: string
+  name: string
+  description?: string
+}
+
+interface TaskGroupType {
+  id: string
+  name: string
+  description?: string
+}
+
+interface TaskGroupSchedule {
+  id: string
+  name: string
+  description?: string
+}
+
+interface TaskData {
+  id?: string
+  name: string
+  description: string
+  priority: string
+  startDate?: string | Date
+  endDate?: string | Date
+  unit?: string
+  scheduleType?: string
+  tasks?: {
+    id: number
+    step: string
+    skill: string
+    duration: string
+    startDate: string
+    endDate: string
+  }[]
+  [key: string]: string | number | boolean | Date | object | null | undefined // Allow specific types for additional fields
+}
+
 interface CreateTaskDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-  onSave: (taskData: any) => void
-  taskTypes?: any[]
-  tgTypes?: any[]
-  tgSchedules?: any[]
+  onSave: (taskData: TaskData) => void
+  taskTypes?: TaskType[]
+  tgTypes?: TaskGroupType[]
+  tgSchedules?: TaskGroupSchedule[]
 }
 
 export function CreateTaskDialog({ open, onOpenChange, onSave, taskTypes = [], tgTypes = [], tgSchedules = [] }: CreateTaskDialogProps) {
@@ -333,7 +372,7 @@ export function CreateTaskDialog({ open, onOpenChange, onSave, taskTypes = [], t
             ) : (
               <div className="text-center p-4 border rounded-md bg-muted/50">
                 <p className="text-muted-foreground">
-                  No tasks added yet. Click "Add Task" to add tasks to this group.
+                  No tasks added yet. Click &quot;Add Task&quot; to add tasks to this group.
                 </p>
               </div>
             )}

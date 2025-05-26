@@ -32,8 +32,39 @@ import { Textarea } from "@/components/ui/textarea"
 import { Progress } from "@/components/ui/progress"
 import { toast } from "@/components/ui/use-toast"
 
+// Define task types for different statuses
+type BaseTask = {
+  id: string;
+  product: string;
+  step: string;
+  quantity: number;
+  priority: string;
+  estimatedDuration: string;
+  assignedDate: string;
+};
+
+type PendingTask = BaseTask & {
+  status: "Pending";
+  startTime: null;
+  endTime: null;
+};
+
+type InProgressTask = BaseTask & {
+  status: "In Progress";
+  startTime: string;
+  endTime: null;
+};
+
+type CompletedTask = BaseTask & {
+  status: "Completed";
+  startTime: string;
+  endTime: string;
+};
+
+type Task = PendingTask | InProgressTask | CompletedTask;
+
 // Sample tasks data
-const initialTasks = [
+const initialTasks: Task[] = [
   {
     id: "TASK-2023-001",
     product: "Office Chair - Standard",
@@ -102,7 +133,7 @@ export default function WorkerTasksPage() {
   const [statusFilter, setStatusFilter] = useState("All")
   const [dateFilter, setDateFilter] = useState("Today")
   const [currentPage, setCurrentPage] = useState(1)
-  const [selectedTask, setSelectedTask] = useState<any>(null)
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null)
   const [isRaiseConcernDialogOpen, setIsRaiseConcernDialogOpen] = useState(false)
   const [concernText, setConcernText] = useState("")
 
@@ -139,15 +170,25 @@ export default function WorkerTasksPage() {
     const formattedTime = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
 
     setTasks(
-      tasks.map((task) =>
-        task.id === taskId
-          ? {
-              ...task,
-              status: "In Progress",
-              startTime: formattedTime,
-            }
-          : task,
-      ),
+      tasks.map((task) => {
+        if (task.id === taskId && task.status === "Pending") {
+          // Create a properly typed InProgressTask
+          const updatedTask: InProgressTask = {
+            id: task.id,
+            product: task.product,
+            step: task.step,
+            quantity: task.quantity,
+            priority: task.priority,
+            estimatedDuration: task.estimatedDuration,
+            assignedDate: task.assignedDate,
+            status: "In Progress",
+            startTime: formattedTime,
+            endTime: null
+          }
+          return updatedTask
+        }
+        return task
+      })
     )
 
     toast({
@@ -162,15 +203,25 @@ export default function WorkerTasksPage() {
     const formattedTime = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
 
     setTasks(
-      tasks.map((task) =>
-        task.id === taskId
-          ? {
-              ...task,
-              status: "Completed",
-              endTime: formattedTime,
-            }
-          : task,
-      ),
+      tasks.map((task) => {
+        if (task.id === taskId && task.status === "In Progress") {
+          // Create a properly typed CompletedTask
+          const updatedTask: CompletedTask = {
+            id: task.id,
+            product: task.product,
+            step: task.step,
+            quantity: task.quantity,
+            priority: task.priority,
+            estimatedDuration: task.estimatedDuration,
+            assignedDate: task.assignedDate,
+            status: "Completed",
+            startTime: task.startTime, // Maintain the existing startTime
+            endTime: formattedTime
+          }
+          return updatedTask
+        }
+        return task
+      })
     )
 
     toast({
@@ -282,7 +333,7 @@ export default function WorkerTasksPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{calculateProductiveHours()}</div>
-            <p className="text-xs text-muted-foreground">Today's working time</p>
+            <p className="text-xs text-muted-foreground">Today&apos;s working time</p>
           </CardContent>
         </Card>
 

@@ -110,14 +110,11 @@ export default function SkusPage() {
         title="SKU Management"
         description="Manage product SKUs and inventory"
         icon={Tag}
-        actions={
-          <Button asChild>
-            <Link href="/dashboard/product-manager/skus/new" className="flex items-center gap-2">
-              <Plus className="h-4 w-4" />
-              Add New SKU
-            </Link>
-          </Button>
-        }
+        action={{
+          label: "Add New SKU",
+          icon: <Plus className="h-4 w-4" />,
+          onClick: () => window.location.href = "/dashboard/product-manager/skus/new"
+        }}
       />
 
       <Card>

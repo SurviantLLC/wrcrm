@@ -800,7 +800,15 @@ export default function WorkerPerformancePage() {
                 <CardDescription>Percentage of tasks handled by each department</CardDescription>
               </CardHeader>
               <CardContent className="h-[400px] flex items-center justify-center">
-                <ChartContainer className="h-[400px]">
+                <ChartContainer 
+                  className="h-[400px]"
+                  config={{
+                    task: { color: "#2563eb" },
+                    complete: { color: "#16a34a" },
+                    inProgress: { color: "#d97706" },
+                    pending: { color: "#dc2626" }
+                  }}
+                >
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                       <Pie

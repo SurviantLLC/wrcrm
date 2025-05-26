@@ -392,7 +392,7 @@ export default function SkuManagementPage() {
       case "A":
         return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">A - Premium</Badge>
       case "B":
-        return <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">B - Standard</Badge>
+        return <Badge className="bg-white text-blue-800 border border-blue-200 hover:bg-white">B - Standard</Badge>
       case "C":
         return <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-100">C - Economy</Badge>
       default:

@@ -588,21 +588,21 @@ export default function AssetDashboardPage() {
                     <p className="font-medium">Forklift Machine-001</p>
                     <p className="text-sm text-muted-foreground">Scheduled for: 2024-01-15</p>
                   </div>
-                  <Badge className="bg-blue-100 text-blue-800">In 5 days</Badge>
+                  <Badge className="bg-white text-blue-800 border border-blue-200">In 5 days</Badge>
                 </div>
                 <div className="flex items-center justify-between border-b pb-2">
                   <div>
                     <p className="font-medium">Conveyor Belt-002</p>
                     <p className="text-sm text-muted-foreground">Scheduled for: 2024-01-20</p>
                   </div>
-                  <Badge className="bg-blue-100 text-blue-800">In 10 days</Badge>
+                  <Badge className="bg-white text-blue-800 border border-blue-200">In 10 days</Badge>
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium">Packaging Machine-001</p>
                     <p className="text-sm text-muted-foreground">Scheduled for: 2024-02-01</p>
                   </div>
-                  <Badge className="bg-blue-100 text-blue-800">In 22 days</Badge>
+                  <Badge className="bg-white text-blue-800 border border-blue-200">In 22 days</Badge>
                 </div>
               </div>
             </CardContent>
