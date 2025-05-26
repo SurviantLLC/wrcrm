@@ -94,14 +94,26 @@ export default function DashboardPage() {
           icon={LayoutDashboard}
         />
         {/* Logo only displays on the dashboard page (this is already /dashboard) */}
-        <Image
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/H_Logo%403x-kbxa5EEVooqXmEnSTBwybFTmBd9ITD.png"
-          alt="WC WorCoor Logo"
-          width={180}
-          height={60}
-          className="h-auto"
-          priority
-        />
+        <div className="relative">
+          {/* Light mode logo */}
+          <Image
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/H_Logo%403x-kbxa5EEVooqXmEnSTBwybFTmBd9ITD.png"
+            alt="WC WorCoor Logo"
+            width={180}
+            height={60}
+            className="h-auto dark:hidden"
+            priority
+          />
+          {/* Dark mode logo */}
+          <Image
+            src="/logo-dark-mode.svg"
+            alt="WC WorCoor Logo Dark Mode"
+            width={180}
+            height={60}
+            className="h-auto hidden dark:block"
+            priority
+          />
+        </div>
       </div>
 
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
