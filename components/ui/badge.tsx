@@ -27,7 +27,13 @@ const badgeVariants = cva(
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> {}
 
 function Badge({ className, variant, ...props }: BadgeProps) {
-  return <div className={cn(badgeVariants({ variant }), className)} {...props} />
+  // If a custom background or text color is provided in className, use a neutral variant
+  // to prevent conflicts with the default gradient backgrounds
+  const hasCustomBg = className?.includes('bg-');
+  const hasCustomTextColor = className?.includes('text-');
+  
+  // Apply the variant styles, but ensure custom styles can override them
+  return <div className={cn(badgeVariants({ variant: hasCustomBg ? 'outline' : variant }), className)} {...props} />
 }
 
 export { Badge, badgeVariants }
