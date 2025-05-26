@@ -118,7 +118,7 @@ export default function AdminPage() {
                 </div>
                 <div className="flex-1 space-y-2">
                   <h3 className="font-semibold text-slate-900 dark:text-slate-50 text-lg">Role Management</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-200 leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     Create and manage system roles. Define permissions and access levels for different user types.
                   </p>
                 </div>
@@ -153,7 +153,7 @@ export default function AdminPage() {
                 </div>
                 <div className="flex-1 space-y-2">
                   <h3 className="font-semibold text-slate-900 dark:text-slate-50 text-lg">User Management</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-200 leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     Add, edit, or remove users from the system. Manage user profiles and assign roles.
                   </p>
                 </div>
@@ -188,7 +188,7 @@ export default function AdminPage() {
                 </div>
                 <div className="flex-1 space-y-2">
                   <h3 className="font-semibold text-slate-900 dark:text-slate-50 text-lg">Reference Data Management</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-200 leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     Manage system reference data including units, departments, skill sets, and other lookup tables.
                   </p>
                 </div>
@@ -223,7 +223,7 @@ export default function AdminPage() {
                 </div>
                 <div className="flex-1 space-y-2">
                   <h3 className="font-semibold text-slate-900 dark:text-slate-50 text-lg">System Settings</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-200 leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     Configure general system settings, security, notifications, database, and more.
                   </p>
                 </div>
@@ -258,7 +258,7 @@ export default function AdminPage() {
                 </div>
                 <div className="flex-1 space-y-2">
                   <h3 className="font-semibold text-slate-900 dark:text-slate-50 text-lg">Notifications</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-200 leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     Configure system notifications, email templates, and alert settings for all users.
                   </p>
                 </div>
@@ -290,33 +290,33 @@ export default function AdminPage() {
 
       {/* Quick Access Section */}
       <div className="grid gap-6 grid-cols-1 lg:grid-cols-2">
-        <Card className="border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+        <Card className="border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
           <CardHeader>
-            <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Recent System Activities</CardTitle>
-            <CardDescription className="text-slate-600 dark:text-slate-200">
+            <CardTitle className="text-foreground text-lg">Recent System Activities</CardTitle>
+            <CardDescription className="text-muted-foreground">
               Latest activities in the system
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col p-8">
             <div className="space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <div className="flex items-center justify-between border-b border-border pb-2">
                 <div>
-                  <p className="font-medium text-slate-900 dark:text-slate-50">User Role Updated</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-200">John Doe assigned to Manager role</p>
+                  <p className="font-medium text-foreground">User Role Updated</p>
+                  <p className="text-sm text-muted-foreground">John Doe assigned to Manager role</p>
                 </div>
                 <Badge variant="secondary">2 hours ago</Badge>
               </div>
-              <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <div className="flex items-center justify-between border-b border-border pb-2">
                 <div>
-                  <p className="font-medium text-slate-900 dark:text-slate-50">System Backup</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-200">Automatic backup completed</p>
+                  <p className="font-medium text-foreground">System Backup</p>
+                  <p className="text-sm text-muted-foreground">Automatic backup completed</p>
                 </div>
                 <Badge variant="secondary">6 hours ago</Badge>
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-medium text-slate-900 dark:text-slate-50">New User Registration</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-200">Jane Smith registered as Worker</p>
+                  <p className="font-medium text-foreground">New User Registration</p>
+                  <p className="text-sm text-muted-foreground">Jane Smith registered as Worker</p>
                 </div>
                 <Badge variant="secondary">Yesterday</Badge>
               </div>
@@ -324,10 +324,10 @@ export default function AdminPage() {
           </CardContent>
         </Card>
 
-        <Card className="border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+        <Card className="border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
           <CardHeader>
-            <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">System Health</CardTitle>
-            <CardDescription className="text-slate-600 dark:text-slate-200">
+            <CardTitle className="text-foreground text-lg">System Health</CardTitle>
+            <CardDescription className="text-muted-foreground">
               Current system performance metrics
             </CardDescription>
           </CardHeader>
@@ -335,29 +335,29 @@ export default function AdminPage() {
             <div className="space-y-4">
               <div>
                 <div className="mb-1 flex items-center justify-between">
-                  <p className="text-sm font-medium text-slate-900 dark:text-slate-50">CPU Usage</p>
-                  <span className="text-sm text-slate-600 dark:text-slate-200">32%</span>
+                  <p className="text-sm font-medium text-foreground">CPU Usage</p>
+                  <span className="text-sm text-muted-foreground">32%</span>
                 </div>
                 <Progress value={32} className="h-2" />
               </div>
               <div>
                 <div className="mb-1 flex items-center justify-between">
-                  <p className="text-sm font-medium text-slate-900 dark:text-slate-50">Memory Usage</p>
-                  <span className="text-sm text-slate-600 dark:text-slate-200">58%</span>
+                  <p className="text-sm font-medium text-foreground">Memory Usage</p>
+                  <span className="text-sm text-muted-foreground">58%</span>
                 </div>
                 <Progress value={58} className="h-2" />
               </div>
               <div>
                 <div className="mb-1 flex items-center justify-between">
-                  <p className="text-sm font-medium text-slate-900 dark:text-slate-50">Disk Space</p>
-                  <span className="text-sm text-slate-600 dark:text-slate-200">45%</span>
+                  <p className="text-sm font-medium text-foreground">Disk Space</p>
+                  <span className="text-sm text-muted-foreground">45%</span>
                 </div>
                 <Progress value={45} className="h-2" />
               </div>
               <div>
                 <div className="mb-1 flex items-center justify-between">
-                  <p className="text-sm font-medium text-slate-900 dark:text-slate-50">Network Traffic</p>
-                  <span className="text-sm text-slate-600 dark:text-slate-200">27%</span>
+                  <p className="text-sm font-medium text-foreground">Network Traffic</p>
+                  <span className="text-sm text-muted-foreground">27%</span>
                 </div>
                 <Progress value={27} className="h-2" />
               </div>

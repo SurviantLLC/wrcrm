@@ -38,13 +38,13 @@ export default function TaskManagerPage() {
 
       {/* KPI Summary Cards */}
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+        <Card className="relative overflow-hidden bg-primary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 h-full">
           <CardContent className="p-6 flex flex-col">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <p className="text-sm font-medium text-blue-100">Active Orders</p>
+                <p className="text-sm font-medium text-primary-foreground/80">Active Orders</p>
                 <p className="text-3xl font-bold text-white">{stats.activeOrders}</p>
-                <p className="text-xs text-blue-200 font-medium">+2 from last week</p>
+                <p className="text-xs text-primary-foreground/70 font-medium">+2 from last week</p>
               </div>
               <div className="h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <ClipboardList className="h-6 w-6 text-white" />
@@ -53,7 +53,7 @@ export default function TaskManagerPage() {
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+        <Card className="relative overflow-hidden bg-emerald-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full dark:bg-emerald-800">
           <CardContent className="p-6 flex flex-col">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
@@ -68,7 +68,7 @@ export default function TaskManagerPage() {
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+        <Card className="relative overflow-hidden bg-purple-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full dark:bg-purple-800">
           <CardContent className="p-6 flex flex-col">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
@@ -83,7 +83,7 @@ export default function TaskManagerPage() {
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-amber-500 to-amber-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+        <Card className="relative overflow-hidden bg-amber-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full dark:bg-amber-800">
           <CardContent className="p-6 flex flex-col">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
@@ -110,7 +110,7 @@ export default function TaskManagerPage() {
                 </div>
                 <div className="flex-1 space-y-2">
                   <h3 className="font-semibold text-slate-900 dark:text-slate-50 text-lg">Task Repository</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-200 leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     Create and manage organization-wide tasks
                   </p>
                 </div>
@@ -145,7 +145,7 @@ export default function TaskManagerPage() {
                 </div>
                 <div className="flex-1 space-y-2">
                   <h3 className="font-semibold text-slate-900 dark:text-slate-50 text-lg">Task Assignment</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-200 leading-relaxed">Assign tasks to workers</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Assign tasks to workers</p>
                 </div>
               </div>
             </div>
@@ -178,7 +178,7 @@ export default function TaskManagerPage() {
                 </div>
                 <div className="flex-1 space-y-2">
                   <h3 className="font-semibold text-slate-900 dark:text-slate-50 text-lg">Dashboards</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-200 leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     View production metrics and analytics
                   </p>
                 </div>
@@ -213,7 +213,7 @@ export default function TaskManagerPage() {
                 </div>
                 <div className="flex-1 space-y-2">
                   <h3 className="font-semibold text-slate-900 dark:text-slate-50 text-lg">Task Alerts Management</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-200 leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     Manage task alerts and notifications
                   </p>
                 </div>
@@ -248,7 +248,7 @@ export default function TaskManagerPage() {
                 </div>
                 <div className="flex-1 space-y-2">
                   <h3 className="font-semibold text-slate-900 dark:text-slate-50 text-lg">Task Tracking</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-200 leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     Track task progress and completion
                   </p>
                 </div>
@@ -283,7 +283,7 @@ export default function TaskManagerPage() {
                 </div>
                 <div className="flex-1 space-y-2">
                   <h3 className="font-semibold text-slate-900 dark:text-slate-50 text-lg">Performance Analytics</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-200 leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     Analyze worker and production performance
                   </p>
                 </div>
@@ -312,31 +312,31 @@ export default function TaskManagerPage() {
 
       {/* Quick Access Section */}
       <div className="grid gap-6 grid-cols-1 lg:grid-cols-2">
-        <Card className="border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+        <Card className="border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
           <CardHeader>
-            <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Upcoming Deadlines</CardTitle>
-            <CardDescription className="text-slate-600 dark:text-slate-200">Tasks due soon</CardDescription>
+            <CardTitle className="text-foreground text-lg">Upcoming Deadlines</CardTitle>
+            <CardDescription className="text-muted-foreground">Tasks due soon</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col p-8">
             <div className="space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <div className="flex items-center justify-between border-b border-border pb-2">
                 <div>
                   <p className="font-medium text-slate-900 dark:text-slate-50">Quality Inspection</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-200">T-2023-001</p>
+                  <p className="text-sm text-muted-foreground">T-2023-001</p>
                 </div>
                 <Badge variant="secondary">Due in 2 days</Badge>
               </div>
-              <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <div className="flex items-center justify-between border-b border-border pb-2">
                 <div>
                   <p className="font-medium text-slate-900 dark:text-slate-50">Assembly Line Setup</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-200">T-2023-002</p>
+                  <p className="text-sm text-muted-foreground">T-2023-002</p>
                 </div>
                 <Badge variant="secondary">Due in 5 days</Badge>
               </div>
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium text-slate-900 dark:text-slate-50">Inventory Audit</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-200">T-2023-003</p>
+                  <p className="text-sm text-muted-foreground">T-2023-003</p>
                 </div>
                 <Badge variant="secondary">Due in 10 days</Badge>
               </div>
@@ -344,10 +344,10 @@ export default function TaskManagerPage() {
           </CardContent>
         </Card>
 
-        <Card className="border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+        <Card className="border shadow-soft hover:shadow-medium transition-all duration-300 h-full">
           <CardHeader>
-            <CardTitle className="text-slate-900 dark:text-slate-50 text-lg">Resource Allocation</CardTitle>
-            <CardDescription className="text-slate-600 dark:text-slate-200">
+            <CardTitle className="text-foreground text-lg">Resource Allocation</CardTitle>
+            <CardDescription className="text-muted-foreground">
               Current worker assignments and availability
             </CardDescription>
           </CardHeader>
@@ -355,29 +355,29 @@ export default function TaskManagerPage() {
             <div className="space-y-4">
               <div>
                 <div className="mb-1 flex items-center justify-between">
-                  <p className="text-sm font-medium text-slate-900 dark:text-slate-50">Assembly Department</p>
-                  <span className="text-sm text-slate-600 dark:text-slate-200">85%</span>
+                  <p className="text-sm font-medium text-foreground">Assembly Department</p>
+                  <span className="text-sm text-muted-foreground">85%</span>
                 </div>
                 <Progress value={85} className="h-2" />
               </div>
               <div>
                 <div className="mb-1 flex items-center justify-between">
-                  <p className="text-sm font-medium text-slate-900 dark:text-slate-50">Finishing Department</p>
-                  <span className="text-sm text-slate-600 dark:text-slate-200">65%</span>
+                  <p className="text-sm font-medium text-foreground">Finishing Department</p>
+                  <span className="text-sm text-muted-foreground">65%</span>
                 </div>
                 <Progress value={65} className="h-2" />
               </div>
               <div>
                 <div className="mb-1 flex items-center justify-between">
-                  <p className="text-sm font-medium text-slate-900 dark:text-slate-50">Material Resources</p>
-                  <span className="text-sm text-slate-600 dark:text-slate-200">92%</span>
+                  <p className="text-sm font-medium text-foreground">Material Resources</p>
+                  <span className="text-sm text-muted-foreground">92%</span>
                 </div>
                 <Progress value={92} className="h-2" />
               </div>
               <div>
                 <div className="mb-1 flex items-center justify-between">
-                  <p className="text-sm font-medium text-slate-900 dark:text-slate-50">Quality Control</p>
-                  <span className="text-sm text-slate-600 dark:text-slate-200">78%</span>
+                  <p className="text-sm font-medium text-foreground">Quality Control</p>
+                  <span className="text-sm text-muted-foreground">78%</span>
                 </div>
                 <Progress value={78} className="h-2" />
               </div>

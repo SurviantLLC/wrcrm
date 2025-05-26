@@ -19,13 +19,13 @@ export default function InventoryManagementPage() {
 
       {/* KPI Summary Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+        <Card className="relative overflow-hidden bg-primary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 h-full">
           <CardContent className="p-6 flex flex-col">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <p className="text-sm font-medium text-blue-100">Total SKUs</p>
+                <p className="text-sm font-medium text-primary-foreground/80">Total SKUs</p>
                 <p className="text-3xl font-bold text-white">248</p>
-                <p className="text-xs text-blue-200 font-medium">+12.5% from last month</p>
+                <p className="text-xs text-primary-foreground/70 font-medium">+12.5% from last month</p>
               </div>
               <div className="h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <Box className="h-6 w-6 text-white" />
@@ -34,13 +34,13 @@ export default function InventoryManagementPage() {
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+        <Card className="relative overflow-hidden bg-emerald-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full dark:bg-emerald-800">
           <CardContent className="p-6 flex flex-col">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <p className="text-sm font-medium text-emerald-100">Total Value</p>
+                <p className="text-sm font-medium text-white/80">Total Value</p>
                 <p className="text-3xl font-bold text-white">$125,750</p>
-                <p className="text-xs text-emerald-200 font-medium">+8.2% from last month</p>
+                <p className="text-xs text-white/70 font-medium">+8.2% from last month</p>
               </div>
               <div className="h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <Database className="h-6 w-6 text-white" />
@@ -49,13 +49,13 @@ export default function InventoryManagementPage() {
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+        <Card className="relative overflow-hidden bg-purple-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full dark:bg-purple-800">
           <CardContent className="p-6 flex flex-col">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <p className="text-sm font-medium text-purple-100">Low Stock Items</p>
+                <p className="text-sm font-medium text-white/80">Low Stock Items</p>
                 <p className="text-3xl font-bold text-white">45</p>
-                <p className="text-xs text-purple-200 font-medium">-3.1% from last week</p>
+                <p className="text-xs text-white/70 font-medium">-3.1% from last week</p>
               </div>
               <div className="h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <Package className="h-6 w-6 text-white" />
@@ -64,13 +64,13 @@ export default function InventoryManagementPage() {
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-amber-500 to-amber-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+        <Card className="relative overflow-hidden bg-amber-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full dark:bg-amber-800">
           <CardContent className="p-6 flex flex-col">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <p className="text-sm font-medium text-amber-100">Wastage Rate</p>
+                <p className="text-sm font-medium text-white/80">Wastage Rate</p>
                 <p className="text-3xl font-bold text-white">2.4%</p>
-                <p className="text-xs text-amber-200 font-medium">Target: 3.0%</p>
+                <p className="text-xs text-white/70 font-medium">Target: 3.0%</p>
               </div>
               <div className="h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <Trash className="h-6 w-6 text-white" />
@@ -82,7 +82,7 @@ export default function InventoryManagementPage() {
 
       {/* Main Feature Cards */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+        <Card className="group relative overflow-hidden bg-muted border border-slate-200 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
           <CardContent className="p-8 flex flex-col justify-between h-full">
             <div className="flex-1">
               <div className="flex items-start gap-4">
@@ -90,7 +90,7 @@ export default function InventoryManagementPage() {
                   <Box className="h-6 w-6" />
                 </div>
                 <div className="flex-1 space-y-2">
-                  <h3 className="font-semibold text-slate-900 dark:text-slate-50 text-lg">SKU Management</h3>
+                  <h3 className="font-semibold text-foreground dark:text-slate-50 text-lg">SKU Management</h3>
                   <p className="text-sm text-slate-600 dark:text-slate-200 leading-relaxed">
                     Manage SKUs and inventory levels
                   </p>
@@ -99,14 +99,14 @@ export default function InventoryManagementPage() {
             </div>
             <div className="mt-8">
               <div className="flex items-center gap-2 pt-3 mt-auto">
-                <span className="text-xs text-slate-500 dark:text-slate-300">Available SKUs:</span>
+                <span className="text-xs text-muted-foreground dark:text-slate-300">Available SKUs:</span>
                 <Badge variant="secondary" className="text-xs font-medium">
                   248 SKUs
                 </Badge>
               </div>
               <Button
                 asChild
-                className="w-full mt-16 mx-2 px-6 py-3 border border-slate-200/50 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
+                className="w-full mt-16 mx-2 px-6 py-3 bg-muted border border-slate-200/50 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
               >
                 <Link href="/dashboard/inventory/skus" className="flex items-center justify-center gap-2">
                   Manage SKUs
@@ -117,7 +117,7 @@ export default function InventoryManagementPage() {
           </CardContent>
         </Card>
 
-        <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+        <Card className="group relative overflow-hidden bg-muted border border-slate-200 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
           <CardContent className="p-8 flex flex-col justify-between h-full">
             <div className="flex-1">
               <div className="flex items-start gap-4">
@@ -125,7 +125,7 @@ export default function InventoryManagementPage() {
                   <Trash className="h-6 w-6" />
                 </div>
                 <div className="flex-1 space-y-2">
-                  <h3 className="font-semibold text-slate-900 dark:text-slate-50 text-lg">Wastage Tracking</h3>
+                  <h3 className="font-semibold text-foreground dark:text-slate-50 text-lg">Wastage Tracking</h3>
                   <p className="text-sm text-slate-600 dark:text-slate-200 leading-relaxed">
                     Track and report material wastage
                   </p>
@@ -134,14 +134,14 @@ export default function InventoryManagementPage() {
             </div>
             <div className="mt-8">
               <div className="flex items-center gap-2 pt-3 mt-auto">
-                <span className="text-xs text-slate-500 dark:text-slate-300">Current rate:</span>
+                <span className="text-xs text-muted-foreground dark:text-slate-300">Current rate:</span>
                 <Badge variant="secondary" className="text-xs font-medium">
                   2.4% wastage
                 </Badge>
               </div>
               <Button
                 asChild
-                className="w-full mt-16 mx-2 px-6 py-3 border border-slate-200/50 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
+                className="w-full mt-16 mx-2 px-6 py-3 bg-muted border border-slate-200/50 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
               >
                 <Link href="/dashboard/inventory/wastage" className="flex items-center justify-center gap-2">
                   Track Wastage
@@ -152,7 +152,7 @@ export default function InventoryManagementPage() {
           </CardContent>
         </Card>
 
-        <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+        <Card className="group relative overflow-hidden bg-muted border border-slate-200 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
           <CardContent className="p-8 flex flex-col justify-between h-full">
             <div className="flex-1">
               <div className="flex items-start gap-4">
@@ -160,7 +160,7 @@ export default function InventoryManagementPage() {
                   <Package className="h-6 w-6" />
                 </div>
                 <div className="flex-1 space-y-2">
-                  <h3 className="font-semibold text-slate-900 dark:text-slate-50 text-lg">Procurement</h3>
+                  <h3 className="font-semibold text-foreground dark:text-slate-50 text-lg">Procurement</h3>
                   <p className="text-sm text-slate-600 dark:text-slate-200 leading-relaxed">
                     Manage procurement requests
                   </p>
@@ -169,14 +169,14 @@ export default function InventoryManagementPage() {
             </div>
             <div className="mt-8">
               <div className="flex items-center gap-2 pt-3 mt-auto">
-                <span className="text-xs text-slate-500 dark:text-slate-300">Pending orders:</span>
+                <span className="text-xs text-muted-foreground dark:text-slate-300">Pending orders:</span>
                 <Badge variant="secondary" className="text-xs font-medium">
                   8 orders
                 </Badge>
               </div>
               <Button
                 asChild
-                className="w-full mt-16 mx-2 px-6 py-3 border border-slate-200/50 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
+                className="w-full mt-16 mx-2 px-6 py-3 bg-muted border border-slate-200/50 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
               >
                 <Link href="/dashboard/inventory/procurement" className="flex items-center justify-center gap-2">
                   Manage Procurement
@@ -187,7 +187,7 @@ export default function InventoryManagementPage() {
           </CardContent>
         </Card>
 
-        <Card className="group relative overflow-hidden border border-slate-200 bg-white/80 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
+        <Card className="group relative overflow-hidden bg-muted border border-slate-200 backdrop-blur-sm shadow-soft hover:shadow-medium transition-all duration-300 h-full">
           <CardContent className="p-8 flex flex-col justify-between h-full">
             <div className="flex-1">
               <div className="flex items-start gap-4">
@@ -195,7 +195,7 @@ export default function InventoryManagementPage() {
                   <BarChart3 className="h-6 w-6" />
                 </div>
                 <div className="flex-1 space-y-2">
-                  <h3 className="font-semibold text-slate-900 dark:text-slate-50 text-lg">Inventory Analytics</h3>
+                  <h3 className="font-semibold text-foreground dark:text-slate-50 text-lg">Inventory Analytics</h3>
                   <p className="text-sm text-slate-600 dark:text-slate-200 leading-relaxed">
                     View inventory analytics and reports
                   </p>
@@ -204,14 +204,14 @@ export default function InventoryManagementPage() {
             </div>
             <div className="mt-8">
               <div className="flex items-center gap-2 pt-3 mt-auto">
-                <span className="text-xs text-slate-500 dark:text-slate-300">Data points:</span>
+                <span className="text-xs text-muted-foreground dark:text-slate-300">Data points:</span>
                 <Badge variant="secondary" className="text-xs font-medium">
                   90 days
                 </Badge>
               </div>
               <Button
                 asChild
-                className="w-full mt-16 mx-2 px-6 py-3 border border-slate-200/50 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
+                className="w-full mt-16 mx-2 px-6 py-3 bg-muted border border-slate-200/50 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
               >
                 <Link href="/dashboard/inventory/analytics" className="flex items-center justify-center gap-2">
                   View Analytics

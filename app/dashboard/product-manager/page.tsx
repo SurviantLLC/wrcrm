@@ -16,25 +16,25 @@ export default function ProductManagerPage() {
 
       {/* Main Feature Cards */}
       <div className="grid gap-6 md:grid-cols-2">
-        <Card className="border-0 bg-white shadow-sm hover:shadow-lg transition-all duration-300 group">
+        <Card className="border shadow-sm hover:shadow-lg transition-all duration-300 group">
           <CardHeader>
             <div className="flex items-center gap-2">
-              <div className="h-12 w-12 rounded-xl bg-slate-100 flex items-center justify-center group-hover:bg-slate-200 transition-colors">
-                <Package className="h-5 w-5 text-slate-700" />
+              <div className="h-12 w-12 rounded-xl bg-muted flex items-center justify-center group-hover:bg-muted/80 transition-colors">
+                <Package className="h-5 w-5 text-foreground" />
               </div>
-              <CardTitle className="font-semibold text-slate-900">Product Management</CardTitle>
+              <CardTitle className="font-semibold text-foreground">Product Management</CardTitle>
             </div>
-            <CardDescription className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            <CardDescription className="text-sm text-muted-foreground leading-relaxed">
               Manage your product catalog
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col gap-3">
-              <p className="text-slate-700 dark:text-slate-300">
+              <p className="text-foreground dark:text-slate-300">
                 Create, edit, and manage products in your catalog. Define product specifications and details.
               </p>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-slate-500 dark:text-slate-400">Active products:</span>
+                <span className="text-muted-foreground">Active products:</span>
                 <Badge variant="secondary" className="text-xs">
                   18 products
                 </Badge>
@@ -43,7 +43,7 @@ export default function ProductManagerPage() {
             </div>
           </CardContent>
           <CardFooter>
-            <Button asChild className="w-full bg-slate-900 hover:bg-slate-800 text-white">
+            <Button asChild className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
               <Link href="/dashboard/product-manager/products" className="flex items-center justify-center gap-2">
                 Manage Products
                 <ArrowRight className="h-4 w-4" />
@@ -52,25 +52,25 @@ export default function ProductManagerPage() {
           </CardFooter>
         </Card>
 
-        <Card className="border-0 bg-white shadow-sm hover:shadow-lg transition-all duration-300 group">
+        <Card className="border shadow-sm hover:shadow-lg transition-all duration-300 group">
           <CardHeader>
             <div className="flex items-center gap-2">
-              <div className="h-12 w-12 rounded-xl bg-slate-100 flex items-center justify-center group-hover:bg-slate-200 transition-colors">
-                <ClipboardList className="h-5 w-5 text-slate-700" />
+              <div className="h-12 w-12 rounded-xl bg-muted flex items-center justify-center group-hover:bg-muted/80 transition-colors">
+                <ClipboardList className="h-5 w-5 text-foreground" />
               </div>
-              <CardTitle className="font-semibold text-slate-900">Manufacturing Steps</CardTitle>
+              <CardTitle className="font-semibold text-foreground">Manufacturing Steps</CardTitle>
             </div>
-            <CardDescription className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            <CardDescription className="text-sm text-muted-foreground leading-relaxed">
               Define and manage manufacturing processes
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col gap-3">
-              <p className="text-slate-700 dark:text-slate-300">
+              <p className="text-foreground dark:text-slate-300">
                 Define manufacturing steps, resource requirements, and quality control processes.
               </p>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-slate-500 dark:text-slate-400">Production efficiency:</span>
+                <span className="text-muted-foreground">Production efficiency:</span>
                 <Badge variant="secondary" className="text-xs">
                   82% efficiency
                 </Badge>
@@ -79,7 +79,7 @@ export default function ProductManagerPage() {
             </div>
           </CardContent>
           <CardFooter>
-            <Button asChild className="w-full bg-slate-900 hover:bg-slate-800 text-white">
+            <Button asChild className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
               <Link href="/dashboard/product-manager/manufacturing" className="flex items-center justify-center gap-2">
                 Manage Manufacturing
                 <ArrowRight className="h-4 w-4" />
@@ -91,10 +91,10 @@ export default function ProductManagerPage() {
 
       {/* Quick Access Section */}
       <div className="grid gap-6 md:grid-cols-2">
-        <Card className="border-0 bg-white shadow-sm hover:shadow-lg transition-all duration-300 group">
+        <Card className="border shadow-sm hover:shadow-lg transition-all duration-300 group">
           <CardHeader>
-            <CardTitle className="font-semibold text-slate-900">Upcoming Product Releases</CardTitle>
-            <CardDescription className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            <CardTitle className="font-semibold text-foreground">Upcoming Product Releases</CardTitle>
+            <CardDescription className="text-sm text-muted-foreground leading-relaxed">
               Products scheduled for release
             </CardDescription>
           </CardHeader>
@@ -102,8 +102,8 @@ export default function ProductManagerPage() {
             <div className="space-y-4">
               <div className="flex items-center justify-between border-b pb-2">
                 <div>
-                  <p className="font-medium text-slate-900 dark:text-slate-100">Ergonomic Office Chair</p>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">PRD-2023-001</p>
+                  <p className="font-medium text-foreground0">Ergonomic Office Chair</p>
+                  <p className="text-sm text-muted-foreground">PRD-2023-001</p>
                 </div>
                 <Badge variant="secondary" className="text-xs">
                   Due in 2 weeks
@@ -111,8 +111,8 @@ export default function ProductManagerPage() {
               </div>
               <div className="flex items-center justify-between border-b pb-2">
                 <div>
-                  <p className="font-medium text-slate-900 dark:text-slate-100">Adjustable Standing Desk</p>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">PRD-2023-002</p>
+                  <p className="font-medium text-foreground0">Adjustable Standing Desk</p>
+                  <p className="text-sm text-muted-foreground">PRD-2023-002</p>
                 </div>
                 <Badge variant="secondary" className="text-xs">
                   Due in 1 month
@@ -120,8 +120,8 @@ export default function ProductManagerPage() {
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-medium text-slate-900 dark:text-slate-100">Modular Storage System</p>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">PRD-2023-003</p>
+                  <p className="font-medium text-foreground0">Modular Storage System</p>
+                  <p className="text-sm text-muted-foreground">PRD-2023-003</p>
                 </div>
                 <Badge variant="secondary" className="text-xs">
                   Due in 2 months
@@ -131,10 +131,10 @@ export default function ProductManagerPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-0 bg-white shadow-sm hover:shadow-lg transition-all duration-300 group">
+        <Card className="border shadow-sm hover:shadow-lg transition-all duration-300 group">
           <CardHeader>
-            <CardTitle className="font-semibold text-slate-900">Resource Allocation</CardTitle>
-            <CardDescription className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            <CardTitle className="font-semibold text-foreground">Resource Allocation</CardTitle>
+            <CardDescription className="text-sm text-muted-foreground leading-relaxed">
               Resources allocated to product development
             </CardDescription>
           </CardHeader>
@@ -142,29 +142,29 @@ export default function ProductManagerPage() {
             <div className="space-y-4">
               <div>
                 <div className="mb-1 flex items-center justify-between">
-                  <p className="text-sm font-medium text-slate-900 dark:text-slate-100">Design Team</p>
-                  <span className="text-sm text-slate-500 dark:text-slate-400">85%</span>
+                  <p className="text-sm font-medium text-foreground0">Design Team</p>
+                  <span className="text-sm text-muted-foreground">85%</span>
                 </div>
                 <Progress value={85} className="h-2" />
               </div>
               <div>
                 <div className="mb-1 flex items-center justify-between">
-                  <p className="text-sm font-medium text-slate-900 dark:text-slate-100">Engineering Team</p>
-                  <span className="text-sm text-slate-500 dark:text-slate-400">92%</span>
+                  <p className="text-sm font-medium text-foreground0">Engineering Team</p>
+                  <span className="text-sm text-muted-foreground">92%</span>
                 </div>
                 <Progress value={92} className="h-2" />
               </div>
               <div>
                 <div className="mb-1 flex items-center justify-between">
-                  <p className="text-sm font-medium text-slate-900 dark:text-slate-100">Material Resources</p>
-                  <span className="text-sm text-slate-500 dark:text-slate-400">78%</span>
+                  <p className="text-sm font-medium text-foreground0">Material Resources</p>
+                  <span className="text-sm text-muted-foreground">78%</span>
                 </div>
                 <Progress value={78} className="h-2" />
               </div>
               <div>
                 <div className="mb-1 flex items-center justify-between">
-                  <p className="text-sm font-medium text-slate-900 dark:text-slate-100">Quality Control</p>
-                  <span className="text-sm text-slate-500 dark:text-slate-400">94%</span>
+                  <p className="text-sm font-medium text-foreground0">Quality Control</p>
+                  <span className="text-sm text-muted-foreground">94%</span>
                 </div>
                 <Progress value={94} className="h-2" />
               </div>
