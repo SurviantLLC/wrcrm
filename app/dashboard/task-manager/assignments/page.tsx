@@ -808,7 +808,7 @@ export default function TaskAssignmentPage() {
     <div className="flex flex-col gap-4">
       <PageHeader
         title="Task Assignment"
-        description="This is mainly for creating Projects based on Orders or Without Orders. In MVP we will concentrate on Projects without Orders"
+        description="Create projects with a target and define task steps to execute the project"
         icon={Users}
       />
 
