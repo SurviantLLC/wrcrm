@@ -56,11 +56,11 @@ import * as z from "zod"
 const skusData = [
   {
     id: "SKU-001",
-    parentResource: "WD-001",
+    parentResource: "Pallets",
     name: "Oak Wood Panel",
     brand: "Premium Woods Co.",
     procuredDate: "2024-01-15",
-    location: "Warehouse A",
+    location: "U1-W1-Z2-R3",
     skuCode: "OWP-001",
     availableQuantity: 150,
     skuUnit: "pieces",
@@ -86,11 +86,11 @@ const skusData = [
   },
   {
     id: "SKU-002",
-    parentResource: "MT-001",
+    parentResource: "Packaging Material",
     name: "Steel Brackets",
     brand: "MetalWorks Inc.",
     procuredDate: "2024-01-20",
-    location: "Warehouse B",
+    location: "Packaging Store 1",
     skuCode: "SB-002",
     availableQuantity: 200,
     skuUnit: "pieces",
