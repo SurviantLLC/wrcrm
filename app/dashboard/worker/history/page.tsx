@@ -201,7 +201,7 @@ export default function CompletedTasksPage() {
     if (quality >= 95) {
       return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Excellent</Badge>
     } else if (quality >= 85) {
-      return <Badge className="bg-background text-blue-800 border border-blue-200 hover:bg-background/90 dark:bg-slate-800 dark:text-blue-300 dark:hover:bg-slate-700">Good</Badge>
+      return <Badge className="bg-white text-blue-800 border border-blue-200 hover:bg-white">Good</Badge>
     } else if (quality >= 75) {
       return <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-100">Satisfactory</Badge>
     } else {

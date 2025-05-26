@@ -16,7 +16,7 @@ export default function ProductManagerPage() {
 
       {/* Main Feature Cards */}
       <div className="grid gap-6 md:grid-cols-2">
-        <Card className="border shadow-sm hover:shadow-lg transition-all duration-300 group">
+        <Card className="border-0 bg-white shadow-sm hover:shadow-lg transition-all duration-300 group">
           <CardHeader>
             <div className="flex items-center gap-2">
               <div className="h-12 w-12 rounded-xl bg-muted flex items-center justify-center group-hover:bg-muted/80 transition-colors">
@@ -52,7 +52,7 @@ export default function ProductManagerPage() {
           </CardFooter>
         </Card>
 
-        <Card className="border shadow-sm hover:shadow-lg transition-all duration-300 group">
+        <Card className="border-0 bg-white shadow-sm hover:shadow-lg transition-all duration-300 group">
           <CardHeader>
             <div className="flex items-center gap-2">
               <div className="h-12 w-12 rounded-xl bg-muted flex items-center justify-center group-hover:bg-muted/80 transition-colors">
@@ -91,7 +91,7 @@ export default function ProductManagerPage() {
 
       {/* Quick Access Section */}
       <div className="grid gap-6 md:grid-cols-2">
-        <Card className="border shadow-sm hover:shadow-lg transition-all duration-300 group">
+        <Card className="border-0 bg-white shadow-sm hover:shadow-lg transition-all duration-300 group">
           <CardHeader>
             <CardTitle className="font-semibold text-foreground">Upcoming Product Releases</CardTitle>
             <CardDescription className="text-sm text-muted-foreground leading-relaxed">
@@ -131,7 +131,7 @@ export default function ProductManagerPage() {
           </CardContent>
         </Card>
 
-        <Card className="border shadow-sm hover:shadow-lg transition-all duration-300 group">
+        <Card className="border-0 bg-white shadow-sm hover:shadow-lg transition-all duration-300 group">
           <CardHeader>
             <CardTitle className="font-semibold text-foreground">Resource Allocation</CardTitle>
             <CardDescription className="text-sm text-muted-foreground leading-relaxed">

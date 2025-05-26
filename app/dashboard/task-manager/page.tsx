@@ -38,13 +38,13 @@ export default function TaskManagerPage() {
 
       {/* KPI Summary Cards */}
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        <Card className="relative overflow-hidden bg-primary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+        <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full">
           <CardContent className="p-6 flex flex-col">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <p className="text-sm font-medium text-primary-foreground/80">Active Orders</p>
+                <p className="text-sm font-medium text-blue-100">Active Orders</p>
                 <p className="text-3xl font-bold text-white">{stats.activeOrders}</p>
-                <p className="text-xs text-primary-foreground/70 font-medium">+2 from last week</p>
+                <p className="text-xs text-blue-200 font-medium">+2 from last week</p>
               </div>
               <div className="h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <ClipboardList className="h-6 w-6 text-white" />
@@ -53,7 +53,7 @@ export default function TaskManagerPage() {
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden bg-emerald-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full dark:bg-emerald-800">
+        <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full">
           <CardContent className="p-6 flex flex-col">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
@@ -68,7 +68,7 @@ export default function TaskManagerPage() {
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden bg-purple-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full dark:bg-purple-800">
+        <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full">
           <CardContent className="p-6 flex flex-col">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
@@ -83,7 +83,7 @@ export default function TaskManagerPage() {
           </CardContent>
         </Card>
 
-        <Card className="relative overflow-hidden bg-amber-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full dark:bg-amber-800">
+        <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-amber-500 to-amber-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full">
           <CardContent className="p-6 flex flex-col">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
