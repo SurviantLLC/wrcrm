@@ -243,7 +243,7 @@ export default function TaskManagerPage() {
           <CardContent className="p-8 flex flex-col justify-between h-full">
             <div className="flex-1">
               <div className="flex items-start gap-4">
-                <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-blue-grey-500 to-blue-grey-600 flex items-center justify-center text-white shadow-sm">
+                <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-slate-600 to-slate-700 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center text-white shadow-sm">
                   <ListChecks className="h-6 w-6" />
                 </div>
                 <div className="flex-1 space-y-2">
@@ -263,7 +263,7 @@ export default function TaskManagerPage() {
               </div>
               <Button
                 asChild
-                className="w-full mt-16 mx-2 px-6 py-3 border border-slate-200/50 bg-gradient-to-r from-blue-grey-500 to-blue-grey-600 hover:from-blue-grey-600 hover:to-blue-grey-700 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
+                className="w-full mt-16 mx-2 px-6 py-3 border border-slate-200/50 bg-gradient-to-r from-slate-600 to-slate-700 hover:from-slate-700 hover:to-slate-800 dark:from-slate-700 dark:to-slate-800 dark:hover:from-slate-800 dark:hover:to-slate-900 text-white shadow-sm hover:shadow-md transition-all duration-200 rounded-lg"
               >
                 <Link href="/dashboard/task-manager/tracking" className="flex items-center justify-center gap-2">
                   Track Tasks
