@@ -144,6 +144,13 @@ interface SimpleProductFormProps {
 
 export function SimpleProductForm({ onSubmit, onCancel }: SimpleProductFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [addedSkus, setAddedSkus] = useState<Array<{
+    skuName: string;
+    skuType: 'primary' | 'secondary';
+    quantityPerLot: string;
+    unit: 'kg' | 'count';
+    displayName?: string; // For display purposes
+  }>>([]);
   const { productCategories, skuCategories, skuTypes, skuUnits } = useReferenceData()
   
   // Generate the SKU options using our helper function
@@ -173,6 +180,41 @@ export function SimpleProductForm({ onSubmit, onCancel }: SimpleProductFormProps
       }
     }
   }
+  
+  // Function to save the current SKU details
+  const saveSkuDetails = () => {
+    // Get current SKU values from form
+    const skuName = form.getValues('skuName');
+    const skuType = form.getValues('skuType');
+    const quantityPerLot = form.getValues('quantityPerLot');
+    const unit = form.getValues('unit');
+    
+    // Validate that all required SKU fields are filled
+    if (!skuName || !skuType || !quantityPerLot || !unit) {
+      // Show validation errors
+      form.trigger(['skuName', 'skuType', 'quantityPerLot', 'unit']);
+      return;
+    }
+    
+    // Find the display name for the selected SKU
+    const selectedSkuOption = skuOptions.find(option => option.value === skuName);
+    const displayName = selectedSkuOption?.label || skuName;
+    
+    // Add the SKU to the list
+    setAddedSkus([...addedSkus, {
+      skuName,
+      skuType,
+      quantityPerLot,
+      unit,
+      displayName
+    }]);
+    
+    // Reset the SKU form fields
+    form.setValue('skuName', '');
+    form.setValue('skuType', 'primary');
+    form.setValue('quantityPerLot', '');
+    form.setValue('unit', 'count');
+  }
 
   // Default form values
   const defaultValues: Partial<ProductFormValues> = {
@@ -197,10 +239,29 @@ export function SimpleProductForm({ onSubmit, onCancel }: SimpleProductFormProps
   })
 
   // Handle form submission
-  const handleSubmit = (data: ProductFormValues) => {
+  const onSubmitForm = async (data: ProductFormValues) => {
     setIsSubmitting(true)
     try {
-      onSubmit(data)
+      // Check if there are unsaved SKU details in the form
+      const currentSkuName = form.getValues('skuName');
+      const currentSkuType = form.getValues('skuType');
+      const currentQuantityPerLot = form.getValues('quantityPerLot');
+      const currentUnit = form.getValues('unit');
+      
+      // If there are values in the SKU fields, prompt user to save them first
+      if (currentSkuName && currentSkuType && currentQuantityPerLot && currentUnit) {
+        if (confirm('You have unsaved SKU details. Would you like to save them before continuing?')) {
+          saveSkuDetails();
+        }
+      }
+      
+      // Include the list of added SKUs with the form data
+      const productData = {
+        ...data,
+        skus: addedSkus
+      };
+      
+      await onSubmit(productData);
     } catch (error) {
       console.error("Error submitting form:", error)
     } finally {
@@ -211,7 +272,7 @@ export function SimpleProductForm({ onSubmit, onCancel }: SimpleProductFormProps
   return (
     <div className="bg-background text-foreground">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmitForm)} className="space-y-4">
           <h3 className="text-lg font-medium">Product Details</h3>
           
           {/* Product Name */}
@@ -369,6 +430,39 @@ export function SimpleProductForm({ onSubmit, onCancel }: SimpleProductFormProps
 
           <h3 className="text-lg font-medium mt-8">SKU Details</h3>
           
+          {/* Display added SKUs */}
+          {addedSkus.length > 0 && (
+            <div className="mt-4 mb-6 border rounded-md p-4 bg-gray-50 dark:bg-gray-800">
+              <h4 className="text-md font-medium mb-2">Added SKUs</h4>
+              <div className="space-y-2">
+                {addedSkus.map((sku, index) => (
+                  <div key={index} className="flex justify-between items-center p-2 bg-white dark:bg-gray-700 rounded border">
+                    <div>
+                      <span className="font-medium">{sku.displayName}</span>
+                      <div className="text-sm text-muted-foreground dark:text-gray-400">
+                        {sku.skuType}, {sku.quantityPerLot} {sku.unit}(s)
+                      </div>
+                    </div>
+                    <Button 
+                      type="button" 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => {
+                        // Remove this SKU from the list
+                        const newSkus = [...addedSkus];
+                        newSkus.splice(index, 1);
+                        setAddedSkus(newSkus);
+                      }}
+                      className="text-destructive dark:text-red-400 hover:bg-destructive/10 dark:hover:bg-red-900/20"
+                    >
+                      Remove
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
           {/* SKU Name */}
           <FormField
             control={form.control}
@@ -485,6 +579,18 @@ export function SimpleProductForm({ onSubmit, onCancel }: SimpleProductFormProps
                 </FormItem>
               )}
             />
+          </div>
+          
+          {/* Save SKU Details Button */}
+          <div className="flex justify-end mt-4">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={saveSkuDetails}
+              className="bg-accent hover:bg-accent/90 text-accent-foreground border-accent-foreground/20"
+            >
+              Save SKU Details & Add Another
+            </Button>
           </div>
 
           <div className="flex justify-end gap-2 pt-4 border-t border-border dark:border-gray-600">
