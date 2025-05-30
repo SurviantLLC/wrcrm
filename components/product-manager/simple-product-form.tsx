@@ -589,7 +589,7 @@ export function SimpleProductForm({ onSubmit, onCancel }: SimpleProductFormProps
               onClick={saveSkuDetails}
               className="bg-accent hover:bg-accent/90 text-accent-foreground border-accent-foreground/20"
             >
-              Save SKU Details & Add Another
+              Save SKU
             </Button>
           </div>
 
