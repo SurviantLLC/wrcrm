@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { PageHeader } from "@/components/dashboard/page-header"
 import { SimpleProductForm } from "@/components/product-manager/simple-product-form"
+import { useReferenceData } from "@/contexts/reference-data-context"
 
 // Sample product data
 const initialProducts = [
@@ -64,6 +65,31 @@ const initialProducts = [
 ]
 
 export default function ProductsPage() {
+  const { productCategories } = useReferenceData()
+  
+  // Define explicit mapping between existing categories and Product Category reference data
+  const categoryMapping: Record<string, string> = {
+    'storage': 'Storage Solutions',     // Maps to PRC-003
+    'furniture': 'Office Furniture',    // Maps to PRC-001
+    'lighting': 'Lighting',            // Maps to PRC-004
+    'office-supplies': 'Office Supplies', // Maps to PRC-005
+  }
+  
+  // Helper function to get product category name from category ID/code
+  const getCategoryNameFromId = (categoryId: string) => {
+    // First check our explicit mapping
+    if (categoryMapping[categoryId]) {
+      return categoryMapping[categoryId]
+    }
+    
+    // Fallback to fuzzy matching if we don't have an explicit mapping
+    const matchingCategory = productCategories.find(category => {
+      return category.PRC_Name.toLowerCase().includes(categoryId.toLowerCase()) ||
+             categoryId.toLowerCase().includes(category.PRC_Name.toLowerCase())
+    })
+    
+    return matchingCategory?.PRC_Name || categoryId
+  }
   const [products, setProducts] = useState(initialProducts)
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("All Categories")
@@ -73,23 +99,18 @@ export default function ProductsPage() {
   // Filter products based on search term, category, and status
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesCategory = selectedCategory === "All Categories" || product.category === selectedCategory.toLowerCase()
+    // Map product category to reference category
+    const productCategoryMatch = getCategoryNameFromId(product.category)
+    const matchesCategory = selectedCategory === "All Categories" || 
+      productCategoryMatch?.toLowerCase() === selectedCategory.toLowerCase()
     const matchesStatus = selectedStatus === "All Statuses" || product.status === selectedStatus.toLowerCase()
     return matchesSearch && matchesCategory && matchesStatus
   })
 
-  // Get unique categories
+  // Get categories from reference data
   const categories = [
     "All Categories",
-    ...new Set(
-      products.map((product) => {
-        // Capitalize first letter of each word
-        return product.category
-          .split("-")
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(" ")
-      }),
-    ),
+    ...productCategories.map(category => category.PRC_Name)
   ]
 
   // Get unique statuses
@@ -255,7 +276,9 @@ export default function ProductsPage() {
                 {filteredProducts.map((product) => (
                   <tr key={product.id} className="border-b">
                     <td className="p-3">{product.name}</td>
-                    <td className="p-3">{product.category}</td>
+                    <td className="p-3">
+                      {getCategoryNameFromId(product.category)}
+                    </td>
                     <td className="p-3">1</td>
                     <td className="p-3">
                       <Badge
