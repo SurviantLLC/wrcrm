@@ -46,7 +46,7 @@ import * as z from "zod"
 import { PageHeader } from "@/components/dashboard/page-header"
 
 // Sample manufacturing steps data
-const initialSteps = [
+const initialSteps: ManufacturingStep[] = [
   {
     id: 1,
     name: "Cut Wood Panels",
@@ -54,6 +54,9 @@ const initialSteps = [
     requiredSkill: "Woodworking",
     duration: "2 hours",
     dependencies: [],
+    numberOfSteps: 7,
+    createdBy: "John Doe",
+    createdOn: "2023-05-15",
   },
   {
     id: 2,
@@ -62,6 +65,9 @@ const initialSteps = [
     requiredSkill: "Assembly",
     duration: "1.5 hours",
     dependencies: ["Cut Wood Panels"],
+    numberOfSteps: 7,
+    createdBy: "John Doe",
+    createdOn: "2023-05-15",
   },
   {
     id: 3,
@@ -70,6 +76,9 @@ const initialSteps = [
     requiredSkill: "Mechanical",
     duration: "1 hour",
     dependencies: ["Assemble Frame"],
+    numberOfSteps: 7,
+    createdBy: "John Doe",
+    createdOn: "2023-05-15",
   },
   {
     id: 4,
@@ -78,6 +87,9 @@ const initialSteps = [
     requiredSkill: "Finishing",
     duration: "45 minutes",
     dependencies: ["Assemble Frame"],
+    numberOfSteps: 7,
+    createdBy: "John Doe",
+    createdOn: "2023-05-15",
   },
   {
     id: 5,
@@ -86,6 +98,9 @@ const initialSteps = [
     requiredSkill: "Finishing",
     duration: "30 minutes",
     dependencies: ["Sand Surfaces"],
+    numberOfSteps: 7,
+    createdBy: "John Doe",
+    createdOn: "2023-05-15",
   },
   {
     id: 6,
@@ -94,6 +109,9 @@ const initialSteps = [
     requiredSkill: "Quality Control",
     duration: "20 minutes",
     dependencies: ["Apply Finish", "Install Adjustment Mechanism"],
+    numberOfSteps: 7,
+    createdBy: "John Doe",
+    createdOn: "2023-05-15",
   },
   {
     id: 7,
@@ -102,6 +120,9 @@ const initialSteps = [
     requiredSkill: "Packaging",
     duration: "15 minutes",
     dependencies: ["Quality Check"],
+    numberOfSteps: 7,
+    createdBy: "John Doe",
+    createdOn: "2023-05-15",
   },
   {
     id: 8,
@@ -110,6 +131,9 @@ const initialSteps = [
     requiredSkill: "Upholstery",
     duration: "30 minutes",
     dependencies: [],
+    numberOfSteps: 3,
+    createdBy: "Jane Smith",
+    createdOn: "2023-05-16",
   },
   {
     id: 9,
@@ -118,6 +142,9 @@ const initialSteps = [
     requiredSkill: "Assembly",
     duration: "45 minutes",
     dependencies: [],
+    numberOfSteps: 3,
+    createdBy: "Jane Smith",
+    createdOn: "2023-05-16",
   },
   {
     id: 10,
@@ -126,6 +153,9 @@ const initialSteps = [
     requiredSkill: "Upholstery",
     duration: "1 hour",
     dependencies: ["Cut Fabric"],
+    numberOfSteps: 3,
+    createdBy: "Jane Smith",
+    createdOn: "2023-05-16",
   },
 ]
 
@@ -152,6 +182,19 @@ const skills = [
   { label: "Mechanical", value: "Mechanical" },
 ]
 
+// Define the ManufacturingStep interface for type consistency
+interface ManufacturingStep {
+  id: number;
+  name: string;
+  product: string;
+  requiredSkill: string;
+  duration: string;
+  dependencies: string[];
+  numberOfSteps: number;
+  createdBy: string;
+  createdOn: string;
+}
+
 // Form schema for adding/editing a step
 const stepFormSchema = z.object({
   name: z.string().min(2, {
@@ -167,9 +210,18 @@ const stepFormSchema = z.object({
     message: "Duration is required.",
   }),
   dependencies: z.array(z.string()).optional(),
+  numberOfSteps: z.number().optional(),
+  createdBy: z.string().optional(),
+  createdOn: z.string().optional(),
 })
 
 type StepFormValues = z.infer<typeof stepFormSchema>
+
+// Helper function to count steps for a product
+const getNumberOfStepsByProduct = (productName: string) => {
+  const productSteps = initialSteps.filter(step => step.product === productName);
+  return productSteps.length;
+}
 
 export default function ManufacturingStepsPage() {
   const [steps, setSteps] = useState(initialSteps)
@@ -241,6 +293,9 @@ export default function ManufacturingStepsPage() {
         requiredSkill: data.requiredSkill,
         duration: data.duration,
         dependencies: data.dependencies || [],
+        numberOfSteps: data.numberOfSteps || getNumberOfStepsByProduct(data.product),
+        createdBy: data.createdBy || "Current User",
+        createdOn: data.createdOn || new Date().toISOString().split('T')[0],
       },
     ])
     setIsAddDialogOpen(false)
@@ -261,6 +316,9 @@ export default function ManufacturingStepsPage() {
               requiredSkill: data.requiredSkill,
               duration: data.duration,
               dependencies: data.dependencies || [],
+              numberOfSteps: data.numberOfSteps || getNumberOfStepsByProduct(data.product),
+              createdBy: data.createdBy || step.createdBy || "Current User",
+              createdOn: data.createdOn || step.createdOn || new Date().toISOString().split('T')[0],
             }
           : step,
       ),
@@ -533,10 +591,13 @@ export default function ManufacturingStepsPage() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Step Name</TableHead>
-                    <TableHead className="hidden md:table-cell">Product</TableHead>
+                    <TableHead className="hidden md:table-cell">Product Name</TableHead>
                     <TableHead>Required Skill</TableHead>
                     <TableHead>Duration</TableHead>
                     <TableHead className="hidden lg:table-cell">Dependencies</TableHead>
+                    <TableHead className="hidden lg:table-cell">Number of Steps</TableHead>
+                    <TableHead className="hidden md:table-cell">Created By</TableHead>
+                    <TableHead className="hidden md:table-cell">Created On</TableHead>
                     <TableHead className="w-[100px] text-right">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -563,6 +624,15 @@ export default function ManufacturingStepsPage() {
                           ) : (
                             <span className="text-muted-foreground">None</span>
                           )}
+                        </TableCell>
+                        <TableCell className="hidden lg:table-cell">
+                          {step.numberOfSteps || getNumberOfStepsByProduct(step.product)}
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          {step.createdBy || "Current User"}
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          {step.createdOn || ""}
                         </TableCell>
                         <TableCell className="text-right">
                           <DropdownMenu>
