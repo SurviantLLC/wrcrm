@@ -14,11 +14,26 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 
-// All SKU names for dropdown
-const skuOptions = skusData.map(sku => ({
-  label: sku.name,
-  value: sku.id
-}))
+// Define types for the SKU options
+type SkuOption = {
+  label: string
+  value: string
+  category: string
+  type: string
+  unit: string
+}
+
+// Convert reference data to options for dropdowns
+const getSkuOptions = (): SkuOption[] => {
+  // Use the SKU names from skusData but include extra metadata from the reference context
+  return skusData.map((sku) => ({
+    label: `${sku.name} (${sku.skuCode})`,
+    value: sku.id,
+    category: sku.category,
+    type: sku.type,
+    unit: sku.skuUnit
+  }))
+}
 
 // Form schema
 const formSchema = z.object({
@@ -67,7 +82,28 @@ interface SimpleProductFormProps {
 
 export function SimpleProductForm({ onSubmit, onCancel }: SimpleProductFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { productCategories } = useReferenceData()
+  const { productCategories, skuCategories, skuTypes, skuUnits } = useReferenceData()
+  
+  // Generate the SKU options using our helper function
+  const skuOptions = getSkuOptions()
+  
+  // Helper function to update form fields based on selected SKU
+  const updateFormWithSkuData = (skuId: string) => {
+    // Find the selected SKU
+    const selectedSku = skuOptions.find(option => option.value === skuId)
+    
+    if (selectedSku) {
+      // Update SKU type field - ensure it matches our enum values
+      const skuType = selectedSku.type.toLowerCase() === 'primary' ? 'primary' : 'secondary'
+      form.setValue('skuType', skuType as 'primary' | 'secondary')
+      
+      // Update unit field - ensure it matches our enum values
+      const unit = selectedSku.unit.toLowerCase() === 'kg' ? 'kg' : 'count'
+      form.setValue('unit', unit as 'kg' | 'count')
+      
+      // You could also populate other fields based on the SKU data if needed
+    }
+  }
 
   // Default form values
   const defaultValues: Partial<ProductFormValues> = {
@@ -271,7 +307,14 @@ export function SimpleProductForm({ onSubmit, onCancel }: SimpleProductFormProps
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-foreground dark:text-gray-200">SKU Name</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select 
+                  onValueChange={(value) => {
+                    field.onChange(value);
+                    // Update other form fields based on selected SKU
+                    updateFormWithSkuData(value);
+                  }} 
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger className="bg-background dark:bg-gray-800 border-border dark:border-gray-600 text-foreground dark:text-gray-100">
                       <SelectValue placeholder="Select an SKU" />
