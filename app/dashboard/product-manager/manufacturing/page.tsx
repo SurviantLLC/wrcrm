@@ -13,6 +13,7 @@ import {
   Search,
   Trash2,
   Settings,
+  X,
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -51,6 +52,7 @@ const initialSteps: ManufacturingStep[] = [
     id: 1,
     name: "Cut Wood Panels",
     product: "Office Desk - Adjustable",
+    stepNumber: 1,
     requiredSkill: "Woodworking",
     duration: "2 hours",
     dependencies: [],
@@ -62,6 +64,7 @@ const initialSteps: ManufacturingStep[] = [
     id: 2,
     name: "Assemble Frame",
     product: "Office Desk - Adjustable",
+    stepNumber: 2,
     requiredSkill: "Assembly",
     duration: "1.5 hours",
     dependencies: ["Cut Wood Panels"],
@@ -73,6 +76,7 @@ const initialSteps: ManufacturingStep[] = [
     id: 3,
     name: "Install Adjustment Mechanism",
     product: "Office Desk - Adjustable",
+    stepNumber: 3,
     requiredSkill: "Mechanical",
     duration: "1 hour",
     dependencies: ["Assemble Frame"],
@@ -84,6 +88,7 @@ const initialSteps: ManufacturingStep[] = [
     id: 4,
     name: "Sand Surfaces",
     product: "Office Desk - Adjustable",
+    stepNumber: 4,
     requiredSkill: "Finishing",
     duration: "45 minutes",
     dependencies: ["Assemble Frame"],
@@ -95,6 +100,7 @@ const initialSteps: ManufacturingStep[] = [
     id: 5,
     name: "Apply Finish",
     product: "Office Desk - Adjustable",
+    stepNumber: 5,
     requiredSkill: "Finishing",
     duration: "30 minutes",
     dependencies: ["Sand Surfaces"],
@@ -106,6 +112,7 @@ const initialSteps: ManufacturingStep[] = [
     id: 6,
     name: "Quality Check",
     product: "Office Desk - Adjustable",
+    stepNumber: 6,
     requiredSkill: "Quality Control",
     duration: "20 minutes",
     dependencies: ["Apply Finish", "Install Adjustment Mechanism"],
@@ -117,6 +124,7 @@ const initialSteps: ManufacturingStep[] = [
     id: 7,
     name: "Packaging",
     product: "Office Desk - Adjustable",
+    stepNumber: 7,
     requiredSkill: "Packaging",
     duration: "15 minutes",
     dependencies: ["Quality Check"],
@@ -128,6 +136,7 @@ const initialSteps: ManufacturingStep[] = [
     id: 8,
     name: "Cut Fabric",
     product: "Office Chair - Standard",
+    stepNumber: 1,
     requiredSkill: "Upholstery",
     duration: "30 minutes",
     dependencies: [],
@@ -139,6 +148,7 @@ const initialSteps: ManufacturingStep[] = [
     id: 9,
     name: "Assemble Chair Base",
     product: "Office Chair - Standard",
+    stepNumber: 2,
     requiredSkill: "Assembly",
     duration: "45 minutes",
     dependencies: [],
@@ -150,6 +160,7 @@ const initialSteps: ManufacturingStep[] = [
     id: 10,
     name: "Upholster Seat and Back",
     product: "Office Chair - Standard",
+    stepNumber: 3,
     requiredSkill: "Upholstery",
     duration: "1 hour",
     dependencies: ["Cut Fabric"],
@@ -187,6 +198,7 @@ interface ManufacturingStep {
   id: number;
   name: string;
   product: string;
+  stepNumber: number;  // Added stepNumber field
   requiredSkill: string;
   duration: string;
   dependencies: string[];
@@ -202,6 +214,9 @@ const stepFormSchema = z.object({
   }),
   product: z.string({
     required_error: "Please select a product.",
+  }),
+  stepNumber: z.number().min(1, {
+    message: "Step number must be at least 1.",
   }),
   requiredSkill: z.string({
     required_error: "Please select a required skill.",
@@ -233,6 +248,8 @@ export default function ManufacturingStepsPage() {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
+  // State for tracking multiple steps being added
+  const [addedSteps, setAddedSteps] = useState<Array<ManufacturingStep>>([])
 
   const itemsPerPage = 5
 
@@ -242,6 +259,7 @@ export default function ManufacturingStepsPage() {
     defaultValues: {
       name: "",
       product: "",
+      stepNumber: 1,
       requiredSkill: "",
       duration: "",
       dependencies: [],
@@ -284,25 +302,43 @@ export default function ManufacturingStepsPage() {
       }))
   }
 
-  // Handle adding a new step
-  const handleAddStep = (data: StepFormValues) => {
-    const id = steps.length > 0 ? Math.max(...steps.map((step) => step.id)) + 1 : 1
-    setSteps([
-      ...steps,
-      {
-        id,
-        name: data.name,
-        product: data.product,
-        requiredSkill: data.requiredSkill,
-        duration: data.duration,
-        dependencies: data.dependencies || [],
-        numberOfSteps: data.numberOfSteps || getNumberOfStepsByProduct(data.product),
-        createdBy: data.createdBy || "Current User",
-        createdOn: data.createdOn || new Date().toISOString().split('T')[0],
-      },
-    ])
+  // Function to add a step to the addedSteps array without closing the dialog
+  const saveStep = (data: z.infer<typeof stepFormSchema>) => {
+    const newId = steps.length > 0 ? Math.max(...steps.map((step) => step.id)) + 1 : 1
+    
+    const newStep: ManufacturingStep = {
+      id: newId + addedSteps.length, // Ensure unique ID
+      name: data.name,
+      product: data.product,
+      stepNumber: data.stepNumber,
+      requiredSkill: data.requiredSkill,
+      duration: data.duration,
+      dependencies: data.dependencies || [],
+      numberOfSteps: data.numberOfSteps || getNumberOfStepsByProduct(data.product),
+      createdBy: "Current User",
+      createdOn: new Date().toISOString().split('T')[0],
+    }
+    
+    setAddedSteps([...addedSteps, newStep])
+    // Reset form fields but keep product selection
+    const product = data.product
+    form.reset({
+      product,
+      name: '',
+      stepNumber: addedSteps.filter(s => s.product === product).length + 1,
+      requiredSkill: '',
+      duration: '',
+      dependencies: [],
+    })
+  }
+  
+  // Function to submit all added steps
+  const handleAddStep = () => {
+    if (addedSteps.length === 0) return
+    
+    setSteps([...steps, ...addedSteps])
+    setAddedSteps([])
     setIsAddDialogOpen(false)
-    form.reset()
   }
 
   // Handle editing a step
@@ -316,6 +352,7 @@ export default function ManufacturingStepsPage() {
               ...step,
               name: data.name,
               product: data.product,
+              stepNumber: data.stepNumber,
               requiredSkill: data.requiredSkill,
               duration: data.duration,
               dependencies: data.dependencies || [],
@@ -382,143 +419,189 @@ export default function ManufacturingStepsPage() {
             </DialogHeader>
             <div className="border-4 border-blue-500 p-4 rounded-md">
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(handleAddStep)} className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* Step Name */}
-                    <div className="grid gap-2">
-                      <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Step Name<span className="text-red-500">*</span></FormLabel>
-                            <FormControl>
-                              <Input placeholder="Enter step name" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
+                <form className="space-y-4">
+                   {/* Step 1: Select Product First */}
+                   <div className="mb-6">
+                     <FormField
+                       control={form.control}
+                       name="product"
+                       render={({ field }) => (
+                         <FormItem>
+                           <FormLabel>Step 1: Select Product<span className="text-red-500">*</span></FormLabel>
+                           <Select 
+                             onValueChange={(value) => {
+                               field.onChange(value);
+                               // Reset step-related fields when product changes
+                               form.setValue("name", "");
+                               form.setValue("dependencies", []);
+                               form.setValue("stepNumber", 1);
+                             }} 
+                             defaultValue={field.value}
+                           >
+                             <FormControl>
+                               <SelectTrigger>
+                                 <SelectValue placeholder="Select a product" />
+                               </SelectTrigger>
+                             </FormControl>
+                             <SelectContent>
+                               {products.map((product) => (
+                                 <SelectItem key={product.value} value={product.value}>
+                                   {product.label}
+                                 </SelectItem>
+                               ))}
+                             </SelectContent>
+                           </Select>
+                           <FormMessage />
+                         </FormItem>
+                       )}
+                     />
+                   </div>
+                  
+                   {/* Step 2: Configure Step Details - Only shown if product is selected */}
+                   {form.watch("product") && (
+                     <>
+                       <div className="mb-4">
+                         <h4 className="text-md font-medium mb-2">Step 2: Configure Step Details</h4>
+                       </div>
+                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                         {/* Step Name */}
+                         <div className="grid gap-2">
+                           <FormField
+                             control={form.control}
+                             name="name"
+                             render={({ field }) => (
+                               <FormItem>
+                                 <FormLabel>Step Name<span className="text-red-500">*</span></FormLabel>
+                                 <FormControl>
+                                   <Input placeholder="Enter step name" {...field} />
+                                 </FormControl>
+                                 <FormMessage />
+                               </FormItem>
+                             )}
+                           />
+                         </div>
 
-                    {/* Product */}
-                    <div className="grid gap-2">
-                      <FormField
-                        control={form.control}
-                        name="product"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Product Name<span className="text-red-500">*</span></FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                              <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Select a product" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {products.map((product) => (
-                                  <SelectItem key={product.value} value={product.value}>
-                                    {product.label}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
+                         {/* Step Number */}
+                         <div className="grid gap-2">
+                           <FormField
+                             control={form.control}
+                             name="stepNumber"
+                             render={({ field }) => (
+                               <FormItem>
+                                 <FormLabel>Step Number<span className="text-red-500">*</span></FormLabel>
+                                 <FormControl>
+                                   <Input 
+                                     type="number" 
+                                     min="1"
+                                     placeholder="Enter step number" 
+                                     {...field}
+                                     value={field.value}
+                                     onChange={(e) => field.onChange(parseInt(e.target.value) || 1)}
+                                   />
+                                 </FormControl>
+                                 <FormDescription>
+                                   Order of this step in the manufacturing process
+                                 </FormDescription>
+                                 <FormMessage />
+                               </FormItem>
+                             )}
+                           />
+                         </div>
 
-                    {/* Required Skill */}
-                    <div className="grid gap-2">
-                      <FormField
-                        control={form.control}
-                        name="requiredSkill"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Required Skill<span className="text-red-500">*</span></FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                              <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Select a skill" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {skills.map((skill) => (
-                                  <SelectItem key={skill.value} value={skill.value}>
-                                    {skill.label}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
+                         {/* Required Skill */}
+                         <div className="grid gap-2">
+                           <FormField
+                             control={form.control}
+                             name="requiredSkill"
+                             render={({ field }) => (
+                               <FormItem>
+                                 <FormLabel>Required Skill<span className="text-red-500">*</span></FormLabel>
+                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                   <FormControl>
+                                     <SelectTrigger>
+                                       <SelectValue placeholder="Select a skill" />
+                                     </SelectTrigger>
+                                   </FormControl>
+                                   <SelectContent>
+                                     {skills.map((skill) => (
+                                       <SelectItem key={skill.value} value={skill.value}>
+                                         {skill.label}
+                                       </SelectItem>
+                                     ))}
+                                   </SelectContent>
+                                 </Select>
+                                 <FormMessage />
+                               </FormItem>
+                             )}
+                           />
+                         </div>
 
-                    {/* Duration */}
-                    <div className="grid gap-2">
-                      <FormField
-                        control={form.control}
-                        name="duration"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Duration<span className="text-red-500">*</span></FormLabel>
-                            <FormControl>
-                              <Input placeholder="e.g., 2 hours" {...field} />
-                            </FormControl>
-                            <FormDescription>
-                              Specify the time required for this step (e.g., 30 minutes, 2 hours).
-                            </FormDescription>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
+                         {/* Duration */}
+                         <div className="grid gap-2">
+                           <FormField
+                             control={form.control}
+                             name="duration"
+                             render={({ field }) => (
+                               <FormItem>
+                                 <FormLabel>Duration<span className="text-red-500">*</span></FormLabel>
+                                 <FormControl>
+                                   <Input placeholder="e.g., 2 hours" {...field} />
+                                 </FormControl>
+                                 <FormDescription>
+                                   Specify the time required for this step (e.g., 30 minutes, 2 hours).
+                                 </FormDescription>
+                                 <FormMessage />
+                               </FormItem>
+                             )}
+                           />
+                         </div>
 
-                    {/* Dependencies */}
-                    <div className="grid gap-2">
-                      <FormField
-                        control={form.control}
-                        name="dependencies"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Dependencies</FormLabel>
-                            <div className="flex flex-wrap gap-2 p-2 border rounded-md">
-                              {form.watch("product") && getAvailableDependencies(form.watch("product")).length > 0 ? (
-                                getAvailableDependencies(form.watch("product")).map((dependency) => (
-                                  <div key={dependency.value} className="flex items-center">
-                                    <input
-                                      type="checkbox"
-                                      id={`dep-${dependency.value}`}
-                                      className="mr-1"
-                                      checked={field.value?.includes(dependency.value)}
-                                      onChange={(e) => {
-                                        const current = field.value || []
-                                        const updated = e.target.checked
-                                          ? [...current, dependency.value]
-                                          : current.filter(v => v !== dependency.value)
-                                        form.setValue("dependencies", updated, { shouldValidate: true })
-                                      }}
-                                    />
-                                    <Label htmlFor={`dep-${dependency.value}`} className="text-sm">
-                                      {dependency.label}
-                                    </Label>
-                                  </div>
-                                ))
-                              ) : (
-                                <span className="text-muted-foreground text-sm">Select a product first</span>
-                              )}
-                            </div>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
+                         {/* Dependencies */}
+                         <div className="grid gap-2 col-span-2">
+                           <FormField
+                             control={form.control}
+                             name="dependencies"
+                             render={({ field }) => (
+                               <FormItem>
+                                 <FormLabel>Dependent Steps</FormLabel>
+                                 <div className="flex flex-wrap gap-2 p-2 border rounded-md">
+                                   {getAvailableDependencies(form.watch("product")).length > 0 ? (
+                                     getAvailableDependencies(form.watch("product")).map((dependency) => (
+                                       <div key={dependency.value} className="flex items-center">
+                                         <input
+                                           type="checkbox"
+                                           id={`dep-${dependency.value}`}
+                                           className="mr-1"
+                                           checked={field.value?.includes(dependency.value)}
+                                           onChange={(e) => {
+                                             const current = field.value || []
+                                             const updated = e.target.checked
+                                               ? [...current, dependency.value]
+                                               : current.filter(v => v !== dependency.value)
+                                             form.setValue("dependencies", updated, { shouldValidate: true })
+                                           }}
+                                         />
+                                         <Label htmlFor={`dep-${dependency.value}`} className="text-sm">
+                                           {dependency.label}
+                                         </Label>
+                                       </div>
+                                     ))
+                                   ) : (
+                                     <span className="text-muted-foreground text-sm">No dependent steps available for this product</span>
+                                   )}
+                                 </div>
+                                 <FormMessage />
+                               </FormItem>
+                             )}
+                           />
+                         </div>
+                       </div>
+                     </>
+                   )}
 
-                    {/* Number of Steps */}
-                    <div className="grid gap-2">
+                   {/* Hidden fields that are automatically calculated */}
+                   <div className="hidden">
+                     <div className="grid gap-2">
                       <FormField
                         control={form.control}
                         name="numberOfSteps"
@@ -575,12 +658,67 @@ export default function ManufacturingStepsPage() {
                     </div>
                   </div>
 
+                  {/* Display saved steps */}
+                  {addedSteps.length > 0 && (
+                    <div className="mt-8">
+                      <h3 className="font-medium text-lg mb-2">Saved Steps</h3>
+                      <div className="border rounded-md p-4">
+                        <div className="space-y-2">
+                          {addedSteps.map((step, index) => (
+                            <div key={index} className="flex items-center justify-between bg-muted/50 p-2 rounded">
+                              <div>
+                                <p className="font-medium">{step.name}</p>
+                                <p className="text-sm text-muted-foreground">
+                                  Product: {step.product} | Step: {step.stepNumber} | Skill: {step.requiredSkill}
+                                </p>
+                              </div>
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => setAddedSteps(addedSteps.filter((_, i) => i !== index))}
+                              >
+                                <X className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex justify-between mt-6">
+                    <Button
+                      type="button"
+                      onClick={() => {
+                        const data = form.getValues();
+                        // Only save if required fields are filled
+                        if (data.product && data.name && data.stepNumber && data.requiredSkill && data.duration) {
+                          saveStep(data);
+                        } else {
+                          // Trigger validation
+                          form.trigger();
+                        }
+                      }}
+                    >
+                      Save Step
+                    </Button>
+                  </div>
+                  
                   <DialogFooter>
-                    <Button type="button" variant="outline" onClick={() => setIsAddDialogOpen(false)}>
+                    <Button type="button" variant="outline" onClick={() => {
+                      setIsAddDialogOpen(false);
+                      setAddedSteps([]);
+                    }}>
                       Cancel
                     </Button>
-                    <Button type="submit" className="bg-black text-white hover:bg-black/90">
-                      Add Step
+                    <Button 
+                      type="button" 
+                      className="bg-black text-white hover:bg-black/90"
+                      onClick={handleAddStep}
+                      disabled={addedSteps.length === 0}
+                    >
+                      Add All Steps
                     </Button>
                   </DialogFooter>
                 </form>
