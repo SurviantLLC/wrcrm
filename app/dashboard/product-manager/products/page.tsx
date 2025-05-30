@@ -60,7 +60,7 @@ const initialProducts = [
     minimumStock: "8",
     inventory: 0,
     updatedAt: "2024-02-20T14:15:00Z",
-    status: "discontinued",
+    status: "decommissioned",
   },
 ]
 

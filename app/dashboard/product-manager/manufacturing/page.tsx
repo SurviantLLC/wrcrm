@@ -245,6 +245,9 @@ export default function ManufacturingStepsPage() {
       requiredSkill: "",
       duration: "",
       dependencies: [],
+      numberOfSteps: 0,
+      createdBy: "Current User",
+      createdOn: new Date().toISOString().split('T')[0],
     },
   })
 
@@ -377,154 +380,212 @@ export default function ManufacturingStepsPage() {
               <DialogTitle>Add Manufacturing Step</DialogTitle>
               <DialogDescription>Add a new manufacturing step for a product.</DialogDescription>
             </DialogHeader>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(handleAddStep)} className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Step Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter step name" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+            <div className="border-4 border-blue-500 p-4 rounded-md">
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(handleAddStep)} className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Step Name */}
+                    <div className="grid gap-2">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Step Name<span className="text-red-500">*</span></FormLabel>
+                            <FormControl>
+                              <Input placeholder="Enter step name" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
 
-                <FormField
-                  control={form.control}
-                  name="product"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Product</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select a product" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {products.map((product) => (
-                            <SelectItem key={product.value} value={product.value}>
-                              {product.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                    {/* Product */}
+                    <div className="grid gap-2">
+                      <FormField
+                        control={form.control}
+                        name="product"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Product Name<span className="text-red-500">*</span></FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select a product" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {products.map((product) => (
+                                  <SelectItem key={product.value} value={product.value}>
+                                    {product.label}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
 
-                <FormField
-                  control={form.control}
-                  name="requiredSkill"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Required Skill</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select a skill" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {skills.map((skill) => (
-                            <SelectItem key={skill.value} value={skill.value}>
-                              {skill.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                    {/* Required Skill */}
+                    <div className="grid gap-2">
+                      <FormField
+                        control={form.control}
+                        name="requiredSkill"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Required Skill<span className="text-red-500">*</span></FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select a skill" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {skills.map((skill) => (
+                                  <SelectItem key={skill.value} value={skill.value}>
+                                    {skill.label}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
 
-                <FormField
-                  control={form.control}
-                  name="duration"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Duration</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g., 2 hours" {...field} />
-                      </FormControl>
-                      <FormDescription>
-                        Specify the time required for this step (e.g., 30 minutes, 2 hours).
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                    {/* Duration */}
+                    <div className="grid gap-2">
+                      <FormField
+                        control={form.control}
+                        name="duration"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Duration<span className="text-red-500">*</span></FormLabel>
+                            <FormControl>
+                              <Input placeholder="e.g., 2 hours" {...field} />
+                            </FormControl>
+                            <FormDescription>
+                              Specify the time required for this step (e.g., 30 minutes, 2 hours).
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
 
-                <FormField
-                  control={form.control}
-                  name="dependencies"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Dependencies</FormLabel>
-                      <Select
-                        onValueChange={(value) => {
-                          const current = field.value || []
-                          const updated = current.includes(value)
-                            ? current.filter((v) => v !== value)
-                            : [...current, value]
-                          form.setValue("dependencies", updated, { shouldValidate: true })
-                        }}
-                        disabled={!form.watch("product")}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue
-                              placeholder={
-                                field.value?.length
-                                  ? `${field.value.length} step${field.value.length > 1 ? "s" : ""} selected`
-                                  : "Select dependencies"
-                              }
-                            />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {form.watch("product") && getAvailableDependencies(form.watch("product")).length > 0 ? (
-                            getAvailableDependencies(form.watch("product")).map((dependency) => (
-                              <SelectItem key={dependency.value} value={dependency.value}>
-                                <div className="flex items-center">
-                                  <Check
-                                    className={cn(
-                                      "mr-2 h-4 w-4",
-                                      field.value?.includes(dependency.value) ? "opacity-100" : "opacity-0",
-                                    )}
-                                  />
-                                  {dependency.label}
-                                </div>
-                              </SelectItem>
-                            ))
-                          ) : (
-                            <SelectItem value="no-product" disabled>
-                              Select a product first
-                            </SelectItem>
-                          )}
-                        </SelectContent>
-                      </Select>
-                      <FormDescription>Select steps that must be completed before this one.</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                    {/* Dependencies */}
+                    <div className="grid gap-2">
+                      <FormField
+                        control={form.control}
+                        name="dependencies"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Dependencies</FormLabel>
+                            <div className="flex flex-wrap gap-2 p-2 border rounded-md">
+                              {form.watch("product") && getAvailableDependencies(form.watch("product")).length > 0 ? (
+                                getAvailableDependencies(form.watch("product")).map((dependency) => (
+                                  <div key={dependency.value} className="flex items-center">
+                                    <input
+                                      type="checkbox"
+                                      id={`dep-${dependency.value}`}
+                                      className="mr-1"
+                                      checked={field.value?.includes(dependency.value)}
+                                      onChange={(e) => {
+                                        const current = field.value || []
+                                        const updated = e.target.checked
+                                          ? [...current, dependency.value]
+                                          : current.filter(v => v !== dependency.value)
+                                        form.setValue("dependencies", updated, { shouldValidate: true })
+                                      }}
+                                    />
+                                    <Label htmlFor={`dep-${dependency.value}`} className="text-sm">
+                                      {dependency.label}
+                                    </Label>
+                                  </div>
+                                ))
+                              ) : (
+                                <span className="text-muted-foreground text-sm">Select a product first</span>
+                              )}
+                            </div>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
 
-                <DialogFooter>
-                  <Button type="button" variant="outline" onClick={() => setIsAddDialogOpen(false)}>
-                    Cancel
-                  </Button>
-                  <Button type="submit" className="bg-black text-white hover:bg-black/90">
-                    Add Step
-                  </Button>
-                </DialogFooter>
-              </form>
-            </Form>
+                    {/* Number of Steps */}
+                    <div className="grid gap-2">
+                      <FormField
+                        control={form.control}
+                        name="numberOfSteps"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Number of Steps</FormLabel>
+                            <FormControl>
+                              <Input 
+                                type="number" 
+                                placeholder="Number of steps" 
+                                {...field} 
+                                onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : 0)}
+                                value={field.value || ""}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    {/* Created By */}
+                    <div className="grid gap-2">
+                      <FormField
+                        control={form.control}
+                        name="createdBy"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Created By</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Created by" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    {/* Created On */}
+                    <div className="grid gap-2">
+                      <FormField
+                        control={form.control}
+                        name="createdOn"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Created On</FormLabel>
+                            <FormControl>
+                              <Input type="date" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+                  <DialogFooter>
+                    <Button type="button" variant="outline" onClick={() => setIsAddDialogOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button type="submit" className="bg-black text-white hover:bg-black/90">
+                      Add Step
+                    </Button>
+                  </DialogFooter>
+                </form>
+              </Form>
+            </div>
           </DialogContent>
         </Dialog>
       </div>
