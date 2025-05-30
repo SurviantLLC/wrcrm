@@ -12,7 +12,7 @@ import { PageHeader } from "@/components/dashboard/page-header"
 export default function ProductManagerPage() {
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader title="Product Manager" description="Manage products, SKUs, and manufacturing steps" icon={Package} />
+      <PageHeader title="Product Management" description="Manage products, SKUs, and manufacturing steps" icon={Package} />
 
       {/* Main Feature Cards */}
       <div className="grid gap-6 md:grid-cols-2">
