@@ -121,6 +121,12 @@ interface AssetState {
   Description: string
 }
 
+interface ProductCategory {
+  PRC_ID: string
+  PRC_Name: string
+  Description: string
+}
+
 // Define the context type
 interface ReferenceDataContextType {
   units: Unit[]
@@ -143,6 +149,7 @@ interface ReferenceDataContextType {
   qualityRatings: QualityRating[]
   assetCategories: AssetCategory[]
   assetStates: AssetState[]
+  productCategories: ProductCategory[]
   updateUnits: (units: Unit[]) => void
   updateDepartments: (departments: Department[]) => void
   updateUserTypes: (userTypes: UserType[]) => void
@@ -163,6 +170,7 @@ interface ReferenceDataContextType {
   updateQualityRatings: (qualityRatings: QualityRating[]) => void
   updateAssetCategories: (assetCategories: AssetCategory[]) => void
   updateAssetStates: (assetStates: AssetState[]) => void
+  updateProductCategories: (productCategories: ProductCategory[]) => void
 }
 
 // Initial data based on the provided tables
@@ -355,6 +363,14 @@ const initialAssetStates: AssetState[] = [
   },
 ]
 
+const initialProductCategories: ProductCategory[] = [
+  { PRC_ID: "PRC-001", PRC_Name: "Office Furniture", Description: "Desks, chairs, tables, and other office furnishings" },
+  { PRC_ID: "PRC-002", PRC_Name: "Office Equipment", Description: "Electronics and equipment used in office environments" },
+  { PRC_ID: "PRC-003", PRC_Name: "Storage Solutions", Description: "Shelving, cabinets, and storage products" },
+  { PRC_ID: "PRC-004", PRC_Name: "Lighting", Description: "Lamps, fixtures, and lighting accessories" },
+  { PRC_ID: "PRC-005", PRC_Name: "Office Supplies", Description: "Consumable office materials" },
+]
+
 // Create the context
 const ReferenceDataContext = createContext<ReferenceDataContextType | undefined>(undefined)
 
@@ -380,6 +396,7 @@ export function ReferenceDataProvider({ children }: { children: ReactNode }) {
   const [qualityRatings, setQualityRatings] = useState<QualityRating[]>(initialQualityRatings)
   const [assetCategories, setAssetCategories] = useState<AssetCategory[]>(initialAssetCategories)
   const [assetStates, setAssetStates] = useState<AssetState[]>(initialAssetStates)
+  const [productCategories, setProductCategories] = useState<ProductCategory[]>(initialProductCategories)
 
   const updateUnits = (newUnits: Unit[]) => setUnits(newUnits)
   const updateDepartments = (newDepartments: Department[]) => setDepartments(newDepartments)
@@ -401,6 +418,7 @@ export function ReferenceDataProvider({ children }: { children: ReactNode }) {
   const updateQualityRatings = (newQualityRatings: QualityRating[]) => setQualityRatings(newQualityRatings)
   const updateAssetCategories = (newAssetCategories: AssetCategory[]) => setAssetCategories(newAssetCategories)
   const updateAssetStates = (newAssetStates: AssetState[]) => setAssetStates(newAssetStates)
+  const updateProductCategories = (newProductCategories: ProductCategory[]) => setProductCategories(newProductCategories)
 
   return (
     <ReferenceDataContext.Provider
@@ -425,6 +443,7 @@ export function ReferenceDataProvider({ children }: { children: ReactNode }) {
         qualityRatings,
         assetCategories,
         assetStates,
+        productCategories,
         updateUnits,
         updateDepartments,
         updateUserTypes,
@@ -445,6 +464,7 @@ export function ReferenceDataProvider({ children }: { children: ReactNode }) {
         updateQualityRatings,
         updateAssetCategories,
         updateAssetStates,
+        updateProductCategories,
       }}
     >
       {children}

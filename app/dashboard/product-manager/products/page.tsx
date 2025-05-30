@@ -143,7 +143,7 @@ export default function ProductsPage() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex justify-between items-center">
-        <PageHeader title="Products" icon={Package2} />
+        <PageHeader title="Product Definition" icon={Package2} />
         <Button
           className="flex items-center gap-2 bg-black text-white hover:bg-black/90"
           onClick={() => setIsAddDialogOpen(true)}
@@ -244,9 +244,8 @@ export default function ProductsPage() {
               <thead className="bg-muted">
                 <tr>
                   <th className="text-left p-3">Product Name</th>
-                  <th className="text-left p-3">Category</th>
-                  <th className="text-left p-3">SKUs</th>
-                  <th className="text-left p-3">Total Inventory</th>
+                  <th className="text-left p-3">Product Category</th>
+                  <th className="text-left p-3">Total SKU</th>
                   <th className="text-left p-3">Status</th>
                   <th className="text-left p-3">Last Updated</th>
                   <th className="text-left p-3">Actions</th>
@@ -258,7 +257,6 @@ export default function ProductsPage() {
                     <td className="p-3">{product.name}</td>
                     <td className="p-3">{product.category}</td>
                     <td className="p-3">1</td>
-                    <td className="p-3">{product.inventory}</td>
                     <td className="p-3">
                       <Badge
                         className={`rounded-full px-3 py-1 text-xs font-medium ${

@@ -42,6 +42,7 @@ export default function ReferenceDataPage() {
     qualityRatings,
     assetCategories,
     assetStates,
+    productCategories,
   } = useReferenceData()
 
   const [searchTerm, setSearchTerm] = useState("")
@@ -277,6 +278,17 @@ export default function ReferenceDataPage() {
         "Asset operational status tracking - defines current state of assets including active, maintenance, and decommissioned states for lifecycle management",
       data: assetStates,
     },
+    {
+      id: 21,
+      name: "Product Category",
+      instanceName: "product_category",
+      createdBy: "System Admin",
+      createdOn: "2025-05-30",
+      updatedBy: "System Admin",
+      updatedOn: "2025-05-30",
+      description: "Categories for grouping products with consistent identification and classification",
+      data: productCategories,
+    },
   ]
 
   // Filter tables based on search term
@@ -444,7 +456,13 @@ export default function ReferenceDataPage() {
                   <TableHeader>
                     <TableRow>
                       <TableHead>ID</TableHead>
-                      {selectedTable?.name === "Currency" ? (
+                      {selectedTable?.name === "Product Category" ? (
+                        <>
+                          <TableHead>PRC ID</TableHead>
+                          <TableHead>PRC Name</TableHead>
+                          <TableHead>Description</TableHead>
+                        </>
+                      ) : selectedTable?.name === "Currency" ? (
                         <>
                           <TableHead>Currency Code</TableHead>
                           <TableHead>Default Flag</TableHead>
@@ -506,6 +524,15 @@ export default function ReferenceDataPage() {
                           id = item.User_Type_ID
                           name = item.User_Type_Name
                           description = item.Description || ""
+                        } else if (selectedTable.name === "Product Category") {
+                          id = item.PRC_ID
+                          return (
+                            <TableRow key={index}>
+                                  <TableCell>{id}</TableCell>
+                              <TableCell>{item.PRC_Name}</TableCell>
+                              <TableCell>{item.Description || ""}</TableCell>
+                            </TableRow>
+                          )
                         } else if (selectedTable.name === "Skill Set") {
                           id = item.Skill_Set_ID
                           name = item.Skill_Set_Name
@@ -747,6 +774,22 @@ export default function ReferenceDataPage() {
                     <Label htmlFor="ip-address">IP Address</Label>
                     <Input id="ip-address" placeholder="Enter IP address (e.g., 192.168.1.1)" />
                   </div>
+                )}
+                {selectedTable?.name === "Product Category" && (
+                  <>
+                    <div className="grid gap-2">
+                      <Label htmlFor="prc-id">PRC ID</Label>
+                      <Input id="prc-id" placeholder="Enter Product Category ID (e.g., PRC-006)" />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="prc-name">PRC Name</Label>
+                      <Input id="prc-name" placeholder="Enter Product Category Name" />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="description">Description</Label>
+                      <Input id="description" placeholder="Enter Product Category Description" />
+                    </div>
+                  </>
                 )}
                 {selectedTable?.name === "Currency" && (
                   <>
