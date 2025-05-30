@@ -6,13 +6,76 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { useReferenceData } from "@/contexts/reference-data-context"
-import { skusData } from "@/lib/skus-data"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+
+// SKU data directly from the SKU management page
+const skusData = [
+  {
+    id: "SKU-001",
+    parentResource: "Pallets",
+    name: "Oak Wood Panel",
+    brand: "Premium Woods Co.",
+    procuredDate: "2024-01-15",
+    location: "U1-W1-Z2-R3",
+    skuCode: "OWP-001",
+    availableQuantity: 150,
+    skuUnit: "pieces",
+    unit: "pcs",
+    department: "Materials",
+    wastageQuantity: "5",
+    description: "High-quality oak wood panel for furniture",
+    minQuantity: 20,
+    type: "Primary",
+    category: "Wood",
+    unitCost: 45.50,
+    currency: "USD",
+    unitWeight: 2.5,
+    weightUnit: "kg",
+    quantityUnit: "pieces",
+    qualityRating: "A",
+    qualityCheckDone: true,
+    qualityCheckDate: "2024-01-16",
+    qualityCheckNotes: "Excellent quality, no defects",
+    taggedForProduction: 30,
+    wastage: 5,
+    totalProcured: 180,
+  },
+  {
+    id: "SKU-002",
+    parentResource: "Packaging Material",
+    name: "Steel Brackets",
+    brand: "MetalWorks Inc.",
+    procuredDate: "2024-01-20",
+    location: "Packaging Store 1",
+    skuCode: "SB-002",
+    availableQuantity: 200,
+    skuUnit: "pieces",
+    unit: "pcs",
+    department: "Hardware",
+    wastageQuantity: "3",
+    description: "Galvanized steel brackets for support",
+    minQuantity: 50,
+    type: "Secondary",
+    category: "Metal",
+    unitCost: 12.75,
+    currency: "USD",
+    unitWeight: 0.8,
+    weightUnit: "kg",
+    quantityUnit: "pieces",
+    qualityRating: "B",
+    qualityCheckDone: false,
+    qualityCheckDate: "",
+    qualityCheckNotes: "",
+    taggedForProduction: 20,
+    wastage: 3,
+    totalProcured: 225,
+  },
+]
 
 // Define types for the SKU options
 type SkuOption = {
@@ -23,15 +86,14 @@ type SkuOption = {
   unit: string
 }
 
-// Convert reference data to options for dropdowns
+// Convert SKU data to dropdown options
 const getSkuOptions = (): SkuOption[] => {
-  // Use the SKU names from skusData but include extra metadata from the reference context
   return skusData.map((sku) => ({
-    label: `${sku.name} (${sku.skuCode})`,
+    label: sku.name,
     value: sku.id,
     category: sku.category,
     type: sku.type,
-    unit: sku.skuUnit
+    unit: sku.skuUnit?.toLowerCase() || ""
   }))
 }
 
@@ -89,19 +151,26 @@ export function SimpleProductForm({ onSubmit, onCancel }: SimpleProductFormProps
   
   // Helper function to update form fields based on selected SKU
   const updateFormWithSkuData = (skuId: string) => {
-    // Find the selected SKU
-    const selectedSku = skuOptions.find(option => option.value === skuId)
+    // Find the selected SKU from the original data
+    const selectedSku = skusData.find(sku => sku.id === skuId)
     
     if (selectedSku) {
       // Update SKU type field - ensure it matches our enum values
-      const skuType = selectedSku.type.toLowerCase() === 'primary' ? 'primary' : 'secondary'
+      const skuType = selectedSku.type?.toLowerCase() === 'primary' ? 'primary' : 'secondary'
       form.setValue('skuType', skuType as 'primary' | 'secondary')
       
-      // Update unit field - ensure it matches our enum values
-      const unit = selectedSku.unit.toLowerCase() === 'kg' ? 'kg' : 'count'
+      // Update unit field - determine the appropriate unit value based on SKU data
+      let unit = 'count'
+      if (selectedSku.skuUnit?.toLowerCase() === 'kg' || 
+          selectedSku.weightUnit?.toLowerCase() === 'kg') {
+        unit = 'kg'
+      }
       form.setValue('unit', unit as 'kg' | 'count')
       
-      // You could also populate other fields based on the SKU data if needed
+      // Populate quantity per lot based on available quantity
+      if (selectedSku.availableQuantity) {
+        form.setValue('quantityPerLot', selectedSku.availableQuantity.toString())
+      }
     }
   }
 
