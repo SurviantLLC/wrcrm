@@ -48,6 +48,7 @@ import { PageHeader } from "@/components/dashboard/page-header"
 
 // Sample manufacturing steps data
 const initialSteps: ManufacturingStep[] = [
+  // Office Desk - Adjustable
   {
     id: 1,
     name: "Cut Wood Panels",
@@ -132,6 +133,8 @@ const initialSteps: ManufacturingStep[] = [
     createdBy: "John Doe",
     createdOn: "2023-05-15",
   },
+  
+  // Office Chair - Standard
   {
     id: 8,
     name: "Cut Fabric",
@@ -140,9 +143,9 @@ const initialSteps: ManufacturingStep[] = [
     requiredSkill: "Upholstery",
     duration: "30 minutes",
     dependencies: [],
-    numberOfSteps: 3,
+    numberOfSteps: 4,
     createdBy: "Jane Smith",
-    createdOn: "2023-05-16",
+    createdOn: "2023-06-10",
   },
   {
     id: 9,
@@ -152,9 +155,9 @@ const initialSteps: ManufacturingStep[] = [
     requiredSkill: "Assembly",
     duration: "45 minutes",
     dependencies: [],
-    numberOfSteps: 3,
+    numberOfSteps: 4,
     createdBy: "Jane Smith",
-    createdOn: "2023-05-16",
+    createdOn: "2023-06-10",
   },
   {
     id: 10,
@@ -164,10 +167,172 @@ const initialSteps: ManufacturingStep[] = [
     requiredSkill: "Upholstery",
     duration: "1 hour",
     dependencies: ["Cut Fabric"],
-    numberOfSteps: 3,
+    numberOfSteps: 4,
     createdBy: "Jane Smith",
-    createdOn: "2023-05-16",
+    createdOn: "2023-06-10",
   },
+  {
+    id: 11,
+    name: "Final Assembly and Testing",
+    product: "Office Chair - Standard",
+    stepNumber: 4,
+    requiredSkill: "Assembly",
+    duration: "30 minutes",
+    dependencies: ["Assemble Chair Base", "Upholster Seat and Back"],
+    numberOfSteps: 4,
+    createdBy: "Jane Smith",
+    createdOn: "2023-06-10",
+  },
+  
+  // Conference Table - 8 Person
+  {
+    id: 12,
+    name: "Prepare Table Top Materials",
+    product: "Conference Table - 8 Person",
+    stepNumber: 1,
+    requiredSkill: "Woodworking",
+    duration: "3 hours",
+    dependencies: [],
+    numberOfSteps: 5,
+    createdBy: "Mike Johnson",
+    createdOn: "2023-07-05",
+  },
+  {
+    id: 13,
+    name: "Build Table Base",
+    product: "Conference Table - 8 Person",
+    stepNumber: 2,
+    requiredSkill: "Carpentry",
+    duration: "4 hours",
+    dependencies: [],
+    numberOfSteps: 5,
+    createdBy: "Mike Johnson",
+    createdOn: "2023-07-05",
+  },
+  {
+    id: 14,
+    name: "Assemble Table Structure",
+    product: "Conference Table - 8 Person",
+    stepNumber: 3,
+    requiredSkill: "Assembly",
+    duration: "2.5 hours",
+    dependencies: ["Prepare Table Top Materials", "Build Table Base"],
+    numberOfSteps: 5,
+    createdBy: "Mike Johnson",
+    createdOn: "2023-07-05",
+  },
+  {
+    id: 15,
+    name: "Apply Finish and Polish",
+    product: "Conference Table - 8 Person",
+    stepNumber: 4,
+    requiredSkill: "Finishing",
+    duration: "3 hours",
+    dependencies: ["Assemble Table Structure"],
+    numberOfSteps: 5,
+    createdBy: "Mike Johnson",
+    createdOn: "2023-07-05",
+  },
+  {
+    id: 16,
+    name: "Install Wire Management System",
+    product: "Conference Table - 8 Person",
+    stepNumber: 5,
+    requiredSkill: "Electrical",
+    duration: "1.5 hours",
+    dependencies: ["Assemble Table Structure"],
+    numberOfSteps: 5,
+    createdBy: "Mike Johnson",
+    createdOn: "2023-07-05",
+  },
+  
+  // Bookshelf - 5 Shelf
+  {
+    id: 17,
+    name: "Cut Shelf Panels",
+    product: "Bookshelf - 5 Shelf",
+    stepNumber: 1,
+    requiredSkill: "Woodworking",
+    duration: "1.5 hours",
+    dependencies: [],
+    numberOfSteps: 4,
+    createdBy: "Sarah Williams",
+    createdOn: "2023-08-12",
+  },
+  {
+    id: 18,
+    name: "Prepare Side Panels",
+    product: "Bookshelf - 5 Shelf",
+    stepNumber: 2,
+    requiredSkill: "Woodworking",
+    duration: "1 hour",
+    dependencies: [],
+    numberOfSteps: 4,
+    createdBy: "Sarah Williams",
+    createdOn: "2023-08-12",
+  },
+  {
+    id: 19,
+    name: "Assemble Bookshelf Structure",
+    product: "Bookshelf - 5 Shelf",
+    stepNumber: 3,
+    requiredSkill: "Assembly",
+    duration: "2 hours",
+    dependencies: ["Cut Shelf Panels", "Prepare Side Panels"],
+    numberOfSteps: 4,
+    createdBy: "Sarah Williams",
+    createdOn: "2023-08-12",
+  },
+  {
+    id: 20,
+    name: "Sand and Finish",
+    product: "Bookshelf - 5 Shelf",
+    stepNumber: 4,
+    requiredSkill: "Finishing",
+    duration: "1.5 hours",
+    dependencies: ["Assemble Bookshelf Structure"],
+    numberOfSteps: 4,
+    createdBy: "Sarah Williams",
+    createdOn: "2023-08-12",
+  },
+  
+  // Desk Lamp - LED
+  {
+    id: 21,
+    name: "Assemble Base Components",
+    product: "Desk Lamp - LED",
+    stepNumber: 1,
+    requiredSkill: "Assembly",
+    duration: "20 minutes",
+    dependencies: [],
+    numberOfSteps: 3,
+    createdBy: "David Chen",
+    createdOn: "2023-09-20",
+  },
+  {
+    id: 22,
+    name: "Install LED Lighting Module",
+    product: "Desk Lamp - LED",
+    stepNumber: 2,
+    requiredSkill: "Electrical",
+    duration: "25 minutes",
+    dependencies: ["Assemble Base Components"],
+    numberOfSteps: 3,
+    createdBy: "David Chen",
+    createdOn: "2023-09-20",
+  },
+  {
+    id: 23,
+    name: "Test Functionality and Package",
+    product: "Desk Lamp - LED",
+    stepNumber: 3,
+    requiredSkill: "Quality Control",
+    duration: "15 minutes",
+    dependencies: ["Install LED Lighting Module"],
+    numberOfSteps: 3,
+    createdBy: "David Chen",
+    createdOn: "2023-09-20",
+  }
 ]
 
 // Sample products
@@ -269,21 +434,39 @@ export default function ManufacturingStepsPage() {
     },
   })
 
-  // Filter steps based on search term, product filter, and skill filter
-  const filteredSteps = steps.filter((step) => {
-    const matchesSearch =
-      step.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      step.product.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesProduct = productFilter === "All" || step.product === productFilter
-    const matchesSkill = skillFilter === "All" || step.requiredSkill === skillFilter
-    return matchesSearch && matchesProduct && matchesSkill
+  // Get unique products from steps
+  const uniqueProducts = Array.from(new Set(steps.map(step => step.product)))
+    .map(product => {
+      const productSteps = steps.filter(step => step.product === product)
+      // Get the latest created step for this product
+      const latestStep = productSteps.reduce((latest, current) => {
+        const latestDate = new Date(latest.createdOn)
+        const currentDate = new Date(current.createdOn)
+        return currentDate > latestDate ? current : latest
+      }, productSteps[0])
+      
+      return {
+        product,
+        numberOfSteps: productSteps.length,
+        createdBy: latestStep.createdBy,
+        createdOn: latestStep.createdOn,
+        // Keep a reference to a sample step for editing
+        sampleStep: productSteps[0]
+      }
+    })
+    
+  // Filter products based on search term and product filter
+  const filteredProducts = uniqueProducts.filter((item) => {
+    const matchesSearch = item.product.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesProduct = productFilter === "All" || item.product === productFilter
+    return matchesSearch && matchesProduct
   })
 
-  // Paginate steps
-  const indexOfLastStep = currentPage * itemsPerPage
-  const indexOfFirstStep = indexOfLastStep - itemsPerPage
-  const currentSteps = filteredSteps.slice(indexOfFirstStep, indexOfLastStep)
-  const totalPages = Math.ceil(filteredSteps.length / itemsPerPage)
+  // Paginate products
+  const indexOfLastProduct = currentPage * itemsPerPage
+  const indexOfFirstProduct = indexOfLastProduct - itemsPerPage
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct)
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage)
 
   // Handle pagination
   const handlePageChange = (pageNumber: number) => {
@@ -805,23 +988,23 @@ export default function ManufacturingStepsPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {currentSteps.length > 0 ? (
-                    currentSteps.map((step) => (
+                  {currentProducts.length > 0 ? (
+                    currentProducts.map((item) => (
                       <TableRow 
-                        key={step.id} 
-                        onDoubleClick={() => openEditDialog(step)}
+                        key={item.product}
+                        onDoubleClick={() => openEditDialog(item.sampleStep)}
                         className="cursor-pointer hover:bg-muted/50"
                       >
-                        <TableCell>{step.product}</TableCell>
-                        <TableCell>{step.numberOfSteps || getNumberOfStepsByProduct(step.product)}</TableCell>
-                        <TableCell>{step.createdBy || "Current User"}</TableCell>
-                        <TableCell>{step.createdOn || ""}</TableCell>
+                        <TableCell>{item.product}</TableCell>
+                        <TableCell>{item.numberOfSteps}</TableCell>
+                        <TableCell>{item.createdBy}</TableCell>
+                        <TableCell>{item.createdOn}</TableCell>
                       </TableRow>
                     ))
                   ) : (
                     <TableRow>
                       <TableCell colSpan={4} className="h-24 text-center">
-                        No manufacturing steps found.
+                        No products found.
                       </TableCell>
                     </TableRow>
                   )}
@@ -830,11 +1013,11 @@ export default function ManufacturingStepsPage() {
             </div>
 
             {/* Pagination */}
-            {filteredSteps.length > 0 && (
+            {filteredProducts.length > 0 && (
               <div className="flex items-center justify-between">
                 <div className="text-sm text-muted-foreground">
-                  Showing {indexOfFirstStep + 1} to {Math.min(indexOfLastStep, filteredSteps.length)} of{" "}
-                  {filteredSteps.length} steps
+                  Showing {indexOfFirstProduct + 1} to {Math.min(indexOfLastProduct, filteredProducts.length)} of{" "}
+                  {filteredProducts.length} products
                 </div>
                 <div className="flex items-center space-x-2">
                   <Button
