@@ -25,6 +25,7 @@ const initialProducts = [
     inventory: 15,
     updatedAt: "2023-11-04T14:45:00Z",
     status: "active",
+    totalSku: 2,
   },
   {
     id: 2,
@@ -37,6 +38,7 @@ const initialProducts = [
     inventory: 5,
     updatedAt: "2023-11-05T14:15:00Z",
     status: "active",
+    totalSku: 1,
   },
   {
     id: 3,
@@ -49,6 +51,7 @@ const initialProducts = [
     inventory: 50,
     updatedAt: "2023-11-10T09:20:00Z",
     status: "active",
+    totalSku: 2,
   },
   {
     id: 4,
@@ -61,6 +64,7 @@ const initialProducts = [
     inventory: 0,
     updatedAt: "2024-02-20T14:15:00Z",
     status: "decommissioned",
+    totalSku: 1,
   },
 ]
 
@@ -155,6 +159,7 @@ export default function ProductsPage() {
       inventory: parseInt(productData.inventory) || 0,
       updatedAt: new Date().toISOString(),
       status: "active",
+      totalSku: Math.random() < 0.5 ? 1 : 2, // Randomly assign 1 or 2 for new products
     }
 
     setProducts([...products, newProduct])
@@ -174,6 +179,8 @@ export default function ProductsPage() {
         minimumStock: productData.minimumStock,
         inventory: parseInt(productData.inventory) || 0,
         updatedAt: new Date().toISOString(),
+        // Preserve existing totalSku value
+        totalSku: product.totalSku || (Math.random() < 0.5 ? 1 : 2),
       } : product
     )
     
@@ -309,7 +316,7 @@ export default function ProductsPage() {
                     <td className="p-3">
                       {getCategoryNameFromId(product.category)}
                     </td>
-                    <td className="p-3">{Math.floor(Math.random() * 2) + 1}</td>
+                    <td className="p-3">{product.totalSku}</td>
                     <td className="p-3">
                       <Badge
                         className={`rounded-full px-3 py-1 text-xs font-medium ${
