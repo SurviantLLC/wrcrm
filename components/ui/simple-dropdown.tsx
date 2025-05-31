@@ -65,6 +65,16 @@ export const SimpleDropdownContent = React.forwardRef<
   
   const dropdownRef = React.useRef<HTMLDivElement>(null)
   
+  // Callback for setting refs
+  const setRefs = React.useCallback((node: HTMLDivElement) => {
+    dropdownRef.current = node
+    if (typeof ref === 'function') {
+      ref(node)
+    } else if (ref) {
+      ref.current = node
+    }
+  }, [ref])
+  
   // Handle click outside
   React.useEffect(() => {
     if (!context.open) return
@@ -93,14 +103,7 @@ export const SimpleDropdownContent = React.forwardRef<
   
   return (
     <div
-      ref={React.useCallback((node: HTMLDivElement) => {
-        dropdownRef.current = node
-        if (typeof ref === 'function') {
-          ref(node)
-        } else if (ref) {
-          ref.current = node
-        }
-      }, [ref])}
+      ref={setRefs}
       className={cn(
         "absolute z-50 mt-2 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
         "opacity-0 animate-[fadeIn_150ms_ease-out_forwards]",

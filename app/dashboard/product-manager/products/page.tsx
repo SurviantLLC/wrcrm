@@ -67,6 +67,10 @@ const initialProducts = [
 export default function ProductsPage() {
   const { productCategories } = useReferenceData()
   
+  // State for edit dialog
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
+  const [editingProduct, setEditingProduct] = useState<any>(null)
+  
   // Define explicit mapping between existing categories and Product Category reference data
   const categoryMapping: Record<string, string> = {
     'storage': 'Storage Solutions',     // Maps to PRC-003
@@ -140,25 +144,47 @@ export default function ProductsPage() {
 
   // Handle adding a new product
   const handleAddProduct = (productData: any) => {
-    const id = products.length > 0 ? Math.max(...products.map((product) => product.id)) + 1 : 1
-    const now = new Date().toISOString()
+    const newProduct = {
+      id: products.length + 1,
+      name: productData.name,
+      sku: productData.sku,
+      category: productData.category,
+      description: productData.description,
+      price: productData.price,
+      minimumStock: productData.minimumStock,
+      inventory: parseInt(productData.inventory) || 0,
+      updatedAt: new Date().toISOString(),
+      status: "active",
+    }
 
-    setProducts([
-      ...products,
-      {
-        id,
+    setProducts([...products, newProduct])
+    setIsAddDialogOpen(false)
+  }
+  
+  // Handle editing a product
+  const handleEditProduct = (productData: any) => {
+    const updatedProducts = products.map(product => 
+      product.id === editingProduct.id ? {
+        ...product,
         name: productData.name,
         sku: productData.sku,
         category: productData.category,
-        description: productData.description || "",
+        description: productData.description,
         price: productData.price,
         minimumStock: productData.minimumStock,
-        inventory: 0,
-        updatedAt: now,
-        status: "active",
-      },
-    ])
-    setIsAddDialogOpen(false)
+        inventory: parseInt(productData.inventory) || 0,
+        updatedAt: new Date().toISOString(),
+      } : product
+    )
+    
+    setProducts(updatedProducts)
+    setIsEditDialogOpen(false)
+  }
+  
+  // Open edit dialog with product data
+  const openEditDialog = (product: any) => {
+    setEditingProduct(product)
+    setIsEditDialogOpen(true)
   }
 
   return (
@@ -274,7 +300,11 @@ export default function ProductsPage() {
               </thead>
               <tbody>
                 {filteredProducts.map((product) => (
-                  <tr key={product.id} className="border-b">
+                  <tr 
+                    key={product.id} 
+                    className="border-b cursor-pointer hover:bg-muted/50"
+                    onDoubleClick={() => openEditDialog(product)}
+                  >
                     <td className="p-3">{product.name}</td>
                     <td className="p-3">
                       {getCategoryNameFromId(product.category)}
@@ -293,7 +323,10 @@ export default function ProductsPage() {
                     </td>
                     <td className="p-3">{formatDate(product.updatedAt)}</td>
                     <td className="p-3">
-                      <Button variant="ghost" size="icon">
+                      <Button variant="ghost" size="icon" onClick={(e) => {
+                        e.stopPropagation();
+                        openEditDialog(product);
+                      }}>
                         <MoreHorizontal className="h-4 w-4" />
                       </Button>
                     </td>
@@ -313,6 +346,23 @@ export default function ProductsPage() {
             <DialogDescription>Add a new product to the system</DialogDescription>
           </DialogHeader>
           <SimpleProductForm onSubmit={handleAddProduct} onCancel={() => setIsAddDialogOpen(false)} />
+        </DialogContent>
+      </Dialog>
+      
+      {/* Edit Product Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <DialogHeader>
+            <DialogTitle>Edit Product</DialogTitle>
+            <DialogDescription>Update product details</DialogDescription>
+          </DialogHeader>
+          {editingProduct && (
+            <SimpleProductForm 
+              onSubmit={handleEditProduct} 
+              onCancel={() => setIsEditDialogOpen(false)} 
+              initialValues={editingProduct}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </div>

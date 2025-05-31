@@ -140,17 +140,18 @@ type ProductFormValues = z.infer<typeof formSchema>
 interface SimpleProductFormProps {
   onSubmit: (data: ProductFormValues) => void
   onCancel: () => void
+  initialValues?: any
 }
 
-export function SimpleProductForm({ onSubmit, onCancel }: SimpleProductFormProps) {
+export function SimpleProductForm({ onSubmit, onCancel, initialValues }: SimpleProductFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [addedSkus, setAddedSkus] = useState<Array<{
     skuName: string;
     skuType: 'primary' | 'secondary';
     quantityPerLot: string;
-    unit: 'kg' | 'count';
-    displayName?: string; // For display purposes
-  }>>([]);
+    unit: string;
+    displayName?: string;
+  }>>([])
   const { productCategories, skuCategories, skuTypes, skuUnits } = useReferenceData()
   
   // Generate the SKU options using our helper function
@@ -234,7 +235,31 @@ export function SimpleProductForm({ onSubmit, onCancel }: SimpleProductFormProps
   // Initialize form
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues,
+    defaultValues: initialValues ? {
+      name: initialValues.name || "",
+      category: initialValues.category || "",
+      status: initialValues.status || "active",
+      description: initialValues.description || "",
+      minimumProductionLot: initialValues.minimumProductionLot || "1",
+      countPerLot: initialValues.countPerLot || "1",
+      perUnitWeightGrams: initialValues.perUnitWeightGrams || "0",
+      skuName: initialValues.skuName || "",
+      skuType: initialValues.skuType || "primary",
+      quantityPerLot: initialValues.quantityPerLot || "1",
+      unit: initialValues.unit || "count",
+    } : {
+      name: "",
+      category: "",
+      status: "active",
+      description: "",
+      minimumProductionLot: "1",
+      countPerLot: "1",
+      perUnitWeightGrams: "0",
+      skuName: "",
+      skuType: "primary",
+      quantityPerLot: "1",
+      unit: "count",
+    },
     mode: "onChange",
   })
 

@@ -302,6 +302,15 @@ export default function ManufacturingStepsPage() {
       }))
   }
 
+  // Get all unique step names from the manufacturing steps table
+  const getUniqueStepNames = () => {
+    const uniqueNames = Array.from(new Set(steps.map(step => step.name)))
+    return uniqueNames.map(name => ({
+      label: name,
+      value: name,
+    }))
+  }
+
   // Function to add a step to the addedSteps array without closing the dialog
   const saveStep = (data: z.infer<typeof stepFormSchema>) => {
     const newId = steps.length > 0 ? Math.max(...steps.map((step) => step.id)) + 1 : 1
@@ -789,122 +798,29 @@ export default function ManufacturingStepsPage() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Step Name</TableHead>
-                    <TableHead className="hidden md:table-cell">Product Name</TableHead>
-                    <TableHead>Required Skill</TableHead>
-                    <TableHead>Duration</TableHead>
-                    <TableHead className="hidden lg:table-cell">Dependencies</TableHead>
-                    <TableHead className="hidden lg:table-cell">Number of Steps</TableHead>
-                    <TableHead className="hidden md:table-cell">Created By</TableHead>
-                    <TableHead className="hidden md:table-cell">Created On</TableHead>
-                    <TableHead className="w-[100px] text-right">Actions</TableHead>
+                    <TableHead>Product Name</TableHead>
+                    <TableHead>Number of Steps</TableHead>
+                    <TableHead>Created By</TableHead>
+                    <TableHead>Created On</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {currentSteps.length > 0 ? (
                     currentSteps.map((step) => (
-                      <TableRow key={step.id}>
-                        <TableCell className="font-medium">{step.name}</TableCell>
-                        <TableCell className="hidden md:table-cell">{step.product}</TableCell>
-                        <TableCell>{step.requiredSkill}</TableCell>
-                        <TableCell>{step.duration}</TableCell>
-                        <TableCell className="hidden lg:table-cell">
-                          {step.dependencies.length > 0 ? (
-                            <div className="flex flex-wrap gap-1">
-                              {step.dependencies.map((dep: string) => (
-                                <span
-                                  key={dep}
-                                  className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold"
-                                >
-                                  {dep}
-                                </span>
-                              ))}
-                            </div>
-                          ) : (
-                            <span className="text-muted-foreground">None</span>
-                          )}
-                        </TableCell>
-                        <TableCell className="hidden lg:table-cell">
-                          {step.numberOfSteps || getNumberOfStepsByProduct(step.product)}
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          {step.createdBy || "Current User"}
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          {step.createdOn || ""}
-                        </TableCell>
-                        <TableCell className="text-right">
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="icon">
-                                <MoreHorizontal className="h-4 w-4" />
-                                <span className="sr-only">Open menu</span>
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                              <DropdownMenuSeparator />
-                              <DropdownMenuItem
-                                onSelect={(e) => {
-                                  e.preventDefault()
-                                  openEditDialog(step)
-                                }}
-                              >
-                                <Edit className="mr-2 h-4 w-4" />
-                                Edit
-                              </DropdownMenuItem>
-                              <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-                                <DialogTrigger asChild>
-                                  <DropdownMenuItem
-                                    onSelect={(e) => {
-                                      e.preventDefault()
-                                      setEditingStep(step)
-                                      setIsDeleteDialogOpen(true)
-                                    }}
-                                    className="text-destructive focus:text-destructive"
-                                  >
-                                    <Trash2 className="mr-2 h-4 w-4" />
-                                    Delete
-                                  </DropdownMenuItem>
-                                </DialogTrigger>
-                                <DialogContent>
-                                  <DialogHeader>
-                                    <DialogTitle>Delete Manufacturing Step</DialogTitle>
-                                    <DialogDescription>
-                                      Are you sure you want to delete this step? This action cannot be undone.
-                                    </DialogDescription>
-                                  </DialogHeader>
-                                  {editingStep && (
-                                    <div className="py-4">
-                                      <p>
-                                        You are about to delete: <strong>{editingStep.name}</strong>
-                                      </p>
-                                      {steps.some((s) => s.dependencies.includes(editingStep.name)) && (
-                                        <p className="text-destructive mt-2">
-                                          Warning: Other steps depend on this step. Deleting it may break the
-                                          manufacturing process.
-                                        </p>
-                                      )}
-                                    </div>
-                                  )}
-                                  <DialogFooter>
-                                    <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)}>
-                                      Cancel
-                                    </Button>
-                                    <Button variant="destructive" onClick={handleDeleteStep}>
-                                      Delete
-                                    </Button>
-                                  </DialogFooter>
-                                </DialogContent>
-                              </Dialog>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
+                      <TableRow 
+                        key={step.id} 
+                        onDoubleClick={() => openEditDialog(step)}
+                        className="cursor-pointer hover:bg-muted/50"
+                      >
+                        <TableCell>{step.product}</TableCell>
+                        <TableCell>{step.numberOfSteps || getNumberOfStepsByProduct(step.product)}</TableCell>
+                        <TableCell>{step.createdBy || "Current User"}</TableCell>
+                        <TableCell>{step.createdOn || ""}</TableCell>
                       </TableRow>
                     ))
                   ) : (
                     <TableRow>
-                      <TableCell colSpan={6} className="h-24 text-center">
+                      <TableCell colSpan={4} className="h-24 text-center">
                         No manufacturing steps found.
                       </TableCell>
                     </TableRow>
