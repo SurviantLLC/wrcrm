@@ -309,7 +309,7 @@ export default function ProductsPage() {
                     <td className="p-3">
                       {getCategoryNameFromId(product.category)}
                     </td>
-                    <td className="p-3">1</td>
+                    <td className="p-3">{Math.floor(Math.random() * 2) + 1}</td>
                     <td className="p-3">
                       <Badge
                         className={`rounded-full px-3 py-1 text-xs font-medium ${
